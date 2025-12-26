@@ -1,0 +1,156 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                {{ page.date | date: "%B %d, %Y" }}
+            </time>
+            {% if page.tags.size > 0 %}
+            <span class="post-tags">
+                {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </span>
+            {% endif %}
+            <span class="reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+        </div>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ content }}
+    </div>
+
+    <!-- Post Actions Bar -->
+    <div class="post-actions">
+        <button class="post-action-btn like-btn" type="button" data-post-id="{{ page.url | slugify }}">
+            <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
+            </svg>
+            <span class="like-text">Like</span>
+            <span class="like-count"></span>
+        </button>
+        <div style="position: relative;">
+            <button class="post-action-btn share-btn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                Share
+            </button>
+        </div>
+        <button class="post-action-btn comments-btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Comments
+        </button>
+        <a href="https://github.com/rokmr/blogs/edit/main/{{ page.path }}" class="post-action-btn" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Edit
+        </a>
+    </div>
+
+    <!-- Related Posts -->
+    {% assign related_posts = "" | split: "" %}
+    {% for post in site.posts %}
+    {% if post.url != page.url %}
+    {% for tag in page.tags %}
+    {% if post.tags contains tag %}
+    {% assign related_posts = related_posts | push: post %}
+    {% break %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% assign related_posts = related_posts | uniq | slice: 0, 3 %}
+
+    {% if related_posts.size > 0 %}
+    <section class="related-posts">
+        <h3 class="related-posts-title">Related Posts</h3>
+        <div class="related-posts-grid">
+            {% for related in related_posts %}
+            <article class="related-post-card">
+                <h4><a href="{{ related.url | relative_url }}">{{ related.title }}</a></h4>
+                <div class="post-meta">
+                    <time>{{ related.date | date: "%B %d, %Y" }}</time>
+                    <span class="reading-time">{{ related.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                        read</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Linked Mentions (Backlinks) -->
+    <section class="backlinks-section">
+        <h3 class="backlinks-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            Linked Mentions
+        </h3>
+        <div id="backlinks" class="backlinks-container">
+            <p class="backlinks-loading">Loading linked mentions...</p>
+        </div>
+    </section>
+
+    <!-- Citation Box -->
+    <div class="citation-box">
+        <div class="citation-header">
+            <span class="citation-title">Cite This Post</span>
+            <button class="copy-bibtex-btn" onclick="copyBibtex()">Copy BibTeX</button>
+        </div>
+        <div class="citation-content">
+            <pre id="bibtex-content">@article{kumar{{ page.date | date: "%Y" }}{{ page.title | slugify | truncate: 10, "" }},
+  author = {Rohit Kumar},
+  title = { {{- page.title -}} },
+  journal = {Rohit Kumar's AI Research Blog},
+  year = { {{- page.date | date: "%Y" -}} },
+  month = { {{- page.date | date: "%B" -}} },
+  url = {https://rokmr.github.io/blogs{{ page.url }}}
+}</pre>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    {% if page.comments %}
+    <section class="comments">
+        <h2>Comments</h2>
+        {% include giscus.html %}
+    </section>
+    {% endif %}
+</article>
+
+<script>
+    function copyBibtex() {
+        const bibtex = document.getElementById('bibtex-content').textContent;
+        navigator.clipboard.writeText(bibtex).then(() => {
+            const btn = document.querySelector('.copy-bibtex-btn');
+            const original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.style.background = '#22c55e';
+            setTimeout(() => {
+                btn.textContent = original;
+                btn.style.background = '';
+            }, 2000);
+        });
+    }
+</script>

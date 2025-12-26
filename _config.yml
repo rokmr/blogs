@@ -1,0 +1,61 @@
+# Site Settings
+title: "Rohit Kumar | AI Research Blog"
+description: "Deep dives into Computer Vision, LLMs, Diffusion Models, and Agentic AI. Technical tutorials with math, code, and interactive visualizations."
+author: "Rohit Kumar"
+email: sahil15rohit88@gmail.com
+url: "https://rokmr.github.io"
+baseurl: "/blogs"
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:title/
+
+# Kramdown (Markdown parser)
+kramdown:
+  input: GFM
+  math_engine: null  # We use KaTeX client-side for speed
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+      
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+      math: false
+
+# Social Links (for footer/header)
+social:
+  github: rokmr
+  linkedin: rohitronie
+  scholar: "https://scholar.google.com/citations?user=7N8THZgAAAAJ&hl=en"
+  portfolio: "https://rokmr.github.io"
+
+# Feed
+feed:
+  path: feed.xml

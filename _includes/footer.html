@@ -1,0 +1,14 @@
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a>
+            <a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a>
+        </div>
+        <p class="copyright">
+            © {{ site.time | date: '%Y' }} {{ site.author }}.
+            <a href="{{ site.social.portfolio }}">rokmr.github.io</a>
+        </p>
+    </div>
+</footer>

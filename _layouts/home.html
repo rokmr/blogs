@@ -1,0 +1,228 @@
+---
+layout: default
+---
+
+<div class="home">
+    <header class="home-header">
+        <h1>{{ site.title | split: '|' | last | strip }}</h1>
+        <p class="site-description">{{ site.description }}</p>
+        <nav class="home-nav">
+            <a href="{{ site.social.portfolio }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg> Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <div class="posts-container">
+        <!-- Category Navigation Sidebar -->
+        <nav class="category-nav">
+            <h4 class="category-nav-title">Categories</h4>
+            <ul class="category-list">
+                <li><a href="#all-posts" class="category-link active">All Posts</a></li>
+                <li><a href="#fundamentals" class="category-link">Fundamentals</a></li>
+                <li><a href="#llms" class="category-link">LLMs</a></li>
+                <li><a href="#computer-vision" class="category-link">Computer Vision</a></li>
+                <li><a href="#ml" class="category-link">ML</a></li>
+                <li><a href="#tutorials" class="category-link">Tutorials</a></li>
+            </ul>
+        </nav>
+
+        <!-- Posts Sections -->
+        <div class="posts-sections">
+            <!-- All Posts -->
+            <section class="category-section" id="all-posts">
+                <h2 class="section-title">All Posts</h2>
+                {% if site.posts.size > 0 %}
+                {% for post in site.posts %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                            {{ post.date | date: "%B %d, %Y" }}
+                        </time>
+                        {% if post.tags.size > 0 %}
+                        <span class="post-tags">
+                            {% for tag in post.tags limit:4 %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                    {% if post.excerpt %}
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+                    {% endif %}
+                </article>
+                {% endfor %}
+                {% else %}
+                <p class="no-posts">No posts yet. Check back soon!</p>
+                {% endif %}
+            </section>
+
+            <!-- Fundamentals (Probs, Vector, Matrix, Optimization) -->
+            <section class="category-section" id="fundamentals">
+                <h2 class="section-title">Fundamentals</h2>
+                <p class="section-desc">Probability, Vectors, Matrices & Optimization</p>
+                {% assign has_fund_posts = false %}
+                {% for post in site.posts %}
+                {% if post.tags contains 'probability' or post.tags contains 'vector' or post.tags contains 'matrix' or
+                post.tags contains 'optimization' or post.tags contains 'math' or post.tags contains 'linear-algebra' %}
+                {% assign has_fund_posts = true %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                {% unless has_fund_posts %}
+                <p class="empty-category">Coming soon...</p>
+                {% endunless %}
+            </section>
+
+            <!-- LLMs -->
+            <section class="category-section" id="llms">
+                <h2 class="section-title">LLMs</h2>
+                <p class="section-desc">Large Language Models & Transformers</p>
+                {% assign has_llm_posts = false %}
+                {% for post in site.posts %}
+                {% if post.tags contains 'llm' or post.tags contains 'transformers' or post.tags contains 'attention' or
+                post.tags contains 'nlp' or post.tags contains 'gpt' %}
+                {% assign has_llm_posts = true %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                {% unless has_llm_posts %}
+                <p class="empty-category">Coming soon...</p>
+                {% endunless %}
+            </section>
+
+            <!-- Computer Vision -->
+            <section class="category-section" id="computer-vision">
+                <h2 class="section-title">Computer Vision</h2>
+                <p class="section-desc">Image Recognition, Detection & Segmentation</p>
+                {% assign has_cv_posts = false %}
+                {% for post in site.posts %}
+                {% if post.tags contains 'computer-vision' or post.tags contains 'cv' or post.tags contains 'image' or
+                post.tags contains 'cnn' or post.tags contains 'vision' %}
+                {% assign has_cv_posts = true %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                {% unless has_cv_posts %}
+                <p class="empty-category">Coming soon...</p>
+                {% endunless %}
+            </section>
+
+            <!-- ML -->
+            <section class="category-section" id="ml">
+                <h2 class="section-title">Machine Learning</h2>
+                <p class="section-desc">Classical ML & Deep Learning</p>
+                {% assign has_ml_posts = false %}
+                {% for post in site.posts %}
+                {% if post.tags contains 'ml' or post.tags contains 'machine-learning' or post.tags contains
+                'deep-learning' or post.tags contains 'neural-networks' %}
+                {% assign has_ml_posts = true %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                {% unless has_ml_posts %}
+                <p class="empty-category">Coming soon...</p>
+                {% endunless %}
+            </section>
+
+            <!-- Tutorials -->
+            <section class="category-section" id="tutorials">
+                <h2 class="section-title">Tutorials</h2>
+                <p class="section-desc">Step-by-step Guides & Implementations</p>
+                {% assign has_tut_posts = false %}
+                {% for post in site.posts %}
+                {% if post.tags contains 'tutorial' or post.tags contains 'guide' or post.tags contains 'implementation'
+                or post.tags contains 'code' %}
+                {% assign has_tut_posts = true %}
+                <article class="post-card">
+                    <h3 class="post-card-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min
+                            read</span>
+                    </div>
+                </article>
+                {% endif %}
+                {% endfor %}
+                {% unless has_tut_posts %}
+                <p class="empty-category">Coming soon...</p>
+                {% endunless %}
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Smooth scroll and active state for category nav
+    document.querySelectorAll('.category-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            document.querySelectorAll('.category-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Update active on scroll
+    const sections = document.querySelectorAll('.category-section');
+    const categoryLinks = document.querySelectorAll('.category-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 150;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+        categoryLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>

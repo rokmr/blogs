@@ -1,0 +1,24 @@
+---
+layout: null
+---
+[
+  {% for post in site.posts %}
+  {
+    "title": {{ post.title | jsonify }},
+    "url": "{{ post.url | relative_url }}",
+    "date": "{{ post.date | date: '%Y-%m-%d' }}",
+    "excerpt": {{ post.excerpt | strip_html | replace: '$$', '' | replace: '$', '' | truncate: 200 | jsonify }},
+    "tags": {{ post.tags | jsonify }},
+    "links": [
+      {% assign content_links = post.content | split: 'href="' %}
+      {% for link in content_links offset: 1 %}
+        {% assign url = link | split: '"' | first %}
+        {% if url contains '/blogs/' or url contains '[[' %}
+          {{ url | jsonify }}{% unless forloop.last %},{% endunless %}
+        {% endif %}
+      {% endfor %}
+    ],
+    "content_snippet": {{ post.content | strip_html | truncate: 500 | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
