@@ -1,0 +1,10 @@
+<div class="image-row">
+    <figure>
+        <img src="{{ include.img1 }}" alt="{{ include.cap1 | default: '' }}">
+        {% if include.cap1 %}<figcaption>{{ include.cap1 }}</figcaption>{% endif %}
+    </figure>
+    <figure>
+        <img src="{{ include.img2 }}" alt="{{ include.cap2 | default: '' }}">
+        {% if include.cap2 %}<figcaption>{{ include.cap2 }}</figcaption>{% endif %}
+    </figure>
+</div>

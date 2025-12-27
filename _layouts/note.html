@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+        <div class="post-meta">
+            <span class="note-subject">{{ page.subject | default: "General" }}</span>
+            {% if page.tags.size > 0 %}
+            <span class="post-tags">
+                {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </span>
+            {% endif %}
+            <span class="reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+            {% if page.updated %}
+            <span class="note-updated">Updated: {{ page.updated | date: "%b %d, %Y" }}</span>
+            {% endif %}
+        </div>
+        {% if page.description %}
+        <p class="note-description">{{ page.description }}</p>
+        {% endif %}
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ content }}
+    </div>
+
+    <!-- Related Notes in Same Subject -->
+    {% assign subject_notes = site.notes | where: "subject", page.subject | where_exp: "item", "item.url != page.url" %}
+    {% if subject_notes.size > 0 %}
+    <nav class="related-notes">
+        <h3>Related Notes in {{ page.subject }}</h3>
+        <ul>
+            {% for note in subject_notes limit:5 %}
+            <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    <!-- Backlinks -->
+    <div id="backlinks-container"></div>
+</article>

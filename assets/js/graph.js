@@ -11,8 +11,11 @@ async function initGraph() {
     const height = container.clientHeight;
 
     try {
-        // Fetch posts data
-        const response = await fetch('/blogs/posts.json');
+        // Fetch posts data - try root first, fallback to /blogs/ (production path)
+        let response = await fetch('/posts.json');
+        if (!response.ok) {
+            response = await fetch('/blogs/posts.json');
+        }
         if (!response.ok) throw new Error('Failed to load graph data');
         const posts = await response.json();
 

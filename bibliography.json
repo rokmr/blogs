@@ -1,0 +1,17 @@
+---
+layout: null
+---
+{% assign bib = site.data.bibliography %}
+{
+{% for item in bib %}
+  "{{ item[0] }}": {
+    "type": "{{ item[1].type | default: 'article' }}",
+    "authors": "{{ item[1].authors }}",
+    "title": "{{ item[1].title }}",
+    "venue": "{{ item[1].venue }}",
+    "year": {{ item[1].year }},
+    "url": "{{ item[1].url }}"{% if item[1].doi %},
+    "doi": "{{ item[1].doi }}"{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+}

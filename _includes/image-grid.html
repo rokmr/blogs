@@ -1,0 +1,8 @@
+<div class="image-grid {{ include.cols | default: '' }} {{ include.style | default: '' }}">
+    {% for img in include.images %}
+    <figure>
+        <img src="{{ img.src }}" alt="{{ img.cap | default: '' }}">
+        {% if img.cap %}<figcaption>{{ img.cap }}</figcaption>{% endif %}
+    </figure>
+    {% endfor %}
+</div>

@@ -289,6 +289,35 @@ Drag the slider to compare raw vs processed attention patterns:
 ```
 
 
+### Multi-Image Layouts
+
+**Single Image (1x1)** - Default layout:
+
+{% include img.html src="https://picsum.photos/seed/single/600/300" cap="Single image with caption" %}
+
+**Two-Column (1x2)** - Just add two images:
+
+{% include img.html src="https://picsum.photos/seed/attention1/400/300, https://picsum.photos/seed/attention2/400/300" cap="Self-Attention, Multi-Head Attention" %}
+
+**Grid (3+)** - Automatically creates grid:
+
+{% include img.html src="https://picsum.photos/seed/layer1/300/200, https://picsum.photos/seed/layer2/300/200, https://picsum.photos/seed/layer3/300/200, https://picsum.photos/seed/layer4/300/200, https://picsum.photos/seed/layer5/300/200, https://picsum.photos/seed/layer6/300/200" cap="Layer 1, Layer 2, Layer 3, Layer 4, Layer 5, Layer 6" cols="3" %}
+
+**Usage syntax:**
+```liquid
+{% raw %}
+{# Single image #}
+{% include img.html src="/path/image.png" %}
+{% include img.html src="/path/image.png" cap="With caption" %}
+
+{# Two-column #}
+{% include img.html src="/path/1.png, /path/2.png" cap="Left, Right" %}
+
+{# Grid (3+ images) #}
+{% include img.html src="/1.png, /2.png, /3.png" cap="A, B, C" cols="3" %}
+{% endraw %}
+```
+
 ### Summary of New Markdown Syntax
 
 | Feature | Syntax |
@@ -302,6 +331,9 @@ Drag the slider to compare raw vs processed attention patterns:
 | Collapsible Code | `<div class="collapsible">...</div>` |
 | Video Embed | `<div class="video-embed" data-src="URL">` |
 | Image Compare | `<div class="image-compare" data-before="..." data-after="...">` |
+| Single Image | `{% raw %}{% include img.html src="/path.png" %}{% endraw %}` |
+| Two Images | `{% raw %}{% include img.html src="/1.png, /2.png" %}{% endraw %}` |
+| Image Grid | `{% raw %}{% include img.html src="/1.png, /2.png, /3.png" cols="3" %}{% endraw %}` |
 
 ---
 

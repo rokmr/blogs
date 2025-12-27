@@ -49,10 +49,11 @@
 <body class="line-numbers">
     {% include header.html %}
 
-    <main class="content {% if page.layout == 'home' %}home-content{% endif %}">
+    <main
+        class="content {% if page.layout == 'home' %}home-content{% endif %}{% if page.layout == 'subject' or page.layout == 'sub-subject' %} wide-content{% endif %}">
         {{ content }}
 
-        {% if page.layout == 'post' %}
+        {% if page.layout == 'post' or page.layout == 'note' %}
         <!-- Sidebar with TOC -->
         <aside class="sidebar">
             <nav class="toc" id="toc">
@@ -138,7 +139,23 @@
     <!-- Phase 1: Knowledge Management -->
     <script defer src="{{ '/assets/js/backlinks.js' | relative_url }}"></script>
 
-    <!-- Main JS -->
+    <!-- Modular JS Components -->
+    <script defer src="{{ '/assets/js/toc.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/callouts.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/code-runner.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/code-enhancements.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/post-interactions.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/embeds.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/utils.js' | relative_url }}"></script>
+
+    <!-- Academic Features -->
+    <script defer src="{{ '/assets/js/citations.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/cross-references.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/inline-formatting.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/latex-enhancements.js' | relative_url }}"></script>
+
+    <!-- Main JS (Orchestrator - must load last) -->
     <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
 

@@ -1,0 +1,46 @@
+{%- comment -%}
+Clean image include with automatic layout detection.
+Usage:
+Single: {% include img.html src="/path.png" %}
+{% include img.html src="/path.png" cap="Caption" %}
+
+Two-col: {% include img.html src="/1.png, /2.png" %}
+{% include img.html src="/1.png, /2.png" cap="Left, Right" %}
+
+Grid: {% include img.html src="/1.png, /2.png, /3.png" cols="3" %}
+{%- endcomment -%}
+
+{%- assign images = include.src | split: ", " -%}
+{%- assign captions = include.cap | split: ", " -%}
+{%- assign count = images | size -%}
+{%- assign cols = include.cols | default: count -%}
+
+{%- if count == 1 -%}
+{%- comment -%} Single image (1x1) {%- endcomment -%}
+<figure class="single-image">
+    <img src="{{ images[0] }}" alt="{{ captions[0] | default: '' }}">
+    {%- if captions[0] -%}<figcaption>{{ captions[0] }}</figcaption>{%- endif -%}
+</figure>
+
+{%- elsif count == 2 -%}
+{%- comment -%} Two-column layout {%- endcomment -%}
+<div class="image-row">
+    {%- for i in (0..1) -%}
+    <figure>
+        <img src="{{ images[i] }}" alt="{{ captions[i] | default: '' }}">
+        {%- if captions[i] -%}<figcaption>{{ captions[i] }}</figcaption>{%- endif -%}
+    </figure>
+    {%- endfor -%}
+</div>
+
+{%- else -%}
+{%- comment -%} Grid layout (3+) {%- endcomment -%}
+<div class="image-grid cols-{{ cols }} {{ include.style }}">
+    {%- for img in images -%}
+    <figure>
+        <img src="{{ img }}" alt="{{ captions[forloop.index0] | default: '' }}">
+        {%- if captions[forloop.index0] -%}<figcaption>{{ captions[forloop.index0] }}</figcaption>{%- endif -%}
+    </figure>
+    {%- endfor -%}
+</div>
+{%- endif -%}

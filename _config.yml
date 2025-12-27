@@ -38,6 +38,9 @@ collections:
   posts:
     output: true
     permalink: /posts/:title/
+  notes:
+    output: true
+    permalink: /notes/:path/
 
 # Defaults
 defaults:
@@ -48,6 +51,13 @@ defaults:
       layout: "post"
       comments: true
       math: false
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "note"
+      comments: false
+      math: true
 
 # Social Links (for footer/header)
 social:
