@@ -33,10 +33,9 @@ layout: default
             {% assign sub_notes_list = "" | split: "" %}
             {% for note in subject_notes %}
             {% assign path_parts = note.path | split: "/" %}
-            {% if path_parts.size >= 4 and path_parts[2] == sub %}
-            {% unless note.url contains '/index' %}
+            {% assign note_name = note.path | split: '/' | last %}
+            {% if path_parts.size >= 4 and path_parts[2] == sub and note_name != 'index.md' %}
             {% assign sub_notes_list = sub_notes_list | push: note %}
-            {% endunless %}
             {% endif %}
             {% endfor %}
             {% assign sub_notes_count = sub_notes_list.size %}

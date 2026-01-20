@@ -50,7 +50,7 @@
     {% include header.html %}
 
     <main
-        class="content {% if page.layout == 'home' %}home-content{% endif %}{% if page.layout == 'subject' or page.layout == 'sub-subject' %} wide-content{% endif %}">
+        class="content {% if page.layout == 'home' %}home-content{% endif %}{% if page.layout == 'subject' or page.layout == 'sub-subject' %} wide-content{% endif %}{% if page.custom_class %} {{ page.custom_class }}{% endif %}">
         {{ content }}
 
         {% if page.layout == 'post' or page.layout == 'note' %}

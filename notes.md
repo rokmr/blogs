@@ -2,6 +2,7 @@
 title: "Notes"
 layout: default
 permalink: /notes/
+custom_class: notes-content
 ---
 
 <article class="post notes-index">
@@ -19,7 +20,14 @@ permalink: /notes/
         {% assign subject_slug = parts[0] %}
         {% assign subject_name = parts[1] %}
         
-        {% assign subject_notes = site.notes | where_exp: "note", "note.path contains subject_slug" %}
+        {% assign all_subject_notes = site.notes | where_exp: "note", "note.path contains subject_slug" %}
+        {% assign subject_notes = "" | split: "" %}
+        {% for note in all_subject_notes %}
+          {% assign note_name = note.path | split: '/' | last %}
+          {% if note_name != 'index.md' %}
+            {% assign subject_notes = subject_notes | push: note %}
+          {% endif %}
+        {% endfor %}
         
         <a href="{{ '/notes/' | append: subject_slug | append: '/' | relative_url }}" class="subject-card{% if subject_notes.size == 0 %} empty{% endif %}">
           <div class="subject-icon">
