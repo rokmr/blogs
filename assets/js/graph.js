@@ -56,8 +56,8 @@ async function initGraph() {
             .selectAll('line')
             .data(links)
             .join('line')
-            .attr('stroke', '#333')
-            .attr('stroke-opacity', 0.6)
+            .attr('stroke', '#666')
+            .attr('stroke-opacity', 0.3)
             .attr('stroke-width', 1);
 
         // Draw nodes
@@ -75,9 +75,9 @@ async function initGraph() {
         // Node circles
         node.append('circle')
             .attr('r', d => 8 + (d.linkCount || 0) * 2)
-            .attr('fill', '#666')
-            .attr('stroke', '#222')
-            .attr('stroke-width', 2)
+            .attr('fill', '#555')
+            .attr('stroke', '#333')
+            .attr('stroke-width', 1.5)
             .attr('cursor', 'pointer');
 
         // Node labels
@@ -85,6 +85,7 @@ async function initGraph() {
             .attr('class', 'node-label')
             .attr('dy', -15)
             .attr('text-anchor', 'middle')
+            .attr('fill', '#666')
             .text(d => truncateText(d.title, 25));
 
         // Hover effects
@@ -112,20 +113,25 @@ async function initGraph() {
 
             link.attr('stroke', l => {
                 if (l.source.id === d.id || l.target.id === d.id) return '#4ade80';
-                return '#222';
+                return '#666';
+            }).attr('stroke-opacity', l => {
+                if (l.source.id === d.id || l.target.id === d.id) return 1;
+                return 0.3;
             }).attr('stroke-width', l => {
-                if (l.source.id === d.id || l.target.id === d.id) return 2;
+                if (l.source.id === d.id || l.target.id === d.id) return 3;
                 return 1;
             });
         })
             .on('mouseout', function () {
                 node.select('circle')
-                    .attr('fill', '#666')
+                    .attr('fill', '#555')
                     .attr('r', d => 8 + (d.linkCount || 0) * 2);
 
-                node.select('text').classed('highlighted', false);
+                node.select('text')
+                    .classed('highlighted', false)
+                    .attr('fill', '#666');
 
-                link.attr('stroke', '#333').attr('stroke-width', 1);
+                link.attr('stroke', '#666').attr('stroke-opacity', 0.3).attr('stroke-width', 1);
             })
             .on('click', function (event, d) {
                 window.location.href = d.url;
@@ -167,8 +173,13 @@ async function initGraph() {
                 const query = e.target.value.toLowerCase();
 
                 node.select('circle').attr('fill', d => {
-                    if (!query) return '#666';
+                    if (!query) return '#555';
                     return d.title.toLowerCase().includes(query) ? '#4ade80' : '#333';
+                });
+                
+                node.select('text').attr('fill', d => {
+                    if (!query) return '#666';
+                    return d.title.toLowerCase().includes(query) ? '#fff' : '#444';
                 });
 
                 node.select('text').classed('highlighted', d => {
@@ -183,8 +194,9 @@ async function initGraph() {
             resetBtn.addEventListener('click', () => {
                 svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
                 if (searchInput) searchInput.value = '';
-                node.select('circle').attr('fill', '#666');
-                node.select('text').classed('highlighted', false);
+                node.select('circle').attr('fill', '#555');
+                node.select('text').classed('highlighted', false).attr('fill', '#666');
+                link.attr('stroke', '#666').attr('stroke-opacity', 0.3).attr('stroke-width', 1);
             });
         }
 
@@ -221,7 +233,7 @@ function buildGraphData(posts) {
         });
     });
 
-    // Create links
+    // Create links from explicit links in content
     posts.forEach((post, sourceIndex) => {
         const sourceId = `post-${sourceIndex}`;
 
@@ -229,20 +241,68 @@ function buildGraphData(posts) {
             post.links.forEach(link => {
                 const targetId = urlToId.get(normalizeUrl(link));
                 if (targetId && targetId !== sourceId) {
-                    links.push({
-                        source: sourceId,
-                        target: targetId
-                    });
+                    // Check if link already exists
+                    const linkExists = links.some(l => 
+                        (l.source === sourceId && l.target === targetId) ||
+                        (l.source === targetId && l.target === sourceId)
+                    );
+                    
+                    if (!linkExists) {
+                        links.push({
+                            source: sourceId,
+                            target: targetId,
+                            type: 'explicit'
+                        });
 
-                    // Update link counts
-                    const sourceNode = nodes.find(n => n.id === sourceId);
-                    const targetNode = nodes.find(n => n.id === targetId);
-                    if (sourceNode) sourceNode.linkCount++;
-                    if (targetNode) targetNode.linkCount++;
+                        // Update link counts
+                        const sourceNode = nodes.find(n => n.id === sourceId);
+                        const targetNode = nodes.find(n => n.id === targetId);
+                        if (sourceNode) sourceNode.linkCount++;
+                        if (targetNode) targetNode.linkCount++;
+                    }
                 }
             });
         }
     });
+
+    // Create links based on shared tags
+    for (let i = 0; i < posts.length; i++) {
+        for (let j = i + 1; j < posts.length; j++) {
+            const post1 = posts[i];
+            const post2 = posts[j];
+            
+            if (post1.tags && post2.tags) {
+                const sharedTags = post1.tags.filter(tag => post2.tags.includes(tag));
+                
+                // Create link if they share 2+ tags
+                if (sharedTags.length >= 2) {
+                    const sourceId = `post-${i}`;
+                    const targetId = `post-${j}`;
+                    
+                    // Check if link already exists
+                    const linkExists = links.some(l => 
+                        (l.source === sourceId && l.target === targetId) ||
+                        (l.source === targetId && l.target === sourceId)
+                    );
+                    
+                    if (!linkExists) {
+                        links.push({
+                            source: sourceId,
+                            target: targetId,
+                            type: 'tag',
+                            sharedTags
+                        });
+
+                        // Update link counts
+                        const sourceNode = nodes.find(n => n.id === sourceId);
+                        const targetNode = nodes.find(n => n.id === targetId);
+                        if (sourceNode) sourceNode.linkCount++;
+                        if (targetNode) targetNode.linkCount++;
+                    }
+                }
+            }
+        }
+    }
 
     return { nodes, links };
 }

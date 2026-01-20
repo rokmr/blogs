@@ -11,7 +11,7 @@ layout: default
             <span class="sep">/</span>
             <span class="current">{{ page.title }}</span>
         </nav>
-        <h1>{{ page.title }}</h1>
+        <h1 class="accent-text">{{ page.title }}</h1>
         {% if page.description %}
         <p class="description">{{ page.description }}</p>
         {% endif %}
@@ -25,18 +25,26 @@ layout: default
         {% for note in site.notes %}
         {% assign path_parts = note.path | split: "/" %}
         {% if path_parts.size >= 4 and path_parts[1] == subject_slug and path_parts[2] == sub_subject_slug %}
-        {% unless note.url contains '/index' %}
+        {% unless note.url contains '/index' or note.path contains '/index.md' %}
         {% assign sub_notes = sub_notes | push: note %}
         {% endunless %}
         {% endif %}
         {% endfor %}
 
         {% if sub_notes.size > 0 %}
-        <ul class="notes-list">
+        <div class="lecture-list">
             {% for note in sub_notes %}
-            <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a></li>
+            <a href="{{ note.url | relative_url }}" class="lecture-item">
+                <div class="lecture-number">{{ forloop.index }}.</div>
+                <div class="lecture-info">
+                    <div class="lecture-title">{{ note.title }}</div>
+                    {% if note.description %}
+                    <div class="lecture-topics">{{ note.description }}</div>
+                    {% endif %}
+                </div>
+            </a>
             {% endfor %}
-        </ul>
+        </div>
         {% else %}
         <p class="empty">No notes yet.</p>
         {% endif %}

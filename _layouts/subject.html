@@ -43,7 +43,7 @@ layout: default
 
             <a href="{{ '/notes/' | append: subject_slug | append: '/' | append: sub | append: '/' | relative_url }}"
                 class="topic-card{% if sub_notes_count == 0 %} empty{% endif %}">
-                <h3>{{ sub | replace: "-", " " | capitalize }}</h3>
+                <h3>{{ sub | replace: "-", " " }}</h3>
                 <span class="count">
                     {% if sub_notes_count > 0 %}
                     {{ sub_notes_count }} note{% if sub_notes_count != 1 %}s{% endif %}
