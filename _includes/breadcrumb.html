@@ -1,0 +1,26 @@
+{% comment %}
+Breadcrumb Navigation Include
+
+Usage:
+{% include breadcrumb.html
+links="Notes:/notes/,Mathematics:/notes/maths/"
+current="Probability" %}
+
+Parameters:
+links - comma-separated "label:url" pairs for parent navigation
+current - current page label (optional, displays as non-link text)
+{% endcomment %}
+
+<nav class="breadcrumb">
+    {% assign link_items = include.links | split: "," %}
+    {% for item in link_items %}
+    {% assign parts = item | split: ":" %}
+    {% if parts.size == 2 %}
+    <a href="{{ parts[1] | relative_url }}">{{ parts[0] }}</a>
+    <span class="sep">/</span>
+    {% endif %}
+    {% endfor %}
+    {% if include.current %}
+    <span class="current">{{ include.current }}</span>
+    {% endif %}
+</nav>

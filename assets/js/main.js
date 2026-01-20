@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Visual enhancements
   if (typeof initImageCompare !== 'undefined') initImageCompare();
   if (typeof initLightbox !== 'undefined') initLightbox();
+  if (typeof initCategoryNav !== 'undefined') initCategoryNav();
 
   // Knowledge management
   if (typeof initBacklinks !== 'undefined') initBacklinks();

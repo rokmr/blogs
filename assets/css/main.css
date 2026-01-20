@@ -3292,3 +3292,175 @@ pre:hover .copy-btn {
     height: 24px;
   }
 }
+
+/* ========================================
+   Subject & Sub-Subject Page Layouts
+   (Consolidated from inline styles)
+   ======================================== */
+
+/* Page layout containers */
+.subject-page,
+.sub-subject-page {
+  width: 100%;
+}
+
+/* Shared page header (subject/sub-subject) */
+.subject-page .page-header,
+.sub-subject-page .page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.subject-page .page-header h1,
+.sub-subject-page .page-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: var(--text);
+}
+
+.subject-page .page-header .description,
+.sub-subject-page .page-header .description {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+.breadcrumb a {
+  color: var(--dim);
+}
+
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.breadcrumb .sep {
+  opacity: 0.5;
+}
+
+.breadcrumb .current {
+  color: var(--text);
+}
+
+/* Topics Grid (subject page) */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.topic-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.topic-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.topic-card.empty {
+  opacity: 0.5;
+}
+
+.topic-card.empty:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
+.topic-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.topic-card:hover h3 {
+  color: var(--accent);
+}
+
+.topic-card .count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* General notes section */
+.general-notes {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.general-notes h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem;
+}
+
+/* Notes grid for subject page */
+.general-notes .notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Sub-subject notes list */
+.sub-subject-page .notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-subject-page .notes-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sub-subject-page .notes-list li:last-child {
+  border-bottom: none;
+}
+
+.sub-subject-page .notes-list a {
+  color: var(--text);
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.sub-subject-page .notes-list a:hover {
+  color: var(--accent);
+}
+
+.sub-subject-page .empty {
+  color: var(--dim);
+}
+
+/* Responsive adjustments for subject pages */
+@media (max-width: 600px) {
+  .topics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .general-notes .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}

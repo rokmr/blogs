@@ -138,19 +138,3 @@ layout: default
     </section>
     {% endif %}
 </article>
-
-<script>
-    function copyBibtex() {
-        const bibtex = document.getElementById('bibtex-content').textContent;
-        navigator.clipboard.writeText(bibtex).then(() => {
-            const btn = document.querySelector('.copy-bibtex-btn');
-            const original = btn.textContent;
-            btn.textContent = 'Copied!';
-            btn.style.background = '#22c55e';
-            setTimeout(() => {
-                btn.textContent = original;
-                btn.style.background = '';
-            }, 2000);
-        });
-    }
-</script>
