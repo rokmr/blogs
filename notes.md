@@ -13,7 +13,7 @@ custom_class: notes-content
 
   <div class="post-content">
     <div class="subjects-grid">
-      {% assign subject_config = "maths:Mathematics,deep-learning:Deep Learning,cv:Computer Vision,nlp-llms:NLP & LLMs,ml:Machine Learning,rl:Reinforcement Learning,mlops:MLOps" | split: "," %}
+      {% assign subject_config = "maths:Mathematics,deep-learning:Deep Learning,cv:Computer Vision,nlp-llms:NLP & LLMs,ml:Machine Learning,rl:Reinforcement Learning,mlops:MLOps,setup:Setup" | split: "," %}
       
       {% for subject_data in subject_config %}
         {% assign parts = subject_data | split: ":" %}
@@ -50,15 +50,19 @@ custom_class: notes-content
             </svg>
             {% when "ml" %}
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m15.5-6.5l-4.24 4.24m-2.52 2.52L5.5 18.5m13-1l-4.24-4.24m-2.52-2.52L5.5 5.5"/>
+              <path d="M3 3v18h18"/><circle cx="7" cy="14" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="17" cy="6" r="2"/><path d="M8.5 12.5l2.5-2m2.5-2l2.5-2"/>
             </svg>
             {% when "rl" %}
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              <path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 01-4 4H3"/>
             </svg>
             {% when "mlops" %}
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            {% when "setup" %}
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
             </svg>
             {% endcase %}
           </div>
