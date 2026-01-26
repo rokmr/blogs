@@ -28,6 +28,9 @@ layout: default
         {{ content }}
     </div>
 
+    <!-- References Section -->
+    {% include references.html %}
+
     <!-- Related Notes in Same Subject -->
     {% assign subject_notes = site.notes | where: "subject", page.subject | where_exp: "item", "item.url != page.url" %}
     {% if subject_notes.size > 0 %}

@@ -2794,6 +2794,54 @@ pre:hover .copy-btn {
   background: var(--danger-bg);
 }
 
+/* Simple references (from frontmatter) */
+.simple-refs .references-list {
+  list-style-type: decimal;
+  list-style-position: outside;
+  padding-left: 2.5rem;
+  margin-left: 0;
+}
+
+.simple-refs .reference-item {
+  display: list-item;
+  padding: 0.5rem 0;
+  padding-left: 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.simple-refs .reference-item::marker {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.simple-refs .ref-link-text {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.simple-refs .ref-link-text:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.simple-refs .ref-authors {
+  margin-right: 0.25em;
+}
+
+.simple-refs .ref-year {
+  margin: 0 0.25em;
+}
+
+.simple-refs .ref-venue {
+  margin-left: 0.25em;
+}
+
 /* ========================================
    Cross-References
    ======================================== */

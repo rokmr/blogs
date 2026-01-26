@@ -1,0 +1,80 @@
+<!--
+  References Component
+  Renders a references section at the bottom of pages
+  
+  Usage in frontmatter:
+    references:
+      - title: "CS224R Lectures"
+        url: "https://cs224r.stanford.edu/"
+      - title: "Sutton & Barto Book"
+        url: "http://incompleteideas.net/book/the-book.html"
+        authors: "Richard S. Sutton and Andrew G. Barto"
+    
+  Or use citation keys:
+    citation_refs:
+      - sutton2018reinforcement
+      - silver2016mastering
+-->
+
+{% if page.references or page.citation_refs %}
+<div class="references-section simple-refs">
+  <h2 id="references">References</h2>
+  <ol class="references-list">
+    
+    {% if page.references %}
+      {% for ref in page.references %}
+      <li class="reference-item">
+        <span class="ref-text">
+          {% if ref.authors %}
+            <span class="ref-authors">{{ ref.authors }}.</span>
+          {% endif %}
+          {% if ref.url %}
+            <a href="{{ ref.url }}" target="_blank" rel="noopener" class="ref-link-text">{{ ref.title }}</a>
+          {% else %}
+            <span class="ref-title">{{ ref.title }}</span>
+          {% endif %}
+          {% if ref.venue %}
+            <span class="ref-venue"><em>{{ ref.venue }}</em></span>
+          {% endif %}
+          {% if ref.year %}
+            <span class="ref-year">({{ ref.year }})</span>
+          {% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    {% endif %}
+    
+    {% if page.citation_refs %}
+      {% assign bib = site.data.bibliography %}
+      {% for key in page.citation_refs %}
+        {% assign cite = bib[key] %}
+        {% if cite %}
+        <li class="reference-item" id="ref-{{ key }}">
+          <span class="ref-text">
+            <span class="ref-authors">{{ cite.authors }}</span>
+            <span class="ref-year">({{ cite.year }}).</span>
+            <span class="ref-title">{{ cite.title }}.</span>
+            {% if cite.venue %}
+              <span class="ref-venue"><em>{{ cite.venue }}</em>.</span>
+            {% endif %}
+            {% if cite.url %}
+              <a href="{{ cite.url }}" target="_blank" rel="noopener" class="ref-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if cite.doi %}
+              <a href="https://doi.org/{{ cite.doi }}" class="ref-doi" target="_blank" rel="noopener">DOI</a>
+            {% endif %}
+          </span>
+        </li>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    
+  </ol>
+</div>
+{% endif %}
