@@ -2710,16 +2710,129 @@ pre:hover .copy-btn {
   text-decoration: underline;
 }
 
-.references-section {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
-}
+  .slides-section + .references-section {
+    margin-top: 2rem;
+    padding-top: 0;
+    border-top: none;
+  }
 
-.references-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-}
+  .references-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .references-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ========================================
+   Slides Section
+   ======================================== */
+
+  .slides-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .slides-collapsible {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-card);
+    overflow: hidden;
+  }
+
+  .slides-collapsible + .slides-collapsible {
+    margin-top: 1rem;
+  }
+
+  .slides-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    transition: all 0.2s;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid transparent;
+  }
+
+  .slides-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .slides-summary:hover {
+    background: var(--bg-card);
+  }
+
+  .slides-summary:hover .slides-icon {
+    color: #22c55e;
+    transform: scale(1.1);
+  }
+
+  .slides-summary:hover .slides-title {
+    color: #22c55e;
+  }
+
+  .slides-summary::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 6px solid var(--dim);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .slides-collapsible[open] .slides-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .slides-collapsible[open] .slides-summary {
+    border-bottom-color: var(--border);
+  }
+
+  .slides-icon {
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .slides-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .slides-count {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--dim);
+    margin-left: auto;
+  }
+
+  .slides-content {
+    padding: 0;
+  }
+
+  .slides-content .slide-viewer {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  .slides-content .slide-viewer:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+  }
 
 .references-list {
   list-style: none;

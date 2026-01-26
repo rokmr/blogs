@@ -1,4 +1,4 @@
-.PHONY: help install update serve run clean dev
+.PHONY: help install update serve run clean dev stop restart
 
 # Default target - show help
 help:
@@ -7,6 +7,8 @@ help:
 	@echo "🚀 Quick Start:"
 	@echo "  make serve      - Setup everything & run dev server"
 	@echo "  make run        - Same as serve (alias)"
+	@echo "  make stop       - Stop running Jekyll server"
+	@echo "  make restart    - Stop and restart server"
 	@echo ""
 	@echo "Other commands:"
 	@echo "  make install    - Install dependencies only"
@@ -77,6 +79,10 @@ serve: _setup-ruby-if-needed
 	@echo ""
 	@echo "🌐 Open in browser:"
 	@echo "   → http://localhost:4000"
+	@echo "   → http://localhost:4000/notes/"
+	@echo ""
+	@echo "⚠️  Note: Using empty baseurl for local dev"
+	@echo "   Production URLs: /blogs/* → Local URLs: /*"
 	@echo ""
 	@echo "Press Ctrl+C to stop"
 	@echo ""
@@ -87,6 +93,18 @@ run: serve
 
 # Development command (same as serve)
 dev: serve
+
+# Stop Jekyll server
+stop:
+	@echo "🛑 Stopping Jekyll server..."
+	@pkill -f "jekyll serve" || echo "No Jekyll server running"
+	@echo "✅ Server stopped!"
+
+# Restart server
+restart: stop
+	@echo "⏳ Waiting 2 seconds..."
+	@sleep 2
+	@$(MAKE) serve
 
 # Clean generated files
 clean:

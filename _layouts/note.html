@@ -28,6 +28,56 @@ layout: default
         {{ content }}
     </div>
 
+    <!-- Slides Section (if specified in frontmatter) -->
+    {% if page.slides %}
+    <section class="slides-section">
+        <details class="slides-collapsible">
+            <summary class="slides-summary">
+                <svg class="slides-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span class="slides-title">Lecture Slides</span>
+                {% if page.slides.size > 1 %}
+                <span class="slides-count">({{ page.slides | size }})</span>
+                {% endif %}
+            </summary>
+            <div class="slides-content">
+                {% for slide in page.slides %}
+                <div class="slide-viewer" data-pdf="{{ slide.url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
+                {% endfor %}
+            </div>
+        </details>
+    </section>
+    {% endif %}
+    
+    <!-- Slide Sections (organized by section) -->
+    {% if page.slide_sections %}
+    <section class="slides-section">
+        {% for section in page.slide_sections %}
+        <details class="slides-collapsible" {% if section.open %}open{% endif %}>
+            <summary class="slides-summary">
+                <svg class="slides-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span class="slides-title">{{ section.title }}</span>
+                {% if section.slides.size > 1 %}
+                <span class="slides-count">({{ section.slides | size }})</span>
+                {% endif %}
+            </summary>
+            <div class="slides-content">
+                {% for slide in section.slides %}
+                <div class="slide-viewer" data-pdf="{{ slide.url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
+                {% endfor %}
+            </div>
+        </details>
+        {% endfor %}
+    </section>
+    {% endif %}
+
     <!-- References Section -->
     {% include references.html %}
 

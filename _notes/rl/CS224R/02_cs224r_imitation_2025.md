@@ -1,16 +1,19 @@
 ---
 title: "Lec 02 - Imitation Learning"
 date: 2025-01-26
-description: "Core concepts, MDP vs POMDP, policy and value functions, RL algorithm types"
-tags: [reinforcement-learning, cs224r, mdp, policy-gradient]
+description: "Behavioral cloning, DAgger, HG-DAgger, and addressing compounding errors"
+tags: [reinforcement-learning, cs224r, imitation-learning, behavioral-cloning]
 math: true
+slides:
+  - title: "Lecture 02 - Imitation Learning"
+    url: "/notes/rl/CS224R/resources/02_cs224r_imitation_2025.pdf"
 references:
   - title: "Lecture 02 Video"
     url: "https://www.youtube.com/watch?v=WxRDyObrm_M"
     authors: "Chelsea Finn, Sergey Levine"
     venue: "CS224R Stanford"
     year: 2025
-  - title: "Lecture 02 Slides (PDF)"
+  - title: "Lecture 02 Slides"
     url: "https://cs224r.stanford.edu/slides/02_cs224r_imitation_2025.pdf"
     authors: "Chelsea Finn, Sergey Levine"
     venue: "CS224R Stanford"

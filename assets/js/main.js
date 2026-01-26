@@ -23,6 +23,7 @@
  * - presentation.js: Presentation mode
  * - semantic-search.js: AI-powered search
  * - graph.js: Knowledge graph visualization
+ * - slide-viewer.js: PDF slide viewer with fullscreen support
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -71,5 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Knowledge management
   if (typeof initBacklinks !== 'undefined') initBacklinks();
+
+  // Slide viewer
+  if (typeof initSlideViewers !== 'undefined') initSlideViewers();
 });
 

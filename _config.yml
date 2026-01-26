@@ -20,12 +20,17 @@ kramdown:
     block:
       line_numbers: false
       
+# Include PDFs and resources
+include:
+  - _notes/**/resources/**
+
 # Exclude from build
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
   - vendor
+  - docs
 
 # Plugins
 plugins:
