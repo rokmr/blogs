@@ -37,7 +37,19 @@ layout: default
             <a href="{{ note.url | relative_url }}" class="lecture-item">
                 <div class="lecture-number">{{ forloop.index }}.</div>
                 <div class="lecture-info">
-                    <div class="lecture-title">{{ note.title }}</div>
+                    <div class="lecture-title">
+                        {{ note.title }}
+                        {% if note.status == 'wip' or note.status == 'draft' %}
+                        <span class="wip-badge wip-badge-small">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            WIP
+                        </span>
+                        {% endif %}
+                    </div>
                     {% if note.description %}
                     <div class="lecture-topics">{{ note.description }}</div>
                     {% endif %}

@@ -9,4 +9,5 @@ sub_subjects:
   - language-models
   - tokenization
   - fine-tuning
+  - moe
 ---

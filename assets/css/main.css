@@ -3142,11 +3142,45 @@ pre:hover .copy-btn {
   color: var(--dim);
 }
 
-.note-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
+  .note-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  /* WIP Badge */
+  .wip-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+
+  .wip-badge svg {
+    width: 12px;
+    height: 12px;
+    color: #eab308;
+  }
+
+  .wip-badge-small {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .wip-badge-small svg {
+    width: 10px;
+    height: 10px;
+  }
 
 .note-description {
   color: var(--text-secondary);
