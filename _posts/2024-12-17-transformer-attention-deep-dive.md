@@ -272,8 +272,8 @@ Here's how you can embed videos showing your model in action:
 Drag the slider to compare raw vs processed attention patterns:
 
 <div class="image-compare" 
-     data-before="/blogs/assets/images/attention_before.png" 
-     data-after="/blogs/assets/images/attention_after.png">
+     data-before="/assets/images/attention_before.png" 
+     data-after="/assets/images/attention_after.png">
   <span class="compare-label-before">Raw</span>
   <span class="compare-label-after">Processed</span>
 </div>

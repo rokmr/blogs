@@ -21,13 +21,11 @@ async function initSemanticSearch() {
 
     // Load posts data first
     try {
-        // Try to find posts.json at the site root or with base path
-        const basePath = document.querySelector('base')?.href || '';
-        let response = await fetch('/posts.json');
-        if (!response.ok) {
-            // Fallback: try with /blogs/ prefix (production path)
-            response = await fetch('/blogs/posts.json');
-        }
+        // Get baseurl from meta tag or detect from current path
+        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
+        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        
+        const response = await fetch(postsUrl);
         if (!response.ok) throw new Error('Failed to load posts');
         postsData = await response.json();
     } catch (error) {

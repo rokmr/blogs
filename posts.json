@@ -20,12 +20,13 @@ layout: null
   "date": "{{ item.date | date: '%Y-%m-%d' }}",
   "excerpt": {{ item.description | default: item.excerpt | strip_html | replace: '$$', '' | replace: '$', '' | truncate: 200 | jsonify }},
   "tags": {{ item.tags | jsonify }},
+  "subject": {{ item.subject | jsonify }},
   "type": "{% if item.collection == 'posts' %}post{% else %}note{% endif %}",
   "links": [
     {% assign content_links = item.content | split: 'href="' %}
     {% for link in content_links offset: 1 %}
       {% assign url = link | split: '"' | first %}
-      {% if url contains '/blogs/' or url contains '[[' %}
+      {% if url contains site.baseurl or url contains '[[' or url contains '/posts/' or url contains '/notes/' %}
         {{ url | jsonify }}{% unless forloop.last %},{% endunless %}
       {% endif %}
     {% endfor %}

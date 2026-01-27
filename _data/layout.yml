@@ -1,0 +1,41 @@
+# Centralized Layout Configuration
+# All spacing and layout dimensions for consistent design
+
+spacing:
+  # Container spacing
+  container_padding_top: 120px
+  container_padding_bottom: 60px
+  container_padding_horizontal: 5%
+  
+  # Section spacing
+  section_margin_top: 3rem
+  section_margin_bottom: 2rem
+  section_padding_top: 2rem
+  section_padding_bottom: 2rem
+  
+  # Card spacing
+  card_padding: 1.25rem
+  card_margin_bottom: 1rem
+  card_gap: 1rem
+  
+  # Content spacing
+  content_element_margin: 1.5rem
+  paragraph_margin: 1.25rem
+  heading_margin_top: 2rem
+  heading_margin_bottom: 1rem
+  
+  # Header/Footer
+  header_padding: 1rem 5%
+  footer_padding: 2rem 5%
+  footer_margin_top: 4rem
+
+max_widths:
+  content: 880px
+  wide: 1400px
+  full: 100%
+  
+breakpoints:
+  mobile: 480px
+  tablet: 768px
+  desktop: 1000px
+  wide: 1200px

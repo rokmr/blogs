@@ -6,7 +6,7 @@ math: true
 comments: true
 ---
 
-In my [previous post on Transformer Attention](/blogs/posts/transformer-attention-deep-dive/), we explored the mathematical foundations of attention. The key limitation? **Quadratic memory complexity** $O(n^2)$ makes long sequences prohibitively expensive. Flash Attention solves this.
+In my [previous post on Transformer Attention](/posts/transformer-attention-deep-dive/), we explored the mathematical foundations of attention. The key limitation? **Quadratic memory complexity** $O(n^2)$ makes long sequences prohibitively expensive. Flash Attention solves this.
 
 > [!NOTE]
 > Flash Attention achieves **2-4x speedup** and dramatically reduces memory usage without any approximation — it's mathematically identical to standard attention.
@@ -240,4 +240,4 @@ Flash Attention has evolved:
 
 ---
 
-*Previous: [Transformer Attention: A Mathematical Deep Dive](/blogs/posts/transformer-attention-deep-dive/)*
+*Previous: [Transformer Attention: A Mathematical Deep Dive](/posts/transformer-attention-deep-dive/)*

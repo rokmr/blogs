@@ -1,6 +1,12 @@
 /* ========================================
    AI Research Blog - Main Stylesheet
    Matching rokmr.github.io portfolio aesthetic exactly
+   
+   CENTRALIZED PADDING & ALIGNMENT SYSTEM:
+   - Single source of truth for all horizontal spacing: --spacing-horizontal
+   - Consistent max-widths across all page types
+   - Unified responsive breakpoints
+   - All containers use the same padding system
    ======================================== */
 
 /* CSS Variables - Exact portfolio values */
@@ -33,9 +39,54 @@
   --font-size-base: 16px;
   --line-height: 1.6;
 
-  /* Layout */
-  --content-width: 880px;
-  --sidebar-width: 280px;
+  /* ==========================================================
+     CENTRALIZED LAYOUT SYSTEM - SINGLE SOURCE OF TRUTH
+     
+     Max-Width System:
+     - All pages use consistent max-widths
+     - Home/Notes Index: 1600px (wide)
+     - Posts/Note content: 900px (reading width)
+     - All containers inherit from these variables
+     
+     Spacing System:
+     - Horizontal: --spacing-horizontal (80px desktop, 24px mobile)
+     - Vertical Top: --spacing-vertical-top (120px from header)
+     - Vertical Bottom: --spacing-vertical-bottom (80px above footer)
+     - ALL pages use same spacing - no overrides
+     
+     To adjust spacing site-wide, change these variables only!
+     ========================================================== */
+  
+  /* Layout - Unified Max-Width System */
+  --max-width-ultra: 1800px;       /* Ultra-wide layouts (graph, search) */
+  --max-width-wide: 1600px;        /* Wide layouts (notes grid, subject pages, home) */
+  --max-width-default: 1400px;     /* Reserved for special layouts */
+  --max-width-content: 900px;      /* Reading content (posts, notes) */
+  --sidebar-width: 280px;          /* TOC sidebar width */
+  
+  /* Centralized Horizontal Spacing - Controls ALL side padding */
+  --spacing-horizontal: 80px;      /* Desktop (auto-responsive via media queries) */
+  
+  /* Centralized Vertical Spacing - Controls ALL top/bottom padding */
+  --spacing-vertical-top: 60px;    /* Distance from header to content start */
+  --spacing-vertical-bottom: 60px; /* Distance from content end to footer */
+  
+  /* Content Spacing */
+  --section-margin-top: 4rem;
+  --section-margin-bottom: 3rem;
+  --section-padding-top: 3rem;
+  --section-padding-bottom: 2.5rem;
+  
+  --card-padding: 1.5rem;
+  --card-margin-bottom: 1.5rem;
+  --card-gap: 1.5rem;
+  
+  --content-element-margin: 2rem;
+  --paragraph-margin: 1.5rem;
+  --heading-margin-top: 3rem;
+  --heading-margin-bottom: 1.5rem;
+  
+  --footer-margin-top: 5rem;
 }
 
 /* Reset */
@@ -87,9 +138,9 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  padding: 1rem 5%;
+  padding: 1rem 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   backdrop-filter: blur(12px);
   background: rgba(10, 10, 10, 0.9);
@@ -99,11 +150,12 @@ a:hover {
 
 .header-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--max-width-wide);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 var(--spacing-horizontal);
 }
 
 .site-title {
@@ -144,33 +196,49 @@ a:hover {
 }
 
 /* ========================================
-   Main Layout with Sidebar
+   Base Container System - CENTRALIZED
+   All pages use same vertical spacing for consistency
    ======================================== */
 .content {
-  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
-  padding: 120px 5% 60px;
+  padding: var(--spacing-vertical-top) var(--spacing-horizontal) var(--spacing-vertical-bottom);
+  max-width: var(--max-width-wide);
   display: grid;
-  grid-template-columns: 1fr var(--sidebar-width);
-  gap: 80px;
+  gap: 60px;
 }
 
+/* Default: Two-column with sidebar (Posts, Notes) */
+.content {
+  grid-template-columns: 1fr var(--sidebar-width);
+}
+
+/* Home Page: Single column, wider to match other pages */
 .content.home-content {
   grid-template-columns: 1fr;
-  max-width: 1200px;
 }
 
+.home-content .home-header,
+.home-content .posts-container {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* Notes Index: Single column, wider */
 .content.notes-content {
   grid-template-columns: 1fr;
-  max-width: 100%;
-  padding-left: 2%;
-  padding-right: 2%;
 }
 
+/* Subject/Sub-Subject Pages: Full width */
 .content.wide-content {
   grid-template-columns: 1fr;
-  max-width: none;
-  width: 100%;
+}
+
+/* Search Page: Single column, centered */
+.content.search-content {
+  grid-template-columns: 1fr;
+  min-height: auto;
 }
 
 /* ========================================
@@ -182,6 +250,9 @@ a:hover {
   height: fit-content;
   max-height: calc(100vh - 140px);
   overflow-y: auto;
+  align-self: start;
+  padding: 0;
+  margin: 0;
 }
 
 .toc {
@@ -285,25 +356,30 @@ a:hover {
    Home Page
    ======================================== */
 .home-header {
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
+  margin: 0 0 var(--section-margin-top) 0;
+  padding: 0 0 var(--section-padding-bottom) 0;
   border-bottom: 1px solid var(--border);
 }
 
 .home-header h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin: 0 0 1rem 0;
+  padding: 0;
   letter-spacing: -0.02em;
 }
 
 .site-description {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 .home-nav {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 0 0;
+  padding: 0;
 }
 
 .home-nav a {
@@ -328,9 +404,10 @@ a:hover {
 /* Posts container - two column layout */
 .posts-container {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 3rem;
-  margin-top: 2rem;
+  grid-template-columns: 200px 1fr;
+  gap: 4rem;
+  margin: 2rem 0 0 0;
+  padding: 0;
 }
 
 /* Category Navigation Sidebar */
@@ -382,7 +459,7 @@ a:hover {
 .posts-sections {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
 }
 
 .category-section {
@@ -412,7 +489,7 @@ a:hover {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 1.25rem;
+  padding: var(--card-padding);
   margin-bottom: 0.75rem;
   transition: all 0.3s;
 }
@@ -538,6 +615,7 @@ a:hover {
   align-items: center;
   color: var(--dim);
   font-size: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .post-tags {
@@ -559,21 +637,37 @@ a:hover {
 /* ========================================
    Article
    ======================================== */
-.post {
-  max-width: var(--content-width);
+article {
+  margin: 0;
+  padding: 0;
 }
 
-.post-header {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
+.post {
+  max-width: var(--max-width-content);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+header.post-header {
+  margin: 0 0 3.5rem 0;
+  padding: 0 0 var(--section-padding-bottom) 0;
   border-bottom: 1px solid var(--border);
 }
 
+.post-header {
+  margin: 0 0 3.5rem 0;
+  padding: 0 0 var(--section-padding-bottom) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+h1.post-title,
 .post-title {
   font-size: 2.25rem;
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 1rem;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
   letter-spacing: -0.02em;
 }
 
@@ -586,8 +680,8 @@ a:hover {
 .post-content h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
+  margin-top: var(--section-margin-top);
+  margin-bottom: var(--heading-margin-bottom);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
   scroll-margin-top: 100px;
@@ -596,13 +690,13 @@ a:hover {
 .post-content h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  margin-top: 2rem;
+  margin-top: var(--heading-margin-top);
   margin-bottom: 0.75rem;
   scroll-margin-top: 100px;
 }
 
 .post-content p {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--paragraph-margin);
   color: var(--text-secondary);
 }
 
@@ -613,13 +707,14 @@ a:hover {
 
 .post-content ul,
 .post-content ol {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--paragraph-margin);
   padding-left: 1.5rem;
   color: var(--text-secondary);
 }
 
 .post-content li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
 }
 
 .post-content li::marker {
@@ -630,9 +725,9 @@ a:hover {
    Callout Blocks
    ======================================== */
 .callout {
-  padding: 1rem 1.25rem;
+  padding: 1rem var(--card-padding);
   border-radius: 4px;
-  margin: 1.5rem 0;
+  margin: var(--content-element-margin) 0;
   border-left: 3px solid;
 }
 
@@ -1112,7 +1207,7 @@ pre code {
    Citation Box (Always Visible)
    ======================================== */
 .citation-box {
-  margin-top: 3rem;
+  margin-top: var(--section-margin-top);
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -1243,8 +1338,8 @@ pre code {
    Comments
    ======================================== */
 .comments {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: var(--section-margin-top);
+  padding-top: var(--section-padding-top);
   border-top: 1px solid var(--border);
 }
 
@@ -1259,29 +1354,31 @@ pre code {
 .site-footer {
   background: var(--bg-card);
   border-top: 1px solid var(--border);
-  padding: 2rem 5%;
-  margin-top: 4rem;
+  padding: 1rem 0;
+  margin-top: 2rem;
 }
 
 .footer-container {
-  max-width: 1200px;
+  max-width: 500px;
   margin: 0 auto;
+  padding: 0 var(--spacing-horizontal);
   text-align: center;
+  width: 100%;
 }
 
 .footer-links {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .footer-links a {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--dim);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .footer-links a:hover {
@@ -1290,13 +1387,29 @@ pre code {
 
 .copyright {
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 /* ========================================
-   Responsive
+   Responsive Breakpoints - UNIFIED SYSTEM
    ======================================== */
-@media (max-width: 1000px) {
+
+/* Large Desktop (1441px+) - Extra wide spacing */
+@media (min-width: 1441px) {
+  :root {
+    --spacing-horizontal: 100px;
+  }
+}
+
+/* Standard Desktop (1025px - 1440px) - Default spacing */
+/* Uses :root default of 80px */
+
+/* Tablet (769px - 1024px) - Reduced spacing */
+@media (max-width: 1024px) {
+  :root {
+    --spacing-horizontal: 60px;
+  }
+  
   .content {
     grid-template-columns: 1fr;
   }
@@ -1306,21 +1419,35 @@ pre code {
   }
 }
 
+/* Mobile (up to 768px) - Minimal spacing */
 @media (max-width: 768px) {
-  .site-header {
-    padding: 0.75rem 1rem;
+  :root {
+    --spacing-horizontal: 24px;
+    --spacing-vertical-top: 50px;   /* Slightly reduced for mobile */
+    --spacing-vertical-bottom: 60px;
   }
 
   .site-nav {
     gap: 1rem;
   }
 
-  .content {
-    padding: 100px 1rem 40px;
-  }
-
   .post-title {
     font-size: 1.75rem;
+  }
+  
+  .content {
+    gap: 40px;
+  }
+  
+  .home-header h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Small Mobile (up to 480px) - Compact spacing */
+@media (max-width: 480px) {
+  :root {
+    --spacing-horizontal: 20px;
   }
 }
 
@@ -1328,13 +1455,15 @@ pre code {
    About Page (single column, no sidebar)
    ======================================== */
 .about-page {
-  max-width: var(--content-width);
+  max-width: var(--max-width-content);
+  padding: 0;
 }
 
 .about-page h1 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
 }
 
 .about-page h2 {
@@ -1373,6 +1502,303 @@ pre code {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
+}
+
+/* ========================================
+   Search Page - Clean & Centered
+   ======================================== */
+.search-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.search-header {
+  margin: 0 0 2.5rem 0;
+  padding: 0;
+}
+
+.search-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  color: var(--dim);
+  pointer-events: none;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.25rem 1rem 3.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: text;
+}
+
+.search-input:hover {
+  border-color: var(--accent);
+  background: rgba(17, 17, 17, 0.8);
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.08);
+}
+
+.search-input:hover + .search-status {
+  color: var(--accent);
+}
+
+.search-input-wrapper:hover .search-icon {
+  color: var(--accent);
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(17, 17, 17, 0.95);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.12);
+}
+
+.search-input:focus + .search-status {
+  color: var(--accent);
+}
+
+.search-input:focus ~ .search-icon {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.search-input::placeholder {
+  color: var(--dim);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.search-input:hover::placeholder {
+  opacity: 0.8;
+}
+
+.search-input:focus::placeholder {
+  opacity: 0.4;
+}
+
+.search-status {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--dim);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warning-border);
+  animation: pulse 1.5s infinite;
+}
+
+.status-dot.ready {
+  background: var(--accent);
+  animation: none;
+}
+
+.status-dot.error {
+  background: var(--danger-border);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.search-results {
+  margin-top: 2rem;
+  min-height: 30vh;
+}
+
+.search-placeholder {
+  text-align: center;
+  padding: 6rem 2rem;
+  color: var(--dim);
+  opacity: 0.6;
+}
+
+.search-placeholder svg {
+  margin-bottom: 1rem;
+}
+
+.search-placeholder p {
+  margin: 0.75rem 0 0 0;
+  font-size: 0.95rem;
+}
+
+.search-hint {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-top: 0.5rem;
+}
+
+.search-result {
+  display: block;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.search-result:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.1);
+}
+
+.search-result-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.search-result-excerpt {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.search-result-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--dim);
+}
+
+.search-result-score {
+  color: var(--accent);
+}
+
+.search-result-tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-result-tag {
+  padding: 0.2rem 0.5rem;
+  background: var(--bg-elevated);
+  border-radius: 2px;
+}
+
+.search-no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--dim);
+}
+
+.search-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--dim);
+}
+
+.search-loading .spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.search-fallback-notice {
+  padding: 0.75rem 1rem;
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--note-border);
+  text-align: left;
+}
+
+/* Search Page Responsive */
+@media (max-width: 768px) {
+  .search-page {
+    max-width: 100%;
+  }
+  
+  .search-header {
+    margin: 0 0 2rem 0;
+  }
+  
+  .search-header h1 {
+    font-size: 2rem;
+  }
+  
+  .search-input-wrapper {
+    max-width: 100%;
+  }
+  
+  .search-input {
+    padding: 0.875rem 1rem 0.875rem 3rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  
+  .search-status {
+    font-size: 0.6rem;
+  }
+  
+  .search-placeholder {
+    padding: 4rem 1rem;
+  }
 }
 
 /* Fix: Citation box pre should have no border */
@@ -1982,8 +2408,8 @@ pre:hover .copy-btn {
    Related Posts Section
    ======================================== */
 .related-posts {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: var(--section-margin-top);
+  padding-top: var(--section-padding-top);
   border-top: 1px solid var(--border);
 }
 
@@ -2624,7 +3050,7 @@ pre:hover .copy-btn {
    ======================================== */
 .backlinks-section {
   margin-top: 2.5rem;
-  padding-top: 2rem;
+  padding-top: var(--section-padding-top);
   border-top: 1px solid var(--border);
 }
 
@@ -2711,14 +3137,14 @@ pre:hover .copy-btn {
 }
 
   .slides-section + .references-section {
-    margin-top: 2rem;
+    margin-top: var(--section-margin-bottom);
     padding-top: 0;
     border-top: none;
   }
 
   .references-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
+    margin-top: var(--section-margin-top);
+    padding-top: var(--section-padding-top);
     border-top: 1px solid var(--border);
   }
 
@@ -2732,8 +3158,8 @@ pre:hover .copy-btn {
    ======================================== */
 
   .slides-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
+    margin-top: var(--section-margin-top);
+    padding-top: var(--section-padding-top);
     border-top: 1px solid var(--border);
   }
 
@@ -3110,19 +3536,22 @@ pre:hover .copy-btn {
    ======================================== */
 
 .note {
-  max-width: var(--content-width);
+  max-width: var(--max-width-content);
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .note-header {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: var(--section-padding-bottom);
   border-bottom: 1px solid var(--border);
 }
 
 .note-meta {
   display: flex;
   gap: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .note-subject {
@@ -3145,7 +3574,7 @@ pre:hover .copy-btn {
   .note-title {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
   /* WIP Badge */
@@ -3185,6 +3614,9 @@ pre:hover .copy-btn {
 .note-description {
   color: var(--text-secondary);
   font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.6;
 }
 
 .note-tags {
@@ -3279,31 +3711,57 @@ pre:hover .copy-btn {
 
 /* Related notes */
 .related-notes {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Specific selector for notes with subject */
+.note .related-notes,
+nav.related-notes {
+  margin-top: 5rem;
+  padding-top: 3rem;
   border-top: 1px solid var(--border);
 }
 
 .related-notes h3 {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 2.5rem;
 }
 
 .related-notes ul {
   list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 .related-notes li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .related-notes a {
   color: var(--text-secondary);
+  display: block;
+  padding: 1rem 0;
+  transition: all 0.2s;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.related-notes li:first-child a {
+  padding-top: 0;
 }
 
 .related-notes a:hover {
   color: var(--accent);
+  transform: translateX(4px);
+  border-bottom-color: var(--accent);
 }
 
 /* ========================================
@@ -3313,13 +3771,32 @@ pre:hover .copy-btn {
 .notes-index {
   max-width: 100%;
   width: 100%;
+  padding: 0;
+}
+
+/* Add subtle gradient background for subjects section */
+.notes-index .post-content {
+  position: relative;
+}
+
+.notes-index .post-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 400px;
+  background: radial-gradient(ellipse at top, rgba(74, 222, 128, 0.03), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .notes-index .post-header {
-  margin-bottom: 2rem;
-  max-width: 1400px;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 0 2rem 0;
+  padding: 0 0 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  max-width: 100%;
 }
 
 .notes-index .post-content {
@@ -3331,14 +3808,15 @@ pre:hover .copy-btn {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1.25rem;
-  margin: 2rem 0 3rem;
+  margin: 1.5rem 0 2rem 0;
+  padding: 0;
 }
 
 .subject-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 1.25rem 1rem;
   text-align: center;
   text-decoration: none;
   transition: all 0.3s;
@@ -3348,60 +3826,80 @@ pre:hover .copy-btn {
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  min-height: 180px;
+  min-height: 140px;
+  position: relative;
 }
 
 .subject-card:hover {
   border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.1);
+  box-shadow: 0 12px 32px rgba(74, 222, 128, 0.12);
+  background: rgba(17, 17, 17, 0.9);
 }
 
 .subject-card.empty {
-  opacity: 0.5;
-  cursor: default;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .subject-card.empty:hover {
   transform: none;
   border-color: var(--border);
   box-shadow: none;
+  background: var(--bg-card);
 }
 
 .subject-icon {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(74, 222, 128, 0.1);
+  background: rgba(74, 222, 128, 0.08);
   border-radius: 12px;
   color: var(--accent);
+  transition: all 0.3s;
+}
+
+.subject-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .subject-card:hover .subject-icon {
-  background: rgba(74, 222, 128, 0.2);
+  background: rgba(74, 222, 128, 0.15);
+  transform: scale(1.05);
+}
+
+.subject-card.empty .subject-icon {
+  opacity: 0.5;
 }
 
 .subject-name {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text);
   margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .subject-count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+.subject-card:hover .subject-count {
+  color: var(--accent);
+}
+
 /* Subject sections */
 .subject-section {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: var(--section-margin-top);
+  padding-top: var(--section-padding-top);
   border-top: 1px solid var(--border);
   scroll-margin-top: 100px;
 }
@@ -3492,24 +3990,24 @@ pre:hover .copy-btn {
 
 @media (max-width: 1200px) {
   .subjects-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .subjects-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .subjects-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
 
   .subject-card {
-    padding: 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .subject-icon {
@@ -3521,11 +4019,20 @@ pre:hover .copy-btn {
     width: 24px;
     height: 24px;
   }
+  
+  .subject-name {
+    font-size: 0.9rem;
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .subjects-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .subject-card {
+    padding: 1.25rem 0.875rem;
   }
 }
 
@@ -3538,13 +4045,14 @@ pre:hover .copy-btn {
 .subject-page,
 .sub-subject-page {
   width: 100%;
+  padding: 0;
 }
 
 /* Shared page header (subject/sub-subject) */
 .subject-page .page-header,
 .sub-subject-page .page-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
+  margin: 0 0 3rem 0;
+  padding: 0 0 2rem 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -3569,6 +4077,7 @@ pre:hover .copy-btn {
   gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--dim);
+  margin-bottom: 1.5rem;
 }
 
 .breadcrumb a {
@@ -3591,7 +4100,8 @@ pre:hover .copy-btn {
 .topics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .topic-card {
@@ -3639,25 +4149,26 @@ pre:hover .copy-btn {
 
 /* General notes section */
 .general-notes {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: var(--section-margin-top);
+  padding-top: var(--section-padding-top);
   border-top: 1px solid var(--border);
 }
 
 .general-notes h2 {
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--dim);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 1rem;
+  letter-spacing: 2px;
+  margin: 0 0 2rem;
 }
 
 /* Notes grid for subject page */
 .general-notes .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 /* Sub-subject notes list */

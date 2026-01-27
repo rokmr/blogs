@@ -49,7 +49,11 @@ async function fetchPostsData() {
     if (postsCache) return postsCache;
 
     try {
-        const response = await fetch('/blogs/posts.json');
+        // Get baseurl from meta tag or detect from current path
+        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
+        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        
+        const response = await fetch(postsUrl);
         if (!response.ok) throw new Error('Posts data not found');
         postsCache = await response.json();
         return postsCache;

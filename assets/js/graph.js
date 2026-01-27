@@ -11,11 +11,11 @@ async function initGraph() {
     const height = container.clientHeight;
 
     try {
-        // Fetch posts data - try root first, fallback to /blogs/ (production path)
-        let response = await fetch('/posts.json');
-        if (!response.ok) {
-            response = await fetch('/blogs/posts.json');
-        }
+        // Get baseurl from meta tag or detect from current path
+        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
+        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        
+        const response = await fetch(postsUrl);
         if (!response.ok) throw new Error('Failed to load graph data');
         const posts = await response.json();
 
@@ -229,6 +229,7 @@ function buildGraphData(posts) {
             title: post.title,
             url: post.url,
             tags: post.tags || [],
+            subject: post.subject || null,
             linkCount: 0
         });
     });
@@ -265,21 +266,24 @@ function buildGraphData(posts) {
         }
     });
 
-    // Create links based on shared tags
+    // Special handling: Connect "short notes" / hub notes to all notes in same subject
     for (let i = 0; i < posts.length; i++) {
-        for (let j = i + 1; j < posts.length; j++) {
-            const post1 = posts[i];
-            const post2 = posts[j];
-            
-            if (post1.tags && post2.tags) {
-                const sharedTags = post1.tags.filter(tag => post2.tags.includes(tag));
+        const post = posts[i];
+        
+        // Check if this is a hub note (contains "short" or "notes" in URL path)
+        const isHubNote = post.url.toLowerCase().includes('short-notes') || 
+                          post.url.toLowerCase().includes('quick-reference');
+        
+        if (isHubNote && post.subject) {
+            // Connect this hub note to ALL notes with same subject
+            for (let j = 0; j < posts.length; j++) {
+                if (i === j) continue;
+                const otherPost = posts[j];
                 
-                // Create link if they share 2+ tags
-                if (sharedTags.length >= 2) {
+                if (otherPost.subject === post.subject) {
                     const sourceId = `post-${i}`;
                     const targetId = `post-${j}`;
                     
-                    // Check if link already exists
                     const linkExists = links.some(l => 
                         (l.source === sourceId && l.target === targetId) ||
                         (l.source === targetId && l.target === sourceId)
@@ -289,11 +293,10 @@ function buildGraphData(posts) {
                         links.push({
                             source: sourceId,
                             target: targetId,
-                            type: 'tag',
-                            sharedTags
+                            type: 'hub',
+                            subject: post.subject
                         });
 
-                        // Update link counts
                         const sourceNode = nodes.find(n => n.id === sourceId);
                         const targetNode = nodes.find(n => n.id === targetId);
                         if (sourceNode) sourceNode.linkCount++;

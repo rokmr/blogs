@@ -20,9 +20,8 @@ kramdown:
     block:
       line_numbers: false
       
-# Include PDFs and resources
-include:
-  - _notes/**/resources/**
+# Static files are served from assets/ directory
+# No need to include collection directories
 
 # Exclude from build
 exclude:

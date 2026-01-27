@@ -55,7 +55,7 @@ layout: default
             </summary>
             <div class="slides-content">
                 {% for slide in page.slides %}
-                <div class="slide-viewer" data-pdf="{{ slide.url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
+                <div class="slide-viewer" data-pdf="{{ slide.url | relative_url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
                 {% endfor %}
             </div>
         </details>
@@ -80,7 +80,7 @@ layout: default
             </summary>
             <div class="slides-content">
                 {% for slide in section.slides %}
-                <div class="slide-viewer" data-pdf="{{ slide.url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
+                <div class="slide-viewer" data-pdf="{{ slide.url | relative_url }}" data-title="{{ slide.title | default: 'Slides' }}" data-lazy="true"></div>
                 {% endfor %}
             </div>
         </details>
@@ -92,16 +92,18 @@ layout: default
     {% include references.html %}
 
     <!-- Related Notes in Same Subject -->
+    {% if page.subject %}
     {% assign subject_notes = site.notes | where: "subject", page.subject | where_exp: "item", "item.url != page.url" %}
     {% if subject_notes.size > 0 %}
     <nav class="related-notes">
-        <h3>Related Notes in {{ page.subject }}</h3>
+        <h3>Related Notes in {{ page.subject | upcase }}</h3>
         <ul>
-            {% for note in subject_notes limit:5 %}
+            {% for note in subject_notes limit:10 %}
             <li><a href="{{ note.url | relative_url }}">{{ note.title }}</a></li>
             {% endfor %}
         </ul>
     </nav>
+    {% endif %}
     {% endif %}
 
     <!-- Backlinks -->
