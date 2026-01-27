@@ -6,7 +6,7 @@ tags: [reinforcement-learning, cs224r, imitation-learning, behavioral-cloning]
 math: true
 slides:
   - title: "Lecture 02 - Imitation Learning"
-    url: "/notes/rl/CS224R/resources/02_cs224r_imitation_2025.pdf"
+    url: "/blogs/rl/CS224R/resources/02_cs224r_imitation_2025.pdf"
 references:
   - title: "Lecture 02 Video"
     url: "https://www.youtube.com/watch?v=WxRDyObrm_M"
