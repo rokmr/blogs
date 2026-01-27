@@ -21,13 +21,11 @@ references:
     year: 2025
 ---
 
-# Policy Gradient Methods
-
 ## Core RL Objective
 
 $$\theta^\star = \arg\max_{\theta} \; \mathbb{E}_{\tau \sim p_\theta(\tau)} \left[ \sum_t r(s_t, a_t) \right]$$
 
-where trajectory $\tau = (s_1, a_1, s_2, \ldots, s_T, a_T)$ and $p_\theta(\tau) = p(s_1) \prod_t \pi_\theta(a_t|s_t) p(s_{t+1}|s_t, a_t)$
+where trajectory $\tau = (s_1, a_1, s_2, \ldots, s_T, a_T)$ and $p_\theta(\tau) = p(s_1) \prod_t \pi_\theta(a_t \mid s_t) p(s_{t+1} \mid s_t, a_t)$
 
 ## Policy Gradient Derivation
 
@@ -52,13 +50,11 @@ $$\nabla_\theta \log p_\theta(\tau) = \nabla_\theta \log p_\theta(\tau) \cdot \f
 
 Substituting back:
 
-$$\nabla_\theta J(\theta) = \int p_\theta(\tau) \nabla_\theta \log p_\theta(\tau) r(\tau) d\tau$$
-
-$$= \mathbb{E}_{\tau \sim p_\theta(\tau)} \left[ \nabla_\theta \log p_\theta(\tau) \cdot r(\tau) \right]$$
+$$\nabla_\theta J(\theta) = \int p_\theta(\tau) \nabla_\theta \log p_\theta(\tau) r(\tau) d\tau = \mathbb{E}_{\tau \sim p_\theta(\tau)} \left[ \nabla_\theta \log p_\theta(\tau) \cdot r(\tau) \right]$$
 
 ### Step 4: Simplify log probability
 
-Recall: $p_\theta(\tau) = p(s_1) \prod_t \pi_\theta(a_t|s_t) p(s_{t+1}|s_t, a_t)$
+Recall: $p_\theta(\tau) = p(s_1) \prod_t \pi_\theta(a_t \mid s_t) p(s_{t+1} \mid s_t, a_t)$
 
 Taking log:
 
@@ -79,7 +75,7 @@ $$\nabla_\theta J(\theta) \approx \frac{1}{N} \sum_{i=1}^N \left(\sum_{t=1}^T \n
 ## REINFORCE Algorithm (Vanilla Policy Gradient)
 
 **Loop:**
-1. **Sample** trajectories $\{\tau^i\}$ from current policy $\pi_\theta(a_t|s_t)$
+1. **Sample** trajectories $\{\tau^i\}$ from current policy $\pi_\theta(a_t\mid s_t)$
 2. **Compute gradient:** 
    $$\nabla_\theta J(\theta) \approx \sum_i \left(\sum_t \nabla_\theta \log \pi_\theta(a_t^i|s_t^i)\right) \left(\sum_t r(s_t^i, a_t^i)\right)$$
 3. **Update:** $\theta \leftarrow \theta + \alpha \nabla_\theta J(\theta)$
@@ -95,7 +91,7 @@ $$\nabla_\theta J(\theta) \approx \frac{1}{N} \sum_{i=1}^N \left(\sum_{t=1}^T \n
 
 $$\min_{\theta} -\mathbb{E}_{(s,a) \sim \mathcal{D}} [\log \pi_\theta(a|s)]$$
 
-This is equivalent to maximizing: $\mathbb{E}_{(s,a) \sim \mathcal{D}} [\log \pi_\theta(a|s)]$
+This is equivalent to maximizing: $$\mathbb{E}_{(s,a) \sim \mathcal{D}} [\log \pi_\theta(a\mid s)]$$
 
 **Gradient:**
 $$\nabla_\theta J_{BC}(\theta) = \mathbb{E}_{(s,a) \sim \mathcal{D}} [\nabla_\theta \log \pi_\theta(a|s)]$$
@@ -111,12 +107,12 @@ $$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)} \left[ \left(\
 | **Data source** | Expert demonstrations | Self-generated trajectories |
 | **Weighting** | All actions weighted equally | Actions weighted by trajectory reward |
 | **Objective** | Mimic expert behavior | Maximize expected reward |
-| **Gradient** | $\nabla_\theta \log \pi_\theta(a|s)$ | $\nabla_\theta \log \pi_\theta(a|s) \cdot r(\tau)$ |
+| **Gradient** | $\nabla_\theta \log \pi_\theta(a \mid s)$ | $\nabla_\theta \log \pi_\theta(a\mid s) \cdot r(\tau)$ |
 
 **Connection:**
 - If all rewards are equal ($r(\tau) = c$ for all $\tau$), policy gradient reduces to behavioral cloning
 - Policy gradient = imitation learning where you imitate your own good behaviors (high reward) and avoid your own bad behaviors (low reward)
-- Both use the same $\nabla_\theta \log \pi_\theta(a|s)$ term, but PG adds reward-based weighting
+- Both use the same $\nabla_\theta \log \pi_\theta(a\mid s)$ term, but PG adds reward-based weighting
 
 ## Variance Reduction Techniques
 
@@ -172,7 +168,7 @@ $$\nabla_\theta J(\theta) \approx \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T \nabla_\
 
 ### Why We Need a Surrogate
 
-**Problem:** We derived the gradient $\nabla_\theta J(\theta)$ mathematically, but computing $\nabla_\theta \log \pi_\theta(a|s)$ manually for a neural network is impractical.
+**Problem:** We derived the gradient $\nabla_\theta J(\theta)$ mathematically, but computing $\nabla_\theta \log \pi_\theta(a\mid s)$ manually for a neural network is impractical.
 
 **Solution:** Construct a scalar function $\tilde{J}(\theta)$ whose gradient equals our derived policy gradient, then use automatic differentiation.
 
@@ -208,14 +204,14 @@ optimizer.step()
 ### Policy Parameterizations
 
 **Discrete actions (Cross-Entropy):**
-- Network outputs logits, apply softmax: $\pi_\theta(a|s) = \text{softmax}(f_\theta(s))_a$
-- Surrogate uses: $\log \pi_\theta(a|s)$
+- Network outputs logits, apply softmax: $\pi_\theta(a\mid s) = \text{softmax}(f_\theta(s))_a$
+- Surrogate uses: $\log \pi_\theta(a\mid s)$
 - Resembles classification loss
 
 **Continuous actions (Gaussian):**
 - Network outputs mean: $\mu_\theta(s)$, with variance $\sigma^2$
 - Action sampled: $a \sim \mathcal{N}(\mu_\theta(s), \sigma^2)$
-- Log prob: $\log \pi_\theta(a|s) \propto -\frac{1}{2\sigma^2}\|a - \mu_\theta(s)\|^2$
+- Log prob: $\log \pi_\theta(a\mid s) \propto -\frac{1}{2\sigma^2}\|a - \mu_\theta(s)\|^2$
 - Surrogate uses squared error form
 ## Challenges & Practical Considerations
 
@@ -249,7 +245,7 @@ optimizer.step()
 
 **Why vanilla PG is on-policy:**
 
-The expectation $\mathbb{E}_{\tau \sim \pi_\theta}$ is with respect to the current policy. After $\theta$ changes, the distribution changes, so old samples don't represent the new policy.
+The expectation $$\mathbb{E}_{\tau \sim \pi_\theta}$$ is with respect to the current policy. After $$\theta$$ changes, the distribution changes, so old samples don't represent the new policy.
 
 ## Summary
 
@@ -310,7 +306,7 @@ Substitute the importance weight:
 $$\nabla_{\theta'} J(\theta') = \mathbb{E}_{\tau \sim p_{\theta}(\tau)} \left[ \prod_{t=1}^T \frac{\pi_{\theta'}(a_t|s_t)}{\pi_{\theta}(a_t|s_t)} \left(\sum_{t=1}^T \nabla_{\theta'} \log \pi_{\theta'}(a_t|s_t)\right) \left(\left(\sum_{t'=t}^T r(s_{t'}, a_{t'})\right) - b\right) \right]$$
 
 **Problem with trajectory-level IS:** 
-- Product $\prod_{t=1}^T \frac{\pi_{\theta'}(a_t|s_t)}{\pi_{\theta}(a_t|s_t)}$ can **explode** or **vanish** for long horizons
+- Product $\prod_{t=1}^T \frac{\pi_{\theta'}(a_t \mid s_t)}{\pi_{\theta}(a_t \mid s_t)}$ can **explode** or **vanish** for long horizons
 - High variance, unstable training
 
 ### Off-Policy Policy Gradient (Timestep-Level)
@@ -320,7 +316,7 @@ $$\nabla_{\theta'} J(\theta') = \mathbb{E}_{\tau \sim p_{\theta}(\tau)} \left[ \
 $$\nabla_{\theta'} J(\theta') \approx \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T \frac{\pi_{\theta'}(a_{i,t}|s_{i,t})}{\pi_{\theta}(a_{i,t}|s_{i,t})} \nabla_{\theta'} \log \pi_{\theta'}(a_{i,t}|s_{i,t}) \left(\left(\sum_{t'=t}^T r(s_{i,t'}, a_{i,t'})\right) - b\right)$$
 
 **Key advantages:**
-- Importance weight is now per-timestep: $\frac{\pi_{\theta'}(a_{i,t}|s_{i,t})}{\pi_{\theta}(a_{i,t}|s_{i,t})}$ (single ratio, not product)
+- Importance weight is now per-timestep: $\frac{\pi_{\theta'}(a_{i,t} \mid s_{i,t})}{\pi_{\theta}(a_{i,t} \mid s_{i,t})}$ (single ratio, not product)
 - Much less likely to explode/vanish
 - More stable variance
 
@@ -331,7 +327,7 @@ $$\nabla_{\theta'} J(\theta') \approx \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T \nab
 ### Off-Policy Algorithm
 
 **Full algorithm:**
-1. Sample trajectories $\{\tau^i\}$ from old policy $\pi_\theta(a_t|s_t)$
+1. Sample trajectories $\{\tau^i\}$ from old policy $\pi_\theta(a_t\mid s_t)$
 2. Compute off-policy gradient $\nabla_\theta J(\theta)$ using $\{\tau^i\}$ with importance weights
 3. Update: $\theta \leftarrow \theta + \alpha \nabla_\theta J(\theta)$
 4. **Key benefit:** Can take **multiple gradient steps** on same batch before resampling
