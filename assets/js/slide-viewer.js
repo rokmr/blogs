@@ -214,9 +214,9 @@ class SlideViewer {
         fullscreenBtn.title = this.isFullscreen ? 'Exit fullscreen' : 'Fullscreen';
         const svg = fullscreenBtn.querySelector('svg');
         if (svg) {
-          if (this.isFullscreen) {
-            // Exit fullscreen icon (minimize)
-            svg.innerHTML = '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>';
+                  if (this.isFullscreen) {
+          // Exit fullscreen icon
+          svg.innerHTML = '<path d="M5 0H3v3H0v2h5V0zm6 0v5h5V3h-3V0h-2zM0 11h5v5H3v-3H0v-2zm16 0v2h-3v3h-2v-5h5z"/>';
           } else {
             // Enter fullscreen icon (maximize)
             svg.innerHTML = '<path d="M1 1v6h2V3h4V1H1zm8 0v2h4v4h2V1H9zM3 9H1v6h6v-2H3V9zm10 0v4H9v2h6V9h-2z"/>';

@@ -68,9 +68,7 @@ Learn a policy $\pi_\theta$ that performs at the expert level by mimicking exper
    - Can represent multimodal distributions
 
 2. **Discretize + Autoregressive**
-   - Output: $p(a_{t,1}), p(a_{t,2} \mid \hat{a}_{t,1}), p(a_{t,3}\mid \hat{a}_{t,1:2}), \cdots$
-
-   - Output: $p(a_{t,1}), p(a_{t,2} \mid \hat{a}_{t,1}), p(a)$
+   - Output: $$p(a_{t,1}), p(a_{t,2} \mid \hat{a}_{t,1}), p(a_{t,3}\mid \hat{a}_{t,1:2}), \cdots$$
    - Sequential action prediction
    - In cars we can descretize streeing and acceleration
    - depend on the current action so there will be conditional
