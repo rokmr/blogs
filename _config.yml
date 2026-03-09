@@ -2,8 +2,8 @@
 title: "Rohit Kumar | AI Research Blog"
 description: "Deep dives into Computer Vision, LLMs, Diffusion Models, and Agentic AI. Technical tutorials with math, code, and interactive visualizations."
 author: "Rohit Kumar"
-email: sahil15rohit88@gmail.com
-url: "https://rokmr.github.io"
+email: contact@rohit.vision
+url: "https://rohit.vision"
 baseurl: "/blogs"
 
 # Build Settings
@@ -68,7 +68,7 @@ social:
   github: rokmr
   linkedin: rohitronie
   scholar: "https://scholar.google.com/citations?user=7N8THZgAAAAJ&hl=en"
-  portfolio: "https://rokmr.github.io"
+  portfolio: "https://rohit.vision"
 
 # Feed
 feed:

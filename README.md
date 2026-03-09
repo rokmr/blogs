@@ -1,6 +1,6 @@
 # AI Research Blog
 
-Technical blog for AI/ML deep dives hosted at [rokmr.github.io/blogs](https://rokmr.github.io/blogs).
+Technical blog for AI/ML deep dives hosted at [rohit.vision/blogs](https://rohit.vision/blogs).
 
 ## Writing Posts
 

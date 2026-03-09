@@ -30,10 +30,10 @@ Previously, I've worked on computer vision research, incremental learning, and b
 - [GitHub](https://github.com/rokmr)
 - [LinkedIn](https://linkedin.com/in/rohitronie)
 - [Google Scholar](https://scholar.google.com/citations?user=7N8THZgAAAAJ&hl=en)
-- [Portfolio](https://rokmr.github.io)
+- [Portfolio](https://rohit.vision)
 
 ---
 
-*Have questions or want to collaborate? [Email me](mailto:sahil15rohit88@gmail.com).*
+*Have questions or want to collaborate? [Email me](mailto:contact@rohit.vision).*
 
 </div>
