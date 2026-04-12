@@ -10,4 +10,7 @@ sub_subjects:
   - tokenization
   - fine-tuning
   - moe
+  - agents
+  - rag
+  - frameworks
 ---

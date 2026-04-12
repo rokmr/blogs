@@ -5,6 +5,10 @@ description: "Quick reference for reinforcement learning concepts"
 tags: [reinforcement-learning, quick-reference, cheatsheet]
 subject: rl
 math: true
+status: wip
+sitemap: false
 ---
+
+## Overview
 
 Testing short notes

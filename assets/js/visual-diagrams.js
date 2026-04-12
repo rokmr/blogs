@@ -356,10 +356,13 @@ function renderLineChart(cfg) {
     const dashAttr = line.dashed ? 'stroke-dasharray="6,4"' : '';
     svg += `<polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${dashAttr}/>`;
 
-    // Data points
-    sorted.forEach(([x, y]) => {
-      svg += svgEl('circle', { cx: sx(x), cy: sy(y), r: 3, fill: color, stroke: COLORS.card, 'stroke-width': 1.5 });
-    });
+    // Data points — auto-hide when dense, override with cfg.showDots
+    const showDots = cfg.showDots !== undefined ? cfg.showDots : sorted.length <= 20;
+    if (showDots) {
+      sorted.forEach(([x, y]) => {
+        svg += svgEl('circle', { cx: sx(x), cy: sy(y), r: 3, fill: color, stroke: COLORS.card, 'stroke-width': 1.5 });
+      });
+    }
   });
 
   // Legend

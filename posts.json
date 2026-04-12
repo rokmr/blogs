@@ -21,6 +21,7 @@ layout: null
   "excerpt": {{ item.description | default: item.excerpt | strip_html | replace: '$$', '' | replace: '$', '' | truncate: 200 | jsonify }},
   "tags": {{ item.tags | jsonify }},
   "subject": {{ item.subject | jsonify }},
+  "sub_subject": {% assign path_parts = item.path | split: '/' %}{% if path_parts.size >= 3 %}{{ path_parts[2] | jsonify }}{% else %}null{% endif %},
   "type": "{% if item.collection == 'posts' %}post{% else %}note{% endif %}",
   "links": [
     {% assign content_links = item.content | split: 'href="' %}

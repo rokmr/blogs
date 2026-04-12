@@ -4,7 +4,7 @@ layout: default
 
 <article class="note" itemscope itemtype="http://schema.org/Article">
     <header class="note-header">
-        <h1 class="note-title" itemprop="name headline">{{ page.title }}</h1>
+        <h1 class="note-title" itemprop="name headline">{% if page.paper %}<a href="{{ page.paper }}" target="_blank" rel="noopener" class="note-title-link">{{ page.title }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-left:6px;vertical-align:middle;opacity:0.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>{% else %}{{ page.title }}{% endif %}</h1>
         <div class="post-meta">
             {% if page.status == 'wip' or page.status == 'draft' %}
             <span class="wip-badge">

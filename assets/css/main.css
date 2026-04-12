@@ -3532,6 +3532,17 @@ pre:hover .copy-btn {
     margin-bottom: 1.5rem;
   }
 
+  .note-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .note-title-link:hover {
+    color: var(--accent);
+  }
+  .note-title-link:hover svg {
+    opacity: 0.8 !important;
+  }
+
   /* WIP Badge */
   .wip-badge {
     display: inline-flex;

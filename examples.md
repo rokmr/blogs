@@ -2,6 +2,7 @@
 title: "Examples"
 layout: default
 permalink: /examples/
+sitemap: false
 ---
 
 <article class="post">

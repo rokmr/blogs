@@ -30,6 +30,8 @@ exclude:
   - README.md
   - vendor
   - docs
+  - drafts
+  - assets/notebooks
 
 # Plugins
 plugins:
@@ -62,6 +64,14 @@ defaults:
       layout: "note"
       comments: false
       math: true
+  - scope:
+      path: "docs"
+    values:
+      sitemap: false
+  - scope:
+      path: "assets/resources"
+    values:
+      sitemap: false
 
 # Social Links (for footer/header)
 social:
