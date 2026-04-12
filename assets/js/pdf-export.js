@@ -11,8 +11,8 @@ async function exportToPDF() {
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
     }
 
-    const postContent = document.querySelector('.post-content');
-    const postTitle = document.querySelector('.post-title')?.textContent || 'Document';
+    const postContent = document.querySelector('.post-content') || document.querySelector('.note-content');
+    const postTitle = document.querySelector('.post-title')?.textContent || document.querySelector('.note-title')?.textContent || 'Document';
     const postMeta = document.querySelector('.post-meta');
 
     if (!postContent) {

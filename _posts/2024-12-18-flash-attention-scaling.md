@@ -130,7 +130,7 @@ Where $M$ is SRAM size (~20 MB) and $d$ is head dimension (~64-128).
 
 ## Practical Performance
 
-<div class="collapsible" data-label="Show Benchmark Results">
+<div class="collapsible" data-label="Show Benchmark Results" markdown="1">
 
 ```python
 import torch
@@ -178,6 +178,7 @@ for seq_len in [1024, 2048, 4096, 8192]:
 ```
 
 **Typical results on A100:**
+
 | Sequence Length | Standard | Flash Attention | Speedup |
 |-----------------|----------|-----------------|---------|
 | 1024 | 1.2 ms | 0.4 ms | 3.0x |

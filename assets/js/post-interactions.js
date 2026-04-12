@@ -1,14 +1,27 @@
 /**
  * Post Interactions Module
- * Handles share buttons, like buttons, and comments navigation
+ * All reactions & comments go through Giscus (GitHub Discussions)
+ * Single source of truth — shared counts visible to everyone
  */
 
 /**
- * Initialize post action buttons (share, scroll to comments)
+ * Initialize post action buttons
  */
 function initPostActions() {
     const actionsBar = document.querySelector('.post-actions');
     if (!actionsBar) return;
+
+    // Like button — scrolls to Giscus reactions
+    const likeBtn = actionsBar.querySelector('.like-btn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', () => scrollToGiscus());
+    }
+
+    // Comments button — scrolls to Giscus comments
+    const commentsBtn = actionsBar.querySelector('.comments-btn');
+    if (commentsBtn) {
+        commentsBtn.addEventListener('click', () => scrollToGiscus());
+    }
 
     // Share button
     const shareBtn = actionsBar.querySelector('.share-btn');
@@ -31,16 +44,8 @@ function initPostActions() {
         });
     }
 
-    // Scroll to comments
-    const commentsBtn = actionsBar.querySelector('.comments-btn');
-    if (commentsBtn) {
-        commentsBtn.addEventListener('click', () => {
-            const comments = document.querySelector('.comments') || document.querySelector('.giscus');
-            if (comments) {
-                comments.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    }
+    // Fetch shared counts from GitHub Discussions
+    fetchDiscussionCounts();
 }
 
 /**
@@ -108,101 +113,92 @@ function showShareFallback(btn, title, url) {
 }
 
 /**
- * Initialize like buttons with localStorage persistence
+ * Fetch shared reaction & comment counts from GitHub Discussions via Giscus API
+ * No login needed to VIEW counts — visible to all visitors
  */
-function initLikeButtons() {
-    const likeBtn = document.querySelector('.like-btn');
-    if (!likeBtn) return;
+async function fetchDiscussionCounts() {
+    const likeCountEl = document.querySelector('.like-count');
+    const commentCountEl = document.querySelector('.comment-count');
+    if (!likeCountEl && !commentCountEl) return;
 
-    const postId = likeBtn.dataset.postId;
-    const likesKey = 'blog_likes';
-    const likedKey = 'blog_liked_posts';
+    try {
+        const params = new URLSearchParams({
+            repo: 'rokmr/blogs',
+            term: window.location.pathname,
+            category: 'DIC_kwDOQqldOM4C6qXj',
+            strict: 'false',
+            first: '0',
+        });
 
-    // Get current likes data from localStorage
-    function getLikesData() {
-        try {
-            return JSON.parse(localStorage.getItem(likesKey) || '{}');
-        } catch {
-            return {};
-        }
+        const res = await fetch('https://giscus.app/api/discussions?' + params, {
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (!res.ok) return;
+        const data = await res.json();
+        const discussion = data?.discussion;
+        if (!discussion) return;
+
+        updateCountBadge(likeCountEl, 
+            discussion.reactionCount ?? discussion.reactions?.totalCount ?? 0);
+        updateCountBadge(commentCountEl, 
+            discussion.totalCommentCount ?? discussion.comments?.totalCount ?? 0);
+    } catch (e) {
+        // Silently fail — counts just won't show
     }
+}
 
-    // Get liked posts set
-    function getLikedPosts() {
-        try {
-            return new Set(JSON.parse(localStorage.getItem(likedKey) || '[]'));
-        } catch {
-            return new Set();
-        }
-    }
+/**
+ * Listen for Giscus metadata events (fires when iframe loads)
+ * Keeps counts in sync when user reacts/comments in Giscus
+ */
+function listenForGiscusMetadata() {
+    window.addEventListener('message', (event) => {
+        if (event.origin !== 'https://giscus.app') return;
 
-    // Save likes data
-    function saveLikesData(data) {
-        localStorage.setItem(likesKey, JSON.stringify(data));
-    }
+        const meta = event.data?.giscus?.discussion;
+        if (!meta) return;
 
-    // Save liked posts
-    function saveLikedPosts(posts) {
-        localStorage.setItem(likedKey, JSON.stringify([...posts]));
-    }
-
-    // Update UI
-    function updateUI() {
-        const likesData = getLikesData();
-        const likedPosts = getLikedPosts();
-        const count = likesData[postId] || 0;
-        const isLiked = likedPosts.has(postId);
-
-        const countEl = likeBtn.querySelector('.like-count');
-        const textEl = likeBtn.querySelector('.like-text');
-
-        if (count > 0) {
-            countEl.textContent = count;
-            countEl.style.display = 'inline';
-        } else {
-            countEl.style.display = 'none';
-        }
-
-        if (isLiked) {
-            likeBtn.classList.add('liked');
-            textEl.textContent = 'Liked';
-        } else {
-            likeBtn.classList.remove('liked');
-            textEl.textContent = 'Like';
-        }
-    }
-
-    // Toggle like
-    likeBtn.addEventListener('click', () => {
-        const likesData = getLikesData();
-        const likedPosts = getLikedPosts();
-
-        if (likedPosts.has(postId)) {
-            // Unlike
-            likedPosts.delete(postId);
-            likesData[postId] = Math.max(0, (likesData[postId] || 1) - 1);
-        } else {
-            // Like
-            likedPosts.add(postId);
-            likesData[postId] = (likesData[postId] || 0) + 1;
-        }
-
-        saveLikesData(likesData);
-        saveLikedPosts(likedPosts);
-        updateUI();
-
-        // Add animation
-        likeBtn.classList.add('like-animate');
-        setTimeout(() => likeBtn.classList.remove('like-animate'), 300);
+        updateCountBadge(document.querySelector('.like-count'),
+            meta.reactionCount ?? meta.totalReactionCount ?? 0);
+        updateCountBadge(document.querySelector('.comment-count'),
+            meta.totalCommentCount ?? 0);
     });
+}
 
-    // Initial UI update
-    updateUI();
+/**
+ * Update a count badge element — show if > 0, hide if 0
+ */
+function updateCountBadge(el, count) {
+    if (!el) return;
+    if (count > 0) {
+        el.textContent = count;
+        el.style.display = 'inline';
+    } else {
+        el.style.display = 'none';
+    }
+}
+
+/**
+ * Scroll to the Giscus comments section and highlight it
+ */
+function scrollToGiscus() {
+    const target = document.querySelector('#comments-section') 
+        || document.querySelector('.comments') 
+        || document.querySelector('.giscus');
+
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    target.classList.add('giscus-highlight');
+    setTimeout(() => target.classList.remove('giscus-highlight'), 2000);
 }
 
 // Export for use in main.js
 if (typeof window !== 'undefined') {
     window.initPostActions = initPostActions;
+    window.listenForGiscusMetadata = listenForGiscusMetadata;
     window.showShareFallback = showShareFallback;
-    window.initLikeButtons = initLikeButtons;
+    window.scrollToGiscus = scrollToGiscus;
 }

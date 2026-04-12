@@ -1,5 +1,5 @@
 /**
- * AI Research Blog - Main JavaScript
+ * rohit.vision/blogs - Main JavaScript
  * 
  * This is a lightweight orchestrator that initializes all modules.
  * The actual functionality is split into focused modules:
@@ -9,7 +9,7 @@
  * - code-runner.js: Runnable Python code (Pyodide)
  * - code-enhancements.js: Copy buttons, line numbers, collapsible code
  * - mermaid-init.js: Mermaid diagram rendering
- * - post-interactions.js: Share, like, comments
+ * - post-interactions.js: Share, react (Giscus), comments
  * - embeds.js: HuggingFace, video embeds
  * - utils.js: Table wrappers, math tooltips
  * - citations.js: Academic citations with References section
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Math
   if (typeof initInteractiveMath !== 'undefined') initInteractiveMath();
 
-  // Post interactions
+  // Post interactions (all reactions via Giscus / GitHub Discussions)
   if (typeof initPostActions !== 'undefined') initPostActions();
-  if (typeof initLikeButtons !== 'undefined') initLikeButtons();
+  if (typeof listenForGiscusMetadata !== 'undefined') listenForGiscusMetadata();
 
   // Visual enhancements
   if (typeof initImageCompare !== 'undefined') initImageCompare();

@@ -416,7 +416,7 @@ function processSlidesFrontmatter() {
       if (slide.url) {
         // Find reference to insert after (typically after references section)
         const refSection = document.querySelector('.references-section');
-        const insertPoint = refSection || document.querySelector('.post-content');
+        const insertPoint = refSection || document.querySelector('.post-content') || document.querySelector('.note-content');
         
         if (insertPoint) {
           const slideContainer = document.createElement('div');

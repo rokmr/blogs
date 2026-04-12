@@ -6,11 +6,6 @@ custom_class: notes-content
 ---
 
 <article class="post notes-index">
-  <header class="post-header">
-    <h1 class="post-title">Study Notes</h1>
-    <p class="post-meta">Subject-wise notes with all blog features</p>
-  </header>
-
   <div class="post-content">
     <div class="subjects-grid">
       {% assign subject_config = "maths:Mathematics,deep-learning:Deep Learning,cv:Computer Vision,nlp-llms:NLP & LLMs,ml:Machine Learning,rl:Reinforcement Learning,mlops:MLOps,setup:Setup" | split: "," %}

@@ -49,7 +49,7 @@ async function loadBibliography() {
  * Process all citations in the document
  */
 async function initCitations() {
-    const content = document.querySelector('.post-content');
+    const content = document.querySelector('.post-content') || document.querySelector('.note-content');
     if (!content) return;
 
     const bibliography = await loadBibliography();
@@ -103,7 +103,7 @@ function getCitationTitle(key, bibliography) {
  * Generate the References section at the end of the post
  */
 function generateReferencesSection(bibliography) {
-    const content = document.querySelector('.post-content');
+    const content = document.querySelector('.post-content') || document.querySelector('.note-content');
     if (!content || citationsUsed.size === 0) return;
 
     // Check if References section already exists

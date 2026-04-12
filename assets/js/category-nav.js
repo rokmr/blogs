@@ -1,41 +1,10 @@
 /**
  * Category Navigation Module
- * Handles smooth scroll and active state for category navigation
+ * (Filter pills are handled inline in home.html)
  */
 
-/**
- * Initialize category navigation with smooth scroll and active state
- */
 function initCategoryNav() {
-    const categoryLinks = document.querySelectorAll('.category-link');
-    const sections = document.querySelectorAll('.category-section');
-
-    if (categoryLinks.length === 0 || sections.length === 0) return;
-
-    // Smooth scroll and active state on click
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Update active state on scroll
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 150;
-            if (window.scrollY >= sectionTop) {
-                current = section.getAttribute('id');
-            }
-        });
-        categoryLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) {
-                link.classList.add('active');
-            }
-        });
-    });
+    // No-op: filtering is now inline in home layout
 }
 
 /**

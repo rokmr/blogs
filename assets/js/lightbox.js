@@ -37,8 +37,8 @@ function initLightbox() {
   `;
     document.body.appendChild(overlay);
 
-    // Get all images in post content
-    const images = Array.from(document.querySelectorAll('.post-content img:not(.no-lightbox)'));
+    // Get all images in post/note content
+    const images = Array.from(document.querySelectorAll('.post-content img:not(.no-lightbox), .note-content img:not(.no-lightbox)'));
     if (images.length === 0) return;
 
     let currentIndex = 0;
