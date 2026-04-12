@@ -29,17 +29,18 @@
   - [Interactive / Runnable Code](#3-interactive--runnable-code)
   - [Collapsible Code](#4-collapsible-code)
   - [Mermaid Diagrams](#5-mermaid-diagrams)
-  - [Images](#6-images)
-  - [Image Comparison Slider](#7-image-comparison-slider)
-  - [Video Embeds](#8-video-embeds)
-  - [HuggingFace Space Embeds](#9-huggingface-space-embeds)
-  - [Callout Blocks](#10-callout-blocks)
-  - [Citations & Bibliography](#11-citations--bibliography)
-  - [Cross-References](#12-cross-references)
-  - [Inline Formatting](#13-inline-formatting)
-  - [Slide Viewer (PDF)](#14-slide-viewer-pdf)
-  - [Tables](#15-tables)
-  - [Breadcrumb Navigation](#16-breadcrumb-navigation)
+  - [Visual Diagrams (SVG)](#6-visual-diagrams-svg)
+  - [Images](#7-images)
+  - [Image Comparison Slider](#8-image-comparison-slider)
+  - [Video Embeds](#9-video-embeds)
+  - [HuggingFace Space Embeds](#10-huggingface-space-embeds)
+  - [Callout Blocks](#11-callout-blocks)
+  - [Citations & Bibliography](#12-citations--bibliography)
+  - [Cross-References](#13-cross-references)
+  - [Inline Formatting](#14-inline-formatting)
+  - [Slide Viewer (PDF)](#15-slide-viewer-pdf)
+  - [Tables](#16-tables)
+  - [Breadcrumb Navigation](#17-breadcrumb-navigation)
 - [Sidebar & Quick Actions](#-sidebar--quick-actions)
 - [Semantic Search](#-semantic-search)
 - [Comments & Reactions (Giscus)](#-comments--reactions-giscus)
@@ -49,6 +50,7 @@
 - [Configuration](#-configuration)
 - [Local Development](#-local-development)
 - [Deployment](#-deployment)
+- [AI / Dev Tooling](#-ai--dev-tooling)
 - [License](#license)
 
 ---
@@ -59,7 +61,7 @@
 |---|---|
 | **Math** | KaTeX (inline & display), numbered equations, equation references |
 | **Code** | Prism.js syntax highlighting, interactive runnable code (Pyodide), collapsible blocks, line numbers |
-| **Diagrams** | Mermaid.js (flowcharts, sequence, state, class, ER, Gantt, pie charts) |
+| **Diagrams** | Mermaid.js (flowcharts, sequence, state, class, ER, Gantt) + Visual Diagrams (14 SVG types from JSON) |
 | **Images** | Single / two-column / grid layouts, lightbox, image comparison slider |
 | **Embeds** | YouTube / Vimeo videos, HuggingFace Spaces, PDF slide viewer |
 | **Callouts** | 17 types — note, tip, warning, danger, theorem, definition, proof, example, etc. |
@@ -127,9 +129,10 @@ blogs/
 │   ├── rl/                  # Reinforcement Learning
 │   └── setup/               # Setup Guides
 ├── assets/
-│   ├── css/main.css         # All styles
+│   ├── css/main.css         # All styles (type scale tokens, components)
 │   ├── js/                  # Modular JavaScript
 │   │   ├── main.js          # Orchestrator
+│   │   ├── visual-diagrams.js # SVG diagram renderer (14 types)
 │   │   ├── toc.js           # Table of Contents
 │   │   ├── callouts.js      # Callout blocks
 │   │   ├── code-runner.js   # Interactive code (Pyodide)
@@ -150,6 +153,13 @@ blogs/
 │   │   └── ...
 │   ├── images/              # Blog images
 │   └── resources/           # PDFs, slides, etc.
+├── .skills/                 # AI agent skill files
+│   ├── frontend.md          # Design system (colors, typography, layout)
+│   └── diagram-agent.md     # Visual diagram generation reference
+├── .continuerules           # Continue.dev project instructions (auto-injected)
+├── docs/
+│   └── examples/            # Dev reference examples (excluded from build)
+│       └── visual-diagrams.md
 ├── docs.md                  # Documentation page
 ├── examples.md              # Interactive feature showcase
 ├── search.html              # Search page
@@ -349,7 +359,7 @@ class TransformerBlock(nn.Module):
 
 ### 5. Mermaid Diagrams
 
-Create diagrams using [Mermaid.js](https://mermaid.js.org/) syntax inside fenced code blocks:
+Simple diagrams using [Mermaid.js](https://mermaid.js.org/) syntax inside fenced code blocks:
 
 ````markdown
 ```mermaid
@@ -375,7 +385,43 @@ sequenceDiagram
 
 ---
 
-### 6. Images
+### 6. Visual Diagrams (SVG)
+
+14 diagram types rendered as inline SVGs from declarative JSON — zero external dependencies. Powered by `visual-diagrams.js`.
+
+**Supported types:** `line-chart`, `bar-chart`, `scatter-plot`, `pie-chart`, `heatmap`, `flowchart`, `architecture`, `neural-net`, `timeline`, `comparison`, `pipeline`, `tree`, `state-machine`, `venn`
+
+```html
+<div class="visual-diagram" data-type="line-chart" data-config='{
+  "title": "Training Loss",
+  "xLabel": "Epoch",
+  "yLabel": "Loss",
+  "lines": [
+    {
+      "label": "Train",
+      "data": [[0,2.5],[50,0.8],[100,0.3]],
+      "color": 1,
+      "fill": true
+    },
+    {
+      "label": "Val",
+      "data": [[0,2.6],[50,1.0],[100,0.75]],
+      "color": 2,
+      "dashed": true
+    }
+  ]
+}'></div>
+```
+
+Each diagram automatically gets a header (icon + label + title), download SVG button, and fullscreen button.
+
+**Color system:** `"color": 1` = green, `2` = blue, `3` = pink, `4` = orange. Or any hex string.
+
+> See `docs/examples/visual-diagrams.md` for configs of all 14 types, or `.skills/diagram-agent.md` for the full schema reference.
+
+---
+
+### 7. Images
 
 Flexible image layouts using the `img.html` include. Supports single, two-column, and grid layouts with optional captions.
 
@@ -408,7 +454,7 @@ Flexible image layouts using the `img.html` include. Supports single, two-column
 
 ---
 
-### 7. Image Comparison Slider
+### 8. Image Comparison Slider
 
 Interactive before/after slider for comparing images:
 
@@ -423,7 +469,7 @@ Interactive before/after slider for comparing images:
 
 ---
 
-### 8. Video Embeds
+### 9. Video Embeds
 
 Embed videos from YouTube, Vimeo, or local MP4 files:
 
@@ -449,7 +495,7 @@ Embed videos from YouTube, Vimeo, or local MP4 files:
 
 ---
 
-### 9. HuggingFace Space Embeds
+### 10. HuggingFace Space Embeds
 
 Embed interactive HuggingFace Spaces directly in posts:
 
@@ -464,7 +510,7 @@ Embed interactive HuggingFace Spaces directly in posts:
 
 ---
 
-### 10. Callout Blocks
+### 11. Callout Blocks
 
 Obsidian-style callouts for structured content. 17 types available:
 
@@ -530,7 +576,7 @@ Obsidian-style callouts for structured content. 17 types available:
 
 ---
 
-### 11. Citations & Bibliography
+### 12. Citations & Bibliography
 
 Academic-style citations with auto-numbered references.
 
@@ -593,7 +639,7 @@ citation_refs:               # Pull from global bibliography
 
 ---
 
-### 12. Cross-References
+### 13. Cross-References
 
 Reference figures, tables, equations, code blocks, and sections by label.
 
@@ -618,7 +664,7 @@ Reference figures, tables, equations, code blocks, and sections by label.
 
 ---
 
-### 13. Inline Formatting
+### 14. Inline Formatting
 
 Special inline formatting extensions:
 
@@ -631,7 +677,7 @@ Special inline formatting extensions:
 
 ---
 
-### 14. Slide Viewer (PDF)
+### 15. Slide Viewer (PDF)
 
 Embed interactive PDF slide viewers with navigation, zoom, fullscreen, and download.
 
@@ -685,7 +731,7 @@ slide_sections:
 
 ---
 
-### 15. Tables
+### 16. Tables
 
 Standard GitHub-Flavored Markdown tables:
 
@@ -701,7 +747,7 @@ Standard GitHub-Flavored Markdown tables:
 
 ---
 
-### 16. Breadcrumb Navigation
+### 17. Breadcrumb Navigation
 
 Add breadcrumb navigation to any page:
 
@@ -897,6 +943,29 @@ The site is deployed automatically via **GitHub Actions** on push to `main`.
 See [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) for the CI/CD pipeline.
 
 The live site is hosted at: **[rohit.vision/blogs](https://rohit.vision/blogs)**
+
+---
+
+## 🤖 AI / Dev Tooling
+
+The project includes skill files for AI-assisted development (works with [Continue.dev](https://continue.dev) on VS Code):
+
+```
+.skills/
+├── frontend.md          # Full design system: colors, type scale, layout, components
+└── diagram-agent.md     # Visual diagram schemas, rendering rules, examples
+
+.continuerules           # Auto-injected into every Continue chat session
+docs/examples/           # Dev reference examples (not published)
+```
+
+**Usage in Continue chat:**
+```
+@file .skills/diagram-agent.md
+Create a neural network diagram with 3 hidden layers
+```
+
+The `.continuerules` file gives every chat session the project context (type scale tokens, SVG constants, color system). Reference a skill with `@file` for the full schema when needed.
 
 ---
 

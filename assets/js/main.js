@@ -75,5 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Slide viewer
   if (typeof initSlideViewers !== 'undefined') initSlideViewers();
+
+  // Visual diagrams (charts, flowcharts, neural nets, etc.)
+  if (typeof initVisualDiagrams !== 'undefined') initVisualDiagrams();
 });
 

@@ -1,0 +1,40 @@
+{% comment %}
+  Visual Diagram Include
+  
+  Usage:
+    {% include diagram.html type="line-chart" title="Training Loss" config='{"lines":[...]}' %}
+    {% include diagram.html type="flowchart" title="Pipeline" config=page.pipeline_config %}
+    {% include diagram.html type="neural-net" config='{"layers":[...]}' caption="3-layer MLP" %}
+  
+  Parameters:
+    type     - Diagram type (required): line-chart, bar-chart, scatter-plot, pie-chart, 
+               heatmap, flowchart, architecture, neural-net, tree, timeline, comparison,
+               pipeline, state-machine, venn, radar-chart, matrix
+    title    - Optional title shown in header
+    caption  - Optional caption shown below diagram
+    config   - JSON config string or frontmatter variable (required)
+{% endcomment %}
+{% assign diagram_type = include.type | default: "flowchart" %}
+{% assign diagram_title = include.title | default: "" %}
+{% assign diagram_caption = include.caption | default: "" %}
+
+{% if include.config %}
+  {% if include.config.first %}
+    {% comment %} Config is a frontmatter hash/array — convert to JSON {% endcomment %}
+    <div class="visual-diagram" 
+         data-type="{{ diagram_type }}"
+         data-config='{{ include.config | jsonify | replace: "'", "&#39;" }}'></div>
+  {% else %}
+    {% comment %} Config is a raw JSON string {% endcomment %}
+    {% assign merged_config = include.config %}
+    <div class="visual-diagram" 
+         data-type="{{ diagram_type }}"
+         data-config='{{ merged_config }}'></div>
+  {% endif %}
+{% else %}
+  <div class="visual-diagram-wrapper">
+    <div class="visual-diagram-error">
+      <span>Diagram error: No config provided for type "{{ diagram_type }}"</span>
+    </div>
+  </div>
+{% endif %}

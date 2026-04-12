@@ -176,40 +176,61 @@ kbd               { background: var(--bg-elevated); border: 1px solid var(--bord
 --font-mono: 'JetBrains Mono', monospace;
 ```
 
-### 3.2 Font Assignment Rules
+### 3.2 Type Scale — CSS Custom Properties (Single Source of Truth)
 
-| Element | Font | Weight | Size | Extra |
+All `font-size` values are defined as CSS custom properties. **Never use raw rem/px values** — always use a token.
+
+```css
+:root {
+  --text-xs:   0.65rem;  /* 10.4px — Tags, badges, nav, buttons, chrome labels */
+  --text-sm:   0.75rem;  /* 12px   — Section labels, table headers, captions, callout titles */
+  --text-base: 0.875rem; /* 14px   — Sidebar items, secondary body, table cells, code blocks */
+  --text-md:   1rem;     /* 16px   — Body text, content paragraphs */
+  --text-lg:   1.125rem; /* 18px   — Card titles, search results, descriptions */
+  --text-xl:   1.25rem;  /* 20px   — Content h3, post card titles */
+  --text-2xl:  1.5rem;   /* 24px   — Content h2, section headings */
+  --text-3xl:  2rem;     /* 32px   — Page titles (about, notes, mobile post) */
+  --text-4xl:  2.25rem;  /* 36px   — Post title (hero) */
+  --text-5xl:  2.5rem;   /* 40px   — Search header (largest) */
+  --text-code: 0.875em;  /* Inline code (relative to parent) */
+}
+```
+
+### 3.3 Font Assignment Rules
+
+| Element | Font | Weight | Token | Extra |
 |---|---|---|---|---|
-| **Body default** | Inter | 400 | 16px | `line-height: 1.6` |
-| **Home H1** | Inter | 700 | `2.5rem` | `letter-spacing: -0.02em` |
-| **Post/Note title** | Inter | 700 | `2.25rem` / `2rem` | `line-height: 1.2`, `letter-spacing: -0.02em` |
-| **Section H2** | Inter | 700 | `1.5rem` | `border-bottom: 1px solid var(--border)` |
-| **Subsection H3** | Inter | 600 | `1.2rem` | — |
-| **Body paragraphs** | Inter | 400 | `1rem` | `line-height: 1.8` (post-content), color: `--text-secondary` |
-| **Site description** | Inter | 400 | `1.05rem` | `line-height: 1.6`, color: `--text-secondary` |
-| **Logo / site title** | JetBrains Mono | 600 | `0.8rem` | `letter-spacing: 2px` |
-| **Nav links** | JetBrains Mono | 400 | `0.65rem` | `text-transform: uppercase`, `letter-spacing: 1px` |
-| **Section titles** | JetBrains Mono | 600 | `0.75rem` | `text-transform: uppercase`, `letter-spacing: 2px`, color: `--accent` |
-| **Category nav title** | JetBrains Mono | 600 | `0.65rem` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
-| **TOC title / Quick actions** | JetBrains Mono | 600 | `0.65rem` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
-| **Tags/pills** | JetBrains Mono | — | `0.6rem` | `text-transform: uppercase`, `letter-spacing: 0.5px` |
-| **Code blocks** | JetBrains Mono | 400 | `0.85rem` | `line-height: 1.6` |
-| **Inline code** | JetBrains Mono | — | `0.875em` | Green text, bg-elevated bg |
-| **Code headers** | JetBrains Mono | 600 | `0.6rem` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
-| **Callout titles** | JetBrains Mono | 600 | `0.7rem` | `text-transform: uppercase`, `letter-spacing: 1px` |
-| **Buttons (quick action)** | JetBrains Mono | — | `0.65rem` | — |
-| **Post meta (dates, reading time)** | — | 400 | `0.8rem` | color: `--dim` |
-| **Subject badge** | JetBrains Mono | — | `0.7rem` | `text-transform: uppercase`, `letter-spacing: 1px`, accent bg |
-| **Footer links** | JetBrains Mono | — | `0.6rem` | `text-transform: uppercase`, `letter-spacing: 0.5px`, color: `--dim` |
-| **Copyright** | — | — | `0.7rem` | color: `--dim` |
-| **WIP badge** | JetBrains Mono | 600 | `0.65rem` | `text-transform: uppercase`, `letter-spacing: 1px`, yellow |
-| **Breadcrumb** | — | — | `0.85rem` | color: `--dim` |
-| **Seq nav label** | JetBrains Mono | 600 | `0.55rem` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
-| **Seq nav title** | Inter | 500 | `0.9rem` | color: `--text-secondary`, `max-width: 320px`, truncate |
-| **KaTeX (display math)** | KaTeX fonts | — | `1.1em` | Auto-loaded by KaTeX CSS |
-| **KaTeX (inline math)** | KaTeX fonts | — | `1.0em` | Inherits from surrounding text |
+| **Body default** | Inter | 400 | `--text-md` (16px) | `line-height: 1.6` |
+| **Post/Note title** | Inter | 700 | `--text-4xl` / `--text-3xl` | `line-height: 1.2`, `letter-spacing: -0.02em` |
+| **Section H2** | Inter | 700 | `--text-2xl` | `border-bottom: 1px solid var(--border)` |
+| **Subsection H3** | Inter | 600 | `--text-xl` | — |
+| **Body paragraphs** | Inter | 400 | `--text-md` | `line-height: 1.8` (post-content), color: `--text-secondary` |
+| **Logo / site title** | JetBrains Mono | 600 | `--text-sm` | `letter-spacing: 2px` |
+| **Nav links** | JetBrains Mono | 400 | `--text-xs` | `text-transform: uppercase`, `letter-spacing: 1px` |
+| **Section titles** | JetBrains Mono | 600 | `--text-sm` | `text-transform: uppercase`, `letter-spacing: 2px`, color: `--accent` |
+| **TOC title / Quick actions** | JetBrains Mono | 600 | `--text-xs` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
+| **Tags/pills** | JetBrains Mono | — | `--text-xs` | `text-transform: uppercase`, `letter-spacing: 0.5px` |
+| **Code blocks** | JetBrains Mono | 400 | `--text-base` | `line-height: 1.6` |
+| **Inline code** | JetBrains Mono | — | `--text-code` (0.875em) | Green text, bg-elevated bg |
+| **Code headers / Labels** | JetBrains Mono | 600 | `--text-xs` | `text-transform: uppercase`, `letter-spacing: 1px`, color: `--dim` |
+| **Callout titles** | JetBrains Mono | 600 | `--text-sm` | `text-transform: uppercase`, `letter-spacing: 1px` |
+| **Callout content** | Inter | 400 | `--text-base` | color: `--text-secondary` |
+| **Buttons** | JetBrains Mono | — | `--text-xs` | — |
+| **Post meta** | — | 400 | `--text-base` | color: `--dim` |
+| **Captions / Figcaptions** | — | — | `--text-sm` | color: `--dim` |
+| **Subject badge** | JetBrains Mono | — | `--text-sm` | `text-transform: uppercase`, `letter-spacing: 1px` |
+| **Footer links** | JetBrains Mono | — | `--text-xs` | `text-transform: uppercase`, color: `--dim` |
+| **Copyright** | — | — | `--text-sm` | color: `--dim` |
+| **WIP badge** | JetBrains Mono | 600 | `--text-xs` | `text-transform: uppercase`, yellow |
+| **Breadcrumb** | — | — | `--text-base` | color: `--dim` |
+| **Seq nav label** | JetBrains Mono | 600 | `--text-xs` | `text-transform: uppercase`, color: `--dim` |
+| **Seq nav title** | Inter | 500 | `--text-base` | color: `--text-secondary`, truncate |
+| **Tables (th)** | JetBrains Mono | 600 | `--text-sm` | `text-transform: uppercase`, color: `--dim` |
+| **Tables (td, body)** | Inter | 400 | `--text-base` | color: `--text-secondary` |
+| **KaTeX (display)** | KaTeX fonts | — | `1.1em` | — |
+| **KaTeX (inline)** | KaTeX fonts | — | `1.0em` | Inherits from surrounding text |
 
-### 3.3 Typography Principles
+### 3.4 Typography Principles
 
 1. **Monospace = structural/technical.** Nav, labels, tags, code, callout titles, buttons, badges, section headers — all JetBrains Mono
 2. **Sans-serif = narrative.** Paragraphs, headings, descriptions, body text — all Inter
@@ -217,6 +238,8 @@ kbd               { background: var(--bg-elevated); border: 1px solid var(--bord
 4. **No decorative fonts.** Strict two-font system; KaTeX handles its own math rendering
 5. **`line-height: 1.8`** for post/note content (more generous than parent's `1.6`) to aid reading long-form content
 6. **Proofs** use Georgia/serif italic (`font-family: 'Georgia', 'Times New Roman', serif`) — the one exception to the two-font rule
+7. **Never use raw font-size values.** Always use `var(--text-*)` tokens in CSS. This ensures the entire site's typography can be tuned from 10 variables in `:root`
+8. **SVG diagrams** have their own 4-step scale (`SVG_XS`, `SVG_SM`, `SVG_BASE`, `SVG_LG`) defined in `visual-diagrams.js`, separate from CSS tokens since SVGs use unitless viewBox coordinates
 
 ---
 
@@ -1666,11 +1689,15 @@ COLORS
 
 TYPOGRAPHY
   Fonts:            JetBrains Mono (technical) + Inter (narrative)
-  Body:             Inter 400 1rem, line-height 1.8
-  Headings:         Inter 700 (H1: 2.25rem, H2: 1.5rem, H3: 1.2rem)
-  Labels:           JetBrains Mono 600, 0.6-0.75rem, UPPERCASE, letter-spacing 1-2px
-  Code:             JetBrains Mono 400, 0.85rem
-  Tags:             JetBrains Mono, 0.6rem, UPPERCASE
+  Type Scale:       10 tokens in :root — var(--text-xs) through var(--text-5xl)
+                    + var(--text-code) for inline code (em-based)
+  Body:             Inter 400 var(--text-md)=1rem, line-height 1.8
+  Headings:         Inter 700 (H1: --text-4xl, H2: --text-2xl, H3: --text-xl)
+  Labels:           JetBrains Mono 600, var(--text-xs)/(--text-sm), UPPERCASE
+  Code:             JetBrains Mono 400, var(--text-base)=0.875rem
+  Tags:             JetBrains Mono, var(--text-xs), UPPERCASE
+  SVG Diagrams:     4-step scale: SVG_XS=10, SVG_SM=11, SVG_BASE=12, SVG_LG=14
+                    viewBox width: SVG_W=800 (1 unit ≈ 1 CSS pixel)
 
 LAYOUT
   Max-width wide:   1600px (home, notes index, subject pages)
@@ -1745,10 +1772,17 @@ SPACING — FIXED VALUES
 ### Pattern: Interactive Visualization
 1. Container: `background: var(--bg-card)`, `border: 1px solid var(--border)`, `border-radius: 4px`
 2. Canvas/SVG area: `background: var(--bg)` or `--graph-grid` (#181818)
-3. Labels: JetBrains Mono 0.55-0.65rem, color `--dim`
+3. Labels: JetBrains Mono, font-size `var(--text-xs)`, color `--dim`
 4. Primary data: `--accent` (#4ade80), secondary: `--graph-line-2` (#60a5fa)
 5. Controls: match slide-viewer button style (border, hover → accent)
 6. Wrap in a module JS file, check `typeof` before init in `main.js`
+
+### Pattern: SVG Diagram Text
+1. Standard viewBox width: `SVG_W = 800` (matches ~800px CSS content area, so 1 SVG unit ≈ 1 CSS px)
+2. Font sizes use 4 named constants: `SVG_XS` (10), `SVG_SM` (11), `SVG_BASE` (12), `SVG_LG` (14)
+3. Font families use `F_MONO` / `F_SANS` constants — never inline font-family strings
+4. Dynamic-width diagrams use `Math.max(SVG_W, computed)` to prevent text blowup from scaling
+5. To change all diagram text sizes, edit the 4 constants at the top of `visual-diagrams.js`
 
 ### Pattern: New Markdown Extension
 1. Create JS module in `assets/js/`

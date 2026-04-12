@@ -40,6 +40,40 @@
   --line-height: 1.6;
 
   /* ==========================================================
+     TYPE SCALE — SINGLE SOURCE OF TRUTH
+     
+     10-step scale. Every font-size in the site uses one of these.
+     Ratio ≈ 1.2 (minor third) for larger sizes, tighter for small UI.
+     
+     Step    Var                  Rem     Px@16  Use
+     ───── ─────────────────────  ──────  ─────  ─────────────────────
+     xs    --text-xs              0.65rem  10.4   Badges, tags, tiny labels
+     sm    --text-sm              0.75rem  12     Section labels, table headers, nav, buttons, captions
+     base  --text-base            0.875rem 14     Sidebar items, secondary body, callout content
+     md    --text-md              1rem     16     Body text, content paragraphs
+     lg    --text-lg              1.125rem 18     Card titles, search results, descriptions
+     xl    --text-xl              1.25rem  20     Content h3, post card titles
+     2xl   --text-2xl             1.5rem   24     Content h2, section headings
+     3xl   --text-3xl             2rem     32     Page titles (about, notes)
+     4xl   --text-4xl             2.25rem  36     Post title (hero)
+     5xl   --text-5xl             2.5rem   40     Search header (largest)
+     
+     Code-specific (em-based, relative to parent):
+     code  --text-code            0.875em         Inline code, code blocks
+     ========================================================== */
+  --text-xs:   0.65rem;
+  --text-sm:   0.75rem;
+  --text-base: 0.875rem;
+  --text-md:   1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  2rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  2.5rem;
+  --text-code: 0.875em;
+
+  /* ==========================================================
      CENTRALIZED LAYOUT SYSTEM - SINGLE SOURCE OF TRUTH
      
      Max-Width System:
@@ -194,7 +228,7 @@ a:hover {
 
 .site-title {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: 2px;
   color: #fff;
@@ -214,7 +248,7 @@ a:hover {
 
 .site-nav a {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -304,7 +338,7 @@ a:hover {
 
 .toc-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -322,7 +356,7 @@ a:hover {
 
 .toc-list a {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: var(--text-base);
   display: block;
   padding: 0.25rem 0;
   padding-left: 0.75rem;
@@ -338,7 +372,7 @@ a:hover {
 
 .toc-list .toc-h3 {
   padding-left: 1.5rem;
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
 }
 
 /* KaTeX in sidebar TOC */
@@ -361,7 +395,7 @@ a:hover {
 
 .quick-actions-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -380,7 +414,7 @@ a:hover {
   padding: 0.5rem 0.75rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   cursor: pointer;
   transition: all 0.3s;
   margin-bottom: 0.5rem;
@@ -437,7 +471,7 @@ a:hover {
 }
 
 .post-card-title {
-  font-size: 1.2rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin: 0 0 0.5rem;
   letter-spacing: -0.01em;
@@ -452,7 +486,7 @@ a:hover {
 
 .post-card .post-excerpt {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin: 0.5rem 0 0;
   line-height: 1.6;
 }
@@ -463,7 +497,7 @@ a:hover {
 
 .no-posts {
   color: var(--dim);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   text-align: center;
   padding: 3rem 0;
 }
@@ -476,14 +510,14 @@ a:hover {
   }
 
   .post-card-title {
-    font-size: 1.05rem;
+    font-size: var(--text-lg);
   }
 }
 
 /* Legacy posts list (kept for compatibility) */
 .posts-list h2 {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   color: var(--accent);
   margin-bottom: 1.5rem;
   letter-spacing: 2px;
@@ -504,7 +538,7 @@ a:hover {
 }
 
 .post-preview h3 {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
@@ -520,7 +554,7 @@ a:hover {
 
 .post-excerpt {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin-top: 0.75rem;
   line-height: 1.6;
 }
@@ -534,7 +568,7 @@ a:hover {
   gap: 1rem;
   align-items: center;
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: var(--text-base);
   margin-bottom: 1.5rem;
 }
 
@@ -549,7 +583,7 @@ a:hover {
   padding: 0.2rem 0.6rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -583,7 +617,7 @@ header.post-header {
 
 h1.post-title,
 .post-title {
-  font-size: 2.25rem;
+  font-size: var(--text-4xl);
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 1.5rem 0;
@@ -593,12 +627,12 @@ h1.post-title,
 
 /* Post Content */
 .post-content {
-  font-size: 1rem;
+  font-size: var(--text-md);
   line-height: 1.8;
 }
 
 .post-content h2 {
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
   margin-top: var(--section-margin-top);
   margin-bottom: var(--heading-margin-bottom);
@@ -608,7 +642,7 @@ h1.post-title,
 }
 
 .post-content h3 {
-  font-size: 1.2rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin-top: var(--heading-margin-top);
   margin-bottom: 0.75rem;
@@ -654,7 +688,7 @@ h1.post-title,
 .callout-title {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 0.5rem;
@@ -665,7 +699,7 @@ h1.post-title,
 
 .callout-content {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
 }
 
 .callout-content p:last-child {
@@ -722,7 +756,7 @@ h1.post-title,
    ======================================== */
 code {
   font-family: var(--font-mono);
-  font-size: 0.875em;
+  font-size: var(--text-code);
 }
 
 /* Inline code */
@@ -753,7 +787,7 @@ code {
 
 .code-language {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -772,7 +806,7 @@ code {
   padding: 0.25rem 0.5rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: var(--text-xs);
   cursor: pointer;
   transition: all 0.3s;
   text-transform: uppercase;
@@ -805,7 +839,7 @@ pre:not(.code-block pre) {
 pre code {
   background: none !important;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   color: var(--text);
   border: none;
@@ -907,7 +941,7 @@ pre code {
 .post-content table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin: 0;
 }
 
@@ -922,7 +956,7 @@ pre code {
   background: var(--bg-elevated);
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--dim);
@@ -954,7 +988,7 @@ pre code {
 .post-content figcaption {
   text-align: center;
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   margin-top: -1rem;
   margin-bottom: 1.5rem;
 }
@@ -992,7 +1026,7 @@ pre code {
 .image-row figcaption {
   text-align: center;
   color: var(--dim);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   margin-top: 0.5rem;
   font-style: italic;
 }
@@ -1051,7 +1085,7 @@ pre code {
   padding: 0.75rem;
   text-align: center;
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   background: var(--bg-elevated);
   margin: 0;
   border-top: 1px solid var(--border);
@@ -1145,7 +1179,7 @@ pre code {
 
 .citation-title {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--text);
   letter-spacing: 1px;
@@ -1160,7 +1194,7 @@ pre code {
   margin: 0 !important;
   border: none !important;
   border-radius: 0 !important;
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
 }
 
 .copy-bibtex-btn {
@@ -1170,7 +1204,7 @@ pre code {
   padding: 0.35rem 0.75rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -1208,7 +1242,7 @@ pre code {
 
 .embed-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1240,7 +1274,7 @@ pre code {
   padding: 0.4rem 0.8rem;
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -1264,7 +1298,7 @@ pre code {
 }
 
 .comments h2 {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   margin-bottom: 1.5rem;
 }
 
@@ -1295,7 +1329,7 @@ pre code {
 
 .footer-links a {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -1307,7 +1341,7 @@ pre code {
 
 .copyright {
   color: var(--dim);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
 }
 
 /* ========================================
@@ -1352,7 +1386,7 @@ pre code {
   }
 
   .post-title {
-    font-size: 1.75rem;
+    font-size: var(--text-3xl);
   }
   
   .content {
@@ -1383,14 +1417,14 @@ pre code {
 }
 
 .about-page h1 {
-  font-size: 2rem;
+  font-size: var(--text-3xl);
   font-weight: 700;
   margin: 0 0 1.5rem 0;
   padding: 0;
 }
 
 .about-page h2 {
-  font-size: 1.3rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
@@ -1444,7 +1478,7 @@ pre code {
 }
 
 .search-header h1 {
-  font-size: 2.5rem;
+  font-size: var(--text-5xl);
   margin: 0;
   padding: 0;
   font-weight: 700;
@@ -1475,7 +1509,7 @@ pre code {
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   transition: all 0.3s ease;
   font-family: var(--font-sans);
   text-align: left;
@@ -1538,7 +1572,7 @@ pre code {
   justify-content: flex-end;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   color: var(--dim);
   pointer-events: none;
   user-select: none;
@@ -1590,11 +1624,11 @@ pre code {
 
 .search-placeholder p {
   margin: 0.75rem 0 0 0;
-  font-size: 0.95rem;
+  font-size: var(--text-md);
 }
 
 .search-hint {
-  font-size: 0.8rem;
+  font-size: var(--text-base);
   opacity: 0.5;
   margin-top: 0.5rem;
 }
@@ -1618,7 +1652,7 @@ pre code {
 }
 
 .search-result-title {
-  font-size: 1.05rem;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: var(--text);
   margin-bottom: 0.5rem;
@@ -1627,7 +1661,7 @@ pre code {
 
 .search-result-excerpt {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   margin-bottom: 0.75rem;
 }
@@ -1637,7 +1671,7 @@ pre code {
   align-items: center;
   gap: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   color: var(--dim);
 }
 
@@ -1686,7 +1720,7 @@ pre code {
   border: 1px solid var(--note-border);
   border-radius: 4px;
   margin-bottom: 1rem;
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   color: var(--note-border);
   text-align: left;
 }
@@ -1702,7 +1736,7 @@ pre code {
   }
   
   .search-header h1 {
-    font-size: 2rem;
+    font-size: var(--text-3xl);
   }
   
   .search-input-wrapper {
@@ -1711,12 +1745,12 @@ pre code {
   
   .search-input {
     padding: 0.875rem 1rem 0.875rem 3rem;
-    font-size: 0.9rem;
+    font-size: var(--text-base);
     border-radius: 6px;
   }
   
   .search-status {
-    font-size: 0.6rem;
+    font-size: var(--text-xs);
   }
   
   .search-placeholder {
@@ -1773,7 +1807,7 @@ pre code {
   padding: 0.75rem 0.5rem 0.75rem 0.5rem !important;
   margin: 0 !important;
   color: var(--dim);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   font-family: var(--font-mono);
   background: transparent !important;
@@ -1788,7 +1822,7 @@ pre code {
 .rouge-code pre {
   padding: 0.75rem 1rem !important;
   margin: 0 !important;
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   line-height: 1.6;
 }
 
@@ -1816,7 +1850,7 @@ pre code {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1842,7 +1876,7 @@ pre code {
   padding: 0.35rem 0.75rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -1900,7 +1934,7 @@ pre code {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1910,7 +1944,7 @@ pre code {
 .output-content {
   padding: 1rem 1.25rem;
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   color: var(--text);
   white-space: pre-wrap;
@@ -1939,7 +1973,7 @@ pre code {
   border-radius: 4px;
   margin-bottom: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   color: var(--note-border);
 }
 
@@ -1970,7 +2004,7 @@ pre code {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1992,7 +2026,7 @@ pre code {
 
 .mermaid-error {
   color: var(--danger-border);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   padding: 1rem;
   margin: 0;
 }
@@ -2042,7 +2076,7 @@ pre:hover .copy-btn {
   height: auto;
   min-height: 150px;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   line-height: 1.6;
   background: var(--bg-card);
   color: var(--text);
@@ -2143,7 +2177,7 @@ pre:hover .copy-btn {
   padding: 0.35rem 0.75rem;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -2180,7 +2214,7 @@ pre:hover .copy-btn {
   border-radius: 4px;
   padding: 0.5rem 0.75rem;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: var(--text-base);
   font-style: normal;
   color: var(--text);
   white-space: nowrap;
@@ -2229,7 +2263,7 @@ pre:hover .copy-btn {
   padding: 0.5rem 1rem;
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -2251,7 +2285,7 @@ pre:hover .copy-btn {
 /* Shared count badges (from GitHub Discussions) */
 .action-count {
   font-weight: 600;
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   min-width: 1.1em;
   text-align: center;
   padding: 0.1rem 0.4rem;
@@ -2275,7 +2309,7 @@ pre:hover .copy-btn {
 
 /* Comments hint text */
 .comments-hint {
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   color: var(--dim);
   margin-bottom: 1.5rem;
   line-height: 1.5;
@@ -2310,7 +2344,7 @@ pre:hover .copy-btn {
   border: none;
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   text-decoration: none;
   border-radius: 2px;
   cursor: pointer;
@@ -2334,7 +2368,7 @@ pre:hover .copy-btn {
 
 .related-posts-title {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -2362,7 +2396,7 @@ pre:hover .copy-btn {
 }
 
 .related-post-card h4 {
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   font-weight: 600;
   margin-bottom: 0.5rem;
   line-height: 1.4;
@@ -2377,7 +2411,7 @@ pre:hover .copy-btn {
 }
 
 .related-post-card .post-meta {
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
 }
 
 /* ========================================
@@ -2390,7 +2424,7 @@ pre:hover .copy-btn {
 
   .post-action-btn {
     padding: 0.4rem 0.75rem;
-    font-size: 0.6rem;
+    font-size: var(--text-xs);
   }
 
   .related-posts-grid {
@@ -2400,7 +2434,7 @@ pre:hover .copy-btn {
   .math-tooltip {
     max-width: 200px;
     white-space: normal;
-    font-size: 0.75rem;
+    font-size: var(--text-sm);
   }
 }
 
@@ -2499,7 +2533,7 @@ pre:hover .copy-btn {
   border: 1px solid var(--border);
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2558,7 +2592,7 @@ pre:hover .copy-btn {
 .lightbox-caption {
   margin-top: 1rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   text-align: center;
   max-width: 600px;
 }
@@ -2634,7 +2668,7 @@ pre:hover .copy-btn {
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   color: var(--dim);
 }
 
@@ -2656,7 +2690,7 @@ pre:hover .copy-btn {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2685,7 +2719,7 @@ pre:hover .copy-btn {
   padding: 0.75rem 1rem;
   background: var(--bg-card);
   border-top: 1px solid var(--border);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   color: var(--text-secondary);
   text-align: center;
 }
@@ -2794,7 +2828,7 @@ pre:hover .copy-btn {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2942,7 +2976,7 @@ pre:hover .copy-btn {
   }
 
   .compare-label {
-    font-size: 0.55rem;
+    font-size: var(--text-xs);
     padding: 0.25rem 0.5rem;
   }
 
@@ -2980,7 +3014,7 @@ pre:hover .copy-btn {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -3002,7 +3036,7 @@ pre:hover .copy-btn {
 .backlinks-empty,
 .backlinks-error {
   color: var(--dim);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   font-style: italic;
 }
 
@@ -3030,7 +3064,7 @@ pre:hover .copy-btn {
 
 .backlink-context {
   display: block;
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   color: var(--text-secondary);
   line-height: 1.5;
 }
@@ -3070,7 +3104,7 @@ pre:hover .copy-btn {
   }
 
   .references-section h2 {
-    font-size: 1.5rem;
+    font-size: var(--text-2xl);
     margin-bottom: 1.5rem;
   }
 
@@ -3153,7 +3187,7 @@ pre:hover .copy-btn {
 
   .slides-title {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: var(--text-sm);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -3162,7 +3196,7 @@ pre:hover .copy-btn {
 
   .slides-count {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: var(--text-xs);
     color: var(--dim);
     margin-left: auto;
   }
@@ -3194,7 +3228,7 @@ pre:hover .copy-btn {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   scroll-margin-top: 100px;
 }
 
@@ -3477,7 +3511,7 @@ pre:hover .copy-btn {
 
 .note-subject {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--accent);
@@ -3488,12 +3522,12 @@ pre:hover .copy-btn {
 
 .note-updated {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   color: var(--dim);
 }
 
   .note-title {
-    font-size: 2rem;
+    font-size: var(--text-3xl);
     font-weight: 700;
     margin-bottom: 1.5rem;
   }
@@ -3504,7 +3538,7 @@ pre:hover .copy-btn {
     align-items: center;
     gap: 0.4rem;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -3522,7 +3556,7 @@ pre:hover .copy-btn {
   }
 
   .wip-badge-small {
-    font-size: 0.55rem;
+    font-size: var(--text-xs);
     padding: 0.2rem 0.5rem;
     gap: 0.3rem;
   }
@@ -3534,7 +3568,7 @@ pre:hover .copy-btn {
 
 .note-description {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   margin-top: 0;
   margin-bottom: 0;
   line-height: 1.6;
@@ -3547,13 +3581,13 @@ pre:hover .copy-btn {
 }
 
 .note-content {
-  font-size: 1rem;
+  font-size: var(--text-md);
   line-height: 1.8;
 }
 
 /* Note content inherits all post-content element styling */
 .note-content h2 {
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
   margin-top: var(--section-margin-top);
   margin-bottom: var(--heading-margin-bottom);
@@ -3563,7 +3597,7 @@ pre:hover .copy-btn {
 }
 
 .note-content h3 {
-  font-size: 1.2rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin-top: var(--heading-margin-top);
   margin-bottom: 0.75rem;
@@ -3621,7 +3655,7 @@ pre:hover .copy-btn {
 .note-content figcaption {
   text-align: center;
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   margin-top: -1rem;
   margin-bottom: 1.5rem;
 }
@@ -3629,7 +3663,7 @@ pre:hover .copy-btn {
 .note-content table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin: 0;
 }
 
@@ -3644,7 +3678,7 @@ pre:hover .copy-btn {
   background: var(--bg-elevated);
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--dim);
@@ -3676,7 +3710,7 @@ pre:hover .copy-btn {
 
 .notes-nav-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -3723,7 +3757,7 @@ pre:hover .copy-btn {
 
 .subject-notes-list a {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   display: block;
   padding: 0.25rem 0;
 }
@@ -3791,7 +3825,7 @@ pre:hover .copy-btn {
 
 .seq-nav-label {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -3804,7 +3838,7 @@ pre:hover .copy-btn {
 }
 
 .seq-nav-title {
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   font-weight: 500;
   line-height: 1.3;
   overflow: hidden;
@@ -3827,7 +3861,7 @@ pre:hover .copy-btn {
 
   .seq-nav-title {
     max-width: 260px;
-    font-size: 0.85rem;
+    font-size: var(--text-base);
   }
 }
 
@@ -3848,7 +3882,7 @@ nav.related-notes {
 
 .related-notes h3 {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -3873,7 +3907,7 @@ nav.related-notes {
   padding: 1rem 0;
   transition: all 0.2s;
   border-bottom: 1px solid var(--border);
-  font-size: 1rem;
+  font-size: var(--text-md);
 }
 
 .related-notes li:first-child a {
@@ -3995,7 +4029,7 @@ nav.related-notes {
 }
 
 .subject-name {
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--text);
   margin: 0;
@@ -4005,7 +4039,7 @@ nav.related-notes {
 
 .subject-count {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -4024,7 +4058,7 @@ nav.related-notes {
 }
 
 .subject-section-title {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   margin-bottom: 1.5rem;
   color: var(--accent);
@@ -4061,7 +4095,7 @@ nav.related-notes {
 }
 
 .note-card .note-title {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: var(--text);
   margin: 0 0 0.5rem;
@@ -4073,7 +4107,7 @@ nav.related-notes {
 
 .note-card .note-description {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin: 0 0 0.75rem;
   line-height: 1.5;
 }
@@ -4087,7 +4121,7 @@ nav.related-notes {
 
 .note-card .note-date {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   color: var(--dim);
 }
 
@@ -4098,7 +4132,7 @@ nav.related-notes {
 
 .tag-small {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   color: var(--accent);
   background: rgba(74, 222, 128, 0.1);
   padding: 0.15rem 0.5rem;
@@ -4140,7 +4174,7 @@ nav.related-notes {
   }
   
   .subject-name {
-    font-size: 0.9rem;
+    font-size: var(--text-base);
   }
 }
 
@@ -4177,7 +4211,7 @@ nav.related-notes {
 
 .subject-page .page-header h1,
 .sub-subject-page .page-header h1 {
-  font-size: 2rem;
+  font-size: var(--text-3xl);
   font-weight: 700;
   margin: 0.5rem 0;
   color: var(--text);
@@ -4194,7 +4228,7 @@ nav.related-notes {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: var(--text-base);
   color: var(--dim);
   margin-bottom: 1.5rem;
 }
@@ -4248,7 +4282,7 @@ nav.related-notes {
 }
 
 .topic-card h3 {
-  font-size: 1rem;
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--text);
   margin: 0 0 0.5rem;
@@ -4260,7 +4294,7 @@ nav.related-notes {
 
 .topic-card .count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-sm);
   color: var(--dim);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -4275,7 +4309,7 @@ nav.related-notes {
 
 .general-notes h2 {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--dim);
   text-transform: uppercase;
@@ -4308,7 +4342,7 @@ nav.related-notes {
 
 .sub-subject-page .notes-list a {
   color: var(--text);
-  font-size: 1rem;
+  font-size: var(--text-md);
   text-decoration: none;
 }
 
@@ -4351,7 +4385,7 @@ nav.related-notes {
 
 .lecture-number {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   color: var(--dim);
   font-weight: 600;
   flex-shrink: 0;
@@ -4363,7 +4397,7 @@ nav.related-notes {
 }
 
 .lecture-title {
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text);
   margin-bottom: 0.25rem;
@@ -4375,7 +4409,7 @@ nav.related-notes {
 }
 
 .lecture-topics {
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   color: var(--text-secondary);
   font-style: italic;
   line-height: 1.5;
@@ -4389,5 +4423,187 @@ nav.related-notes {
 
   .general-notes .notes-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   Visual Diagrams (Charts, Flowcharts, Neural Nets, Timelines, etc.)
+   Rendered by visual-diagrams.js from data-config attributes
+   Pattern: matches mermaid-wrapper / embed-wrapper
+   ======================================== */
+.visual-diagram-wrapper {
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.visual-diagram-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.visual-diagram-icon {
+  display: flex;
+  align-items: center;
+  color: var(--dim);
+}
+
+.visual-diagram-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+
+.visual-diagram-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--border);
+}
+
+.visual-diagram-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.visual-diagram-action-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--dim);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-diagram-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.visual-diagram-body {
+  padding: 1.5rem;
+  background: var(--bg-card);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  min-height: 200px;
+}
+
+.visual-diagram-body svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.visual-diagram-caption {
+  padding: 0.5rem 1rem;
+  font-size: var(--text-sm);
+  color: var(--dim);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--bg-card);
+  font-style: italic;
+}
+
+.visual-diagram-error {
+  padding: 1rem 1.5rem;
+  color: var(--danger-border);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+}
+
+/* Fullscreen overlay */
+.visual-diagram-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.visual-diagram-fullscreen.active {
+  opacity: 1;
+}
+
+.visual-diagram-fs-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.visual-diagram-fs-close:hover {
+  border-color: var(--text);
+  color: var(--text);
+  background: var(--bg-elevated);
+}
+
+.visual-diagram-fs-body {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-diagram-fs-body svg {
+  max-width: 90vw;
+  max-height: 85vh;
+  height: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .visual-diagram-body {
+    padding: 1rem;
+    min-height: 150px;
+  }
+
+  .visual-diagram-title {
+    display: none;
+  }
+
+  .visual-diagram-fs-close {
+    width: 40px;
+    height: 40px;
+    top: 1rem;
+    right: 1rem;
   }
 }
