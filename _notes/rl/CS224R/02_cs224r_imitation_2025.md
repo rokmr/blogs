@@ -190,7 +190,3 @@ Many successful methods combine imitation learning and reinforcement learning:
 - Use BC for initialization
 - Use RL for fine-tuning and self-improvement
 - Best of both worlds: expert knowledge + autonomous learning
-
----
-
-**Next:** [Lecture 03 - Policy Gradients](/notes/rl/CS224R/03_cs224r_policy_gradients_2025/) - Learn how to optimize policies directly using gradients

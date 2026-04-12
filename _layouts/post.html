@@ -26,15 +26,13 @@ layout: default
 
     <!-- Post Actions Bar -->
     <div class="post-actions">
-        <button class="post-action-btn like-btn" type="button" data-post-id="{{ page.url | slugify }}">
-            <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        <button class="post-action-btn like-btn" type="button" title="React to this post">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                 stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                </path>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
-            <span class="like-text">Like</span>
-            <span class="like-count"></span>
+            Like
+            <span class="action-count like-count"></span>
         </button>
         <div style="position: relative;">
             <button class="post-action-btn share-btn" type="button">
@@ -55,6 +53,7 @@ layout: default
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
             Comments
+            <span class="action-count comment-count"></span>
         </button>
         <a href="https://github.com/rokmr/blogs/edit/main/{{ page.path }}" class="post-action-btn" target="_blank">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -122,7 +121,7 @@ layout: default
             <pre id="bibtex-content">@article{kumar{{ page.date | date: "%Y" }}{{ page.title | slugify | truncate: 10, "" }},
   author = {Rohit Kumar},
   title = { {{- page.title -}} },
-  journal = {Rohit Kumar's AI Research Blog},
+  journal = {rohit.vision/blogs},
   year = { {{- page.date | date: "%Y" -}} },
   month = { {{- page.date | date: "%B" -}} },
   url = {https://rohit.vision/blogs{{ page.url }}}
@@ -130,10 +129,11 @@ layout: default
         </div>
     </div>
 
-    <!-- Comments -->
+    <!-- Comments & Reactions (powered by Giscus / GitHub Discussions) -->
     {% if page.comments %}
-    <section class="comments">
+    <section class="comments" id="comments-section">
         <h2>Comments</h2>
+        <p class="comments-hint">Leave a comment or react with emojis. Powered by <a href="https://giscus.app" target="_blank" rel="noopener">GitHub Discussions</a> — sign in with your GitHub account.</p>
         {% include giscus.html %}
     </section>
     {% endif %}

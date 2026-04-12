@@ -7,7 +7,7 @@
  * Wrap tables for horizontal scroll
  */
 function wrapTables() {
-    document.querySelectorAll('.post-content table').forEach(table => {
+    document.querySelectorAll('.post-content table, .note-content table').forEach(table => {
         if (table.parentElement.classList.contains('table-wrapper')) return;
 
         const wrapper = document.createElement('div');
@@ -34,7 +34,7 @@ function initInteractiveMath() {
  * Copy BibTeX citation (global function for onclick)
  */
 window.copyBibtex = function () {
-    const title = document.querySelector('.post-title')?.textContent || 'Blog Post';
+    const title = document.querySelector('.post-title')?.textContent || document.querySelector('.note-title')?.textContent || 'Blog Post';
     const author = 'Rohit Kumar';
     const year = new Date().getFullYear();
     const url = window.location.href;

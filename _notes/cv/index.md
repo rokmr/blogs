@@ -9,4 +9,5 @@ sub_subjects:
   - object-detection
   - segmentation
   - generative
+  - tracking
 ---

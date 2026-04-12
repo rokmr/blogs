@@ -1,0 +1,33 @@
+# rohit.vision/blogs — Project Rules
+
+You are working on a Jekyll-based technical blog at rohit.vision/blogs.
+Dark theme, ML/AI content, academic features (KaTeX, citations, code runner).
+
+## Key Files to Know
+
+- **Design system:** `.skills/frontend.md` — colors, typography, layout, components, spacing
+- **Visual diagrams:** `.skills/diagram-agent.md` — how to generate charts, flowcharts, neural nets, timelines, etc.
+- **CSS:** `assets/css/main.css` — all styles
+- **JS modules:** `assets/js/` — 22 focused modules orchestrated by `main.js`
+- **Diagram renderer:** `assets/js/visual-diagrams.js` — renders SVG diagrams from JSON configs
+
+## Critical Rules
+
+### Typography
+- **Never use raw font-size values in CSS.** Always use `var(--text-*)` tokens:
+  `--text-xs` (0.65rem) | `--text-sm` (0.75rem) | `--text-base` (0.875rem) | `--text-md` (1rem) | `--text-lg` (1.125rem) | `--text-xl` (1.25rem) | `--text-2xl` (1.5rem) | `--text-3xl` (2rem) | `--text-4xl` (2.25rem) | `--text-5xl` (2.5rem) | `--text-code` (0.875em)
+
+### SVG Diagrams (visual-diagrams.js)
+- Standard viewBox width: `SVG_W = 800` (1 unit ≈ 1 CSS pixel)
+- Font sizes: `SVG_XS=10` | `SVG_SM=11` | `SVG_BASE=12` | `SVG_LG=14`
+- Font families: `F_MONO` | `F_SANS` — never inline strings
+- Dynamic widths: always `Math.max(SVG_W, computed)`
+
+### Colors
+- Background: `#0a0a0a` → `#111111` → `#161616` (3-tier)
+- Text: `#e8e8e8` → `#999999` → `#666666` (3-tier)
+- Accent: `#4ade80` (green, single accent)
+- Graph colors: green (#4ade80), blue (#60a5fa), pink (#f472b6), orange (#fb923c)
+
+### When Creating Diagrams
+Read `.skills/diagram-agent.md` first. Output `<div class="visual-diagram" data-type="TYPE" data-config='JSON'>` blocks.

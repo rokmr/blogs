@@ -13,8 +13,8 @@ async function startPresentation() {
         return;
     }
 
-    const postContent = document.querySelector('.post-content');
-    const postTitle = document.querySelector('.post-title')?.textContent || 'Presentation';
+    const postContent = document.querySelector('.post-content') || document.querySelector('.note-content');
+    const postTitle = document.querySelector('.post-title')?.textContent || document.querySelector('.note-title')?.textContent || 'Presentation';
 
     if (!postContent) {
         console.error('No post content found');

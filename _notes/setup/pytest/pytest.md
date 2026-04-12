@@ -3,9 +3,8 @@ title: "Pytest Guide"
 date: 2025-01-15
 description: "Complete guide to Python testing with pytest - fixtures, mocking, parametrization, and best practices"
 tags: [python, testing, pytest, tdd, best-practices]
+subject: setup
 ---
-
-# Pytest Guide
 
 ## What is Pytest?
 

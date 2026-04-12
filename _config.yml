@@ -1,5 +1,5 @@
 # Site Settings
-title: "Rohit Kumar | AI Research Blog"
+title: "Rohit Kumar | rohit.vision"
 description: "Deep dives into Computer Vision, LLMs, Diffusion Models, and Agentic AI. Technical tutorials with math, code, and interactive visualizations."
 author: "Rohit Kumar"
 email: contact@rohit.vision
@@ -30,6 +30,8 @@ exclude:
   - README.md
   - vendor
   - docs
+  - drafts
+  - assets/notebooks
 
 # Plugins
 plugins:
@@ -62,6 +64,14 @@ defaults:
       layout: "note"
       comments: false
       math: true
+  - scope:
+      path: "docs"
+    values:
+      sitemap: false
+  - scope:
+      path: "assets/resources"
+    values:
+      sitemap: false
 
 # Social Links (for footer/header)
 social:

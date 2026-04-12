@@ -10,7 +10,7 @@
  */
 
 function initInlineFormatting() {
-    const content = document.querySelector('.post-content');
+    const content = document.querySelector('.post-content') || document.querySelector('.note-content');
     if (!content) return;
 
     let html = content.innerHTML;

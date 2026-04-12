@@ -1,41 +1,57 @@
 # Centralized Layout Configuration
-# All spacing and layout dimensions for consistent design
+# Mirrors CSS custom properties in assets/css/main.css :root
+# Change CSS variables for actual styling — this file is for reference/templates only
 
-spacing:
-  # Container spacing
-  container_padding_top: 120px
-  container_padding_bottom: 60px
-  container_padding_horizontal: 5%
-  
-  # Section spacing
-  section_margin_top: 3rem
-  section_margin_bottom: 2rem
-  section_padding_top: 2rem
-  section_padding_bottom: 2rem
-  
-  # Card spacing
-  card_padding: 1.25rem
-  card_margin_bottom: 1rem
-  card_gap: 1rem
-  
-  # Content spacing
-  content_element_margin: 1.5rem
-  paragraph_margin: 1.25rem
-  heading_margin_top: 2rem
-  heading_margin_bottom: 1rem
-  
-  # Header/Footer
-  header_padding: 1rem 5%
-  footer_padding: 2rem 5%
-  footer_margin_top: 4rem
-
+# ── Max-Width Tiers ──
 max_widths:
-  content: 880px
-  wide: 1400px
-  full: 100%
-  
+  ultra: 1800px       # Ultra-wide: graph, search
+  wide: 1600px        # Wide: home, notes index, subject pages
+  default: 1400px     # Reserved for future layouts
+  content: 900px      # Reading: individual posts, notes
+  sidebar: 280px      # TOC sidebar width
+
+# ── Page-Level Spacing ──
+spacing:
+  horizontal: 80px            # All side padding (responsive: 100/80/60/24/20)
+  header_height: 54px         # Fixed header approximate height
+  vertical_top: 120px         # header_height + breathing room (clears fixed header)
+  vertical_bottom: 60px       # Content → footer distance
+
+  # Section spacing (major content divisions)
+  section_margin_top: 4rem
+  section_margin_bottom: 3rem
+  section_padding_top: 3rem
+  section_padding_bottom: 2.5rem
+
+  # Card spacing
+  card_padding: 1.5rem
+  card_margin_bottom: 1.5rem
+  card_gap: 1.5rem
+
+  # Content element spacing (within post/note body)
+  content_element_margin: 2rem    # Callouts, embeds, heavy blocks
+  paragraph_margin: 1.5rem        # Between paragraphs
+  heading_margin_top: 3rem        # Above H2 and H3
+  heading_margin_bottom: 1.5rem   # Below H2 (0.75rem for H3)
+
+  # Footer
+  footer_margin_top: 5rem
+
+# ── Responsive Breakpoints ──
 breakpoints:
-  mobile: 480px
-  tablet: 768px
-  desktop: 1000px
-  wide: 1200px
+  small_mobile: 480px
+  mobile: 768px
+  tablet: 1024px
+  desktop: 1440px
+
+# ── Responsive Horizontal Spacing Overrides ──
+responsive_horizontal:
+  large_desktop: 100px   # >1440px
+  desktop: 80px          # 1025–1440px (default)
+  tablet: 60px           # 769–1024px
+  mobile: 24px           # 481–768px
+  small_mobile: 20px     # <=480px
+
+responsive_vertical_top:
+  desktop: 120px         # Default
+  mobile: 80px           # <=768px

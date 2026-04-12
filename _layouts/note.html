@@ -2,9 +2,9 @@
 layout: default
 ---
 
-<article class="post" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+<article class="note" itemscope itemtype="http://schema.org/Article">
+    <header class="note-header">
+        <h1 class="note-title" itemprop="name headline">{% if page.paper %}<a href="{{ page.paper }}" target="_blank" rel="noopener" class="note-title-link">{{ page.title }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-left:6px;vertical-align:middle;opacity:0.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>{% else %}{{ page.title }}{% endif %}</h1>
         <div class="post-meta">
             {% if page.status == 'wip' or page.status == 'draft' %}
             <span class="wip-badge">
@@ -34,7 +34,7 @@ layout: default
         {% endif %}
     </header>
 
-    <div class="post-content" itemprop="articleBody">
+    <div class="note-content" itemprop="articleBody">
         {{ content }}
     </div>
 
@@ -90,6 +90,71 @@ layout: default
 
     <!-- References Section -->
     {% include references.html %}
+
+    <!-- Prev / Next Note Navigation -->
+    {% assign current_path_parts = page.path | split: "/" %}
+    {% if current_path_parts.size >= 4 %}
+        {% assign nav_subject_slug = current_path_parts[1] %}
+        {% assign nav_sub_subject_slug = current_path_parts[2] %}
+
+        {% assign sibling_notes = "" | split: "" %}
+        {% for note in site.notes %}
+            {% assign note_parts = note.path | split: "/" %}
+            {% if note_parts.size >= 4 and note_parts[1] == nav_subject_slug and note_parts[2] == nav_sub_subject_slug %}
+                {% unless note.url contains '/index' or note.path contains '/index.md' %}
+                    {% assign sibling_notes = sibling_notes | push: note %}
+                {% endunless %}
+            {% endif %}
+        {% endfor %}
+
+        {% assign sibling_notes = sibling_notes | sort: "path" %}
+
+        {% if sibling_notes.size > 1 %}
+            {% assign prev_note = nil %}
+            {% assign next_note = nil %}
+            {% for note in sibling_notes %}
+                {% if note.url == page.url %}
+                    {% assign current_index = forloop.index0 %}
+                {% endif %}
+            {% endfor %}
+            {% if current_index > 0 %}
+                {% assign prev_index = current_index | minus: 1 %}
+                {% assign prev_note = sibling_notes[prev_index] %}
+            {% endif %}
+            {% assign next_index = current_index | plus: 1 %}
+            {% if next_index < sibling_notes.size %}
+                {% assign next_note = sibling_notes[next_index] %}
+            {% endif %}
+
+            <nav class="note-sequence-nav" aria-label="Note sequence navigation">
+                {% if prev_note %}
+                <a href="{{ prev_note.url | relative_url }}" class="seq-nav-link seq-nav-prev">
+                    <svg class="seq-nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12 19 5 12 12 5"/>
+                    </svg>
+                    <span class="seq-nav-text">
+                        <span class="seq-nav-label">Previous</span>
+                        <span class="seq-nav-title">{{ prev_note.title }}</span>
+                    </span>
+                </a>
+                {% endif %}
+
+                {% if next_note %}
+                <a href="{{ next_note.url | relative_url }}" class="seq-nav-link seq-nav-next">
+                    <span class="seq-nav-text">
+                        <span class="seq-nav-label">Next</span>
+                        <span class="seq-nav-title">{{ next_note.title }}</span>
+                    </span>
+                    <svg class="seq-nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+                {% endif %}
+            </nav>
+        {% endif %}
+    {% endif %}
 
     <!-- Related Notes in Same Subject -->
     {% if page.subject %}

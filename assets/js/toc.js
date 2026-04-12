@@ -7,7 +7,7 @@ function buildTableOfContents() {
     const tocList = document.getElementById('toc-list');
     if (!tocList) return;
 
-    const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+    const headings = document.querySelectorAll('.post-content h2, .post-content h3, .note-content h2, .note-content h3');
     if (!headings.length) {
         document.querySelector('.toc')?.remove();
         return;
@@ -60,7 +60,7 @@ function buildTableOfContents() {
  * Reading progress bar
  */
 function initReadingProgress() {
-    if (!document.querySelector('.post-content')) return;
+    if (!document.querySelector('.post-content') && !document.querySelector('.note-content')) return;
 
     const bar = document.createElement('div');
     bar.style.cssText = `

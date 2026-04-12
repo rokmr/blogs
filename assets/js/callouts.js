@@ -67,9 +67,23 @@ function processCallouts() {
         }
     };
 
-    document.querySelectorAll('.post-content blockquote').forEach(bq => {
+    // Add theorem environment types
+    types['theorem'] = {
+        icon: svgIcon('<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>'),
+        title: 'Theorem'
+    };
+    types['lemma'] = {
+        icon: svgIcon('<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>'),
+        title: 'Lemma'
+    };
+    types['corollary'] = {
+        icon: svgIcon('<circle cx="12" cy="12" r="10"/><path d="M8 14l4-4 4 4"/>'),
+        title: 'Corollary'
+    };
+
+    document.querySelectorAll('.post-content blockquote, .note-content blockquote').forEach(bq => {
         const text = bq.innerHTML;
-        const match = text.match(/\[!(TIP|NOTE|WARNING|DANGER|QUESTION|INFO|ABSTRACT|DEFINITION|PROOF|EXAMPLE|CRITICAL|SUCCESS|IMPORTANT|CAUTION)\]/i);
+        const match = text.match(/\[!(TIP|NOTE|WARNING|DANGER|QUESTION|INFO|ABSTRACT|DEFINITION|PROOF|EXAMPLE|CRITICAL|SUCCESS|IMPORTANT|CAUTION|THEOREM|LEMMA|COROLLARY)\]/i);
 
         if (match) {
             const type = match[1].toLowerCase();

@@ -7,8 +7,6 @@ subject: rl
 math: true
 ---
 
-# Actor-Critic Method
-
 Basis for PPO (LM model training)
 
 - Value Function $V^{\pi}(s)$: future expected rewards starting at $s$ and following $\pi$

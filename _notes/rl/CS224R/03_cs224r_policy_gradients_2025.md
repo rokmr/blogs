@@ -190,7 +190,6 @@ This is **exactly our policy gradient** from the derivation! The reward terms ar
 
 ### Implementation
 ```python
-# Define surrogate (no gradient symbol in code!)
 log_probs = policy(states).log_prob(actions)
 rewards_to_go = compute_rewards_to_go(rewards) - baseline
 surrogate = (log_probs * rewards_to_go).mean()

@@ -3,9 +3,10 @@ title: "UV Package Manager"
 date: 2025-01-15
 description: "Fast Python package and project manager written in Rust - dependency management, virtual environments, and workspace configuration"
 tags: [python, package-manager, uv, rust, tools]
+subject: setup
+status: wip
+sitemap: false
 ---
-
-# uv
 
 > Package manager developed in Rust for Python projects with superior performance.
 

@@ -2,6 +2,7 @@
 layout: default
 title: About
 permalink: /about/
+custom_class: about-content
 ---
 
 <div class="about-page" markdown="1">

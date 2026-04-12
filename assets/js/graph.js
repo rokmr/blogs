@@ -1,337 +1,385 @@
 /**
- * Knowledge Graph Visualization
- * D3.js force-directed graph showing connections between posts
+ * Knowledge Graph — hub-spoke topology with gentle interactions
+ *
+ * Topology:
+ *   - Virtual hub node per sub-subject (e.g. "Object Detection")
+ *   - Each note connects to its sub-subject hub     → star clusters
+ *   - Shared tags (≥2) bridge notes across clusters  → cross-links
+ *   - Explicit href links                            → strongest
+ *
+ * Hover:
+ *   - Gentle opacity fade (no color changes on non-hovered nodes)
+ *   - Hovered node gets a subtle ring, neighbors stay at full opacity
+ *   - Tooltip shows title
  */
 
+// ── Palette ──────────────────────────────────────────────────
+const SUBJECT_COLOR = {
+    'cv':             '#60a5fa',
+    'ml':             '#4ade80',
+    'deep-learning':  '#f472b6',
+    'maths':          '#fb923c',
+    'nlp-llms':       '#a78bfa',
+    'mlops':          '#38bdf8',
+    'setup':          '#94a3b8',
+    'rl':             '#fbbf24',
+};
+const colorOf = s => SUBJECT_COLOR[s] || '#555';
+
+// ── Build graph data ─────────────────────────────────────────
+function buildGraphData(posts) {
+    const nodes = [];
+    const links = [];
+    const linkSet = new Set();
+    const urlToId = new Map();
+    const nodeMap = new Map();           // id → node ref (fast lookup)
+
+    function addLink(src, tgt, type) {
+        if (src === tgt) return;
+        const key = src < tgt ? `${src}|${tgt}` : `${tgt}|${src}`;
+        if (linkSet.has(key)) return;
+        linkSet.add(key);
+        links.push({ source: src, target: tgt, type });
+        nodeMap.get(src).linkCount++;
+        nodeMap.get(tgt).linkCount++;
+    }
+
+    // 1 ── Content nodes
+    posts.forEach((p, i) => {
+        const id = `n-${i}`;
+        urlToId.set(normalizeUrl(p.url), id);
+        const n = {
+            id, title: p.title, url: p.url,
+            tags: p.tags || [], subject: p.subject || null,
+            subSubject: p.sub_subject || null,
+            kind: 'note', linkCount: 0,
+        };
+        nodes.push(n);
+        nodeMap.set(id, n);
+    });
+
+    // 2 ── Hub nodes (one per sub-subject that has ≥2 notes)
+    const buckets = new Map();           // "cv/object-detection" → [id…]
+    nodes.forEach(n => {
+        if (!n.subject || !n.subSubject) return;
+        const key = `${n.subject}/${n.subSubject}`;
+        if (!buckets.has(key)) buckets.set(key, []);
+        buckets.get(key).push(n.id);
+    });
+
+    const hubIds = new Map();            // bucketKey → hubId
+    for (const [key, ids] of buckets) {
+        if (ids.length < 2) continue;    // no hub for singletons
+        const hubId = `hub-${key}`;
+        const subject = key.split('/')[0];
+        const label = key.split('/')[1]
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, c => c.toUpperCase());
+        const hub = {
+            id: hubId, title: label, url: null,
+            tags: [], subject,
+            subSubject: key.split('/')[1],
+            kind: 'hub', linkCount: 0,
+        };
+        nodes.push(hub);
+        nodeMap.set(hubId, hub);
+        hubIds.set(key, hubId);
+        // spoke links: note → hub
+        ids.forEach(nid => addLink(nid, hubId, 'spoke'));
+    }
+
+    // 3 ── Explicit href links
+    posts.forEach((p, i) => {
+        if (!p.links) return;
+        p.links.forEach(href => {
+            const tid = urlToId.get(normalizeUrl(href));
+            if (tid) addLink(`n-${i}`, tid, 'explicit');
+        });
+    });
+
+    // 4 ── Tag bridges (≥2 shared, cross-cluster only, cap 4/node)
+    const TAG_MIN = 2, TAG_CAP = 4;
+    const tagCount = new Map();
+    for (let i = 0; i < posts.length; i++) {
+        const a = nodes[i], aT = new Set(a.tags);
+        if (aT.size === 0) continue;
+        for (let j = i + 1; j < posts.length; j++) {
+            const b = nodes[j], bT = b.tags;
+            if (bT.length === 0) continue;
+            // skip same sub-subject (already spoke-linked through hub)
+            if (a.subject && a.subject === b.subject &&
+                a.subSubject && a.subSubject === b.subSubject) continue;
+            const shared = bT.filter(t => aT.has(t)).length;
+            if (shared < TAG_MIN) continue;
+            const ac = tagCount.get(a.id) || 0;
+            const bc = tagCount.get(b.id) || 0;
+            if (ac >= TAG_CAP || bc >= TAG_CAP) continue;
+            addLink(a.id, b.id, 'tag');
+            tagCount.set(a.id, ac + 1);
+            tagCount.set(b.id, bc + 1);
+        }
+    }
+
+    // 5 ── Hub-to-hub within same subject (keeps subject cluster together)
+    const subjectHubs = new Map();       // subject → [hubId…]
+    for (const [key, hubId] of hubIds) {
+        const subj = key.split('/')[0];
+        if (!subjectHubs.has(subj)) subjectHubs.set(subj, []);
+        subjectHubs.get(subj).push(hubId);
+    }
+    for (const [, hubs] of subjectHubs) {
+        for (let i = 0; i < hubs.length; i++) {
+            for (let j = i + 1; j < hubs.length; j++) {
+                addLink(hubs[i], hubs[j], 'spine');
+            }
+        }
+    }
+
+    // Orphan notes without a hub: connect directly to another same-subject note
+    // so they don't float away
+    nodes.forEach(n => {
+        if (n.kind !== 'note' || n.linkCount > 0) return;
+        // find any hub for the same subject
+        if (n.subject && subjectHubs.has(n.subject)) {
+            const hubs = subjectHubs.get(n.subject);
+            addLink(n.id, hubs[0], 'spoke');
+        }
+    });
+
+    return { nodes, links };
+}
+
+// ── Render ───────────────────────────────────────────────────
 async function initGraph() {
     const container = document.getElementById('graph-container');
     if (!container) return;
-
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+    const W = container.clientWidth;
+    const H = container.clientHeight;
 
     try {
-        // Get baseurl from meta tag or detect from current path
         const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
-        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
-        
-        const response = await fetch(postsUrl);
-        if (!response.ok) throw new Error('Failed to load graph data');
-        const posts = await response.json();
-
-        // Build nodes and links
+        const res = await fetch(baseUrl ? `${baseUrl}/posts.json` : '/posts.json');
+        if (!res.ok) throw new Error('Failed to load graph data');
+        const posts = await res.json();
         const { nodes, links } = buildGraphData(posts);
 
-        // Remove loading state
         container.innerHTML = '';
 
-        // Create SVG
+        // ── SVG + zoom ──────────────────────────────────────
         const svg = d3.select(container)
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .attr('viewBox', [0, 0, width, height]);
-
-        // Add zoom behavior
+            .append('svg').attr('width', W).attr('height', H);
         const g = svg.append('g');
-
-        const zoom = d3.zoom()
-            .scaleExtent([0.2, 4])
-            .on('zoom', (event) => {
-                g.attr('transform', event.transform);
-            });
-
+        const zoom = d3.zoom().scaleExtent([0.15, 5])
+            .on('zoom', e => g.attr('transform', e.transform));
         svg.call(zoom);
 
-        // Create force simulation
+        // ── Tooltip ─────────────────────────────────────────
+        const tip = d3.select(container).append('div')
+            .attr('class', 'graph-tooltip')
+            .style('position', 'absolute').style('pointer-events', 'none')
+            .style('opacity', 0);
+
+        // ── Forces ──────────────────────────────────────────
         const simulation = d3.forceSimulation(nodes)
-            .force('link', d3.forceLink(links).id(d => d.id).distance(100))
-            .force('charge', d3.forceManyBody().strength(-300))
-            .force('center', d3.forceCenter(width / 2, height / 2))
-            .force('collision', d3.forceCollide().radius(40));
+            .force('link', d3.forceLink(links).id(d => d.id)
+                .distance(d => {
+                    if (d.type === 'spoke')    return 40;
+                    if (d.type === 'spine')    return 80;
+                    if (d.type === 'explicit') return 60;
+                    return 120;  // tag
+                })
+                .strength(d => {
+                    if (d.type === 'spoke')    return 1.0;
+                    if (d.type === 'spine')    return 0.6;
+                    if (d.type === 'explicit') return 0.8;
+                    return 0.15; // tag — gentle pull
+                }))
+            .force('charge', d3.forceManyBody()
+                .strength(d => d.kind === 'hub' ? -250 : -80))
+            .force('center', d3.forceCenter(W / 2, H / 2))
+            .force('x', d3.forceX(W / 2).strength(0.03))
+            .force('y', d3.forceY(H / 2).strength(0.03))
+            .force('collision', d3.forceCollide()
+                .radius(d => d.kind === 'hub' ? 30 : 14));
 
-        // Draw links
-        const link = g.append('g')
-            .attr('class', 'links')
-            .selectAll('line')
-            .data(links)
-            .join('line')
-            .attr('stroke', '#666')
-            .attr('stroke-opacity', 0.3)
-            .attr('stroke-width', 1);
+        // ── Draw links ──────────────────────────────────────
+        const linkG = g.append('g');
+        const link = linkG.selectAll('line').data(links).join('line')
+            .attr('stroke', d => {
+                if (d.type === 'explicit') return '#4ade80';
+                if (d.type === 'tag')      return '#555';
+                return '#333';  // spoke, spine
+            })
+            .attr('stroke-opacity', d => {
+                if (d.type === 'explicit') return 0.5;
+                if (d.type === 'tag')      return 0.18;
+                if (d.type === 'spine')    return 0.25;
+                return 0.15;   // spoke — very subtle
+            })
+            .attr('stroke-width', d => d.type === 'explicit' ? 1.5 : 0.75)
+            .attr('stroke-dasharray', d => d.type === 'tag' ? '2,3' : null);
 
-        // Draw nodes
-        const node = g.append('g')
-            .attr('class', 'nodes')
-            .selectAll('g')
-            .data(nodes)
-            .join('g')
-            .attr('class', 'node')
+        // ── Draw nodes ──────────────────────────────────────
+        const nodeG = g.append('g');
+        const node = nodeG.selectAll('g').data(nodes).join('g')
+            .attr('class', d => `node node--${d.kind}`)
+            .attr('cursor', d => d.url ? 'pointer' : 'default')
             .call(d3.drag()
-                .on('start', dragstarted)
-                .on('drag', dragged)
-                .on('end', dragended));
+                .on('start', (e) => { if (!e.active) simulation.alphaTarget(0.3).restart(); e.subject.fx = e.subject.x; e.subject.fy = e.subject.y; })
+                .on('drag',  (e) => { e.subject.fx = e.x; e.subject.fy = e.y; })
+                .on('end',   (e) => { if (!e.active) simulation.alphaTarget(0); e.subject.fx = null; e.subject.fy = null; }));
 
-        // Node circles
+        // circles
         node.append('circle')
-            .attr('r', d => 8 + (d.linkCount || 0) * 2)
-            .attr('fill', '#555')
-            .attr('stroke', '#333')
-            .attr('stroke-width', 1.5)
-            .attr('cursor', 'pointer');
+            .attr('r', d => d.kind === 'hub' ? 10 : Math.min(4 + d.linkCount * 0.8, 9))
+            .attr('fill', d => d.kind === 'hub'
+                ? colorOf(d.subject)
+                : colorOf(d.subject))
+            .attr('fill-opacity', d => d.kind === 'hub' ? 0.9 : 0.7)
+            .attr('stroke', d => colorOf(d.subject))
+            .attr('stroke-width', d => d.kind === 'hub' ? 2 : 0)
+            .attr('stroke-opacity', 0.4);
 
-        // Node labels
+        // labels
         node.append('text')
             .attr('class', 'node-label')
-            .attr('dy', -15)
+            .attr('dy', d => d.kind === 'hub' ? -14 : -10)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#666')
-            .text(d => truncateText(d.title, 25));
+            .attr('fill', d => d.kind === 'hub' ? '#aaa' : '#555')
+            .attr('font-size', d => d.kind === 'hub' ? '11px' : '9px')
+            .attr('font-weight', d => d.kind === 'hub' ? 600 : 400)
+            .text(d => truncateText(d.title, d.kind === 'hub' ? 30 : 22));
 
-        // Hover effects
+        // ── Hover — gentle opacity, no color thrashing ──────
         node.on('mouseover', function (event, d) {
-            d3.select(this).select('circle')
-                .attr('fill', '#4ade80')
-                .attr('r', d => 10 + (d.linkCount || 0) * 2);
-
-            d3.select(this).select('text')
-                .classed('highlighted', true);
-
-            // Highlight connected nodes
-            const connectedIds = new Set();
-            links.forEach(l => {
-                if (l.source.id === d.id) connectedIds.add(l.target.id);
-                if (l.target.id === d.id) connectedIds.add(l.source.id);
+            // Build neighbor set
+            const neighbors = new Set([d.id]);
+            const activeLinks = new Set();
+            links.forEach((l, i) => {
+                const sid = typeof l.source === 'object' ? l.source.id : l.source;
+                const tid = typeof l.target === 'object' ? l.target.id : l.target;
+                if (sid === d.id) { neighbors.add(tid); activeLinks.add(i); }
+                if (tid === d.id) { neighbors.add(sid); activeLinks.add(i); }
             });
 
+            // Dim non-neighbors (only opacity, never change color)
             node.select('circle')
-                .attr('fill', n => {
-                    if (n.id === d.id) return '#4ade80';
-                    if (connectedIds.has(n.id)) return '#60a5fa';
-                    return '#444';
-                });
+                .transition().duration(150)
+                .attr('fill-opacity', n => neighbors.has(n.id)
+                    ? (n.kind === 'hub' ? 0.95 : 0.9) : 0.12);
+            node.select('text')
+                .transition().duration(150)
+                .attr('fill-opacity', n => neighbors.has(n.id) ? 1 : 0.15);
+            link.transition().duration(150)
+                .attr('stroke-opacity', (l, i) => activeLinks.has(i) ? 0.5 : 0.03);
 
-            link.attr('stroke', l => {
-                if (l.source.id === d.id || l.target.id === d.id) return '#4ade80';
-                return '#666';
-            }).attr('stroke-opacity', l => {
-                if (l.source.id === d.id || l.target.id === d.id) return 1;
-                return 0.3;
-            }).attr('stroke-width', l => {
-                if (l.source.id === d.id || l.target.id === d.id) return 3;
-                return 1;
-            });
+            // Hovered node: subtle ring (add a second circle via class)
+            d3.select(this).select('circle')
+                .attr('stroke', '#e8e8e8')
+                .attr('stroke-width', 2)
+                .attr('stroke-opacity', 0.8);
+
+            // Tooltip
+            tip.html(`<span style="color:${colorOf(d.subject)}">${d.subject || 'post'}</span> › ${d.title}`)
+                .style('opacity', 1)
+                .style('left', (event.offsetX + 14) + 'px')
+                .style('top',  (event.offsetY - 8)  + 'px');
         })
-            .on('mouseout', function () {
-                node.select('circle')
-                    .attr('fill', '#555')
-                    .attr('r', d => 8 + (d.linkCount || 0) * 2);
+        .on('mousemove', function (event) {
+            tip.style('left', (event.offsetX + 14) + 'px')
+               .style('top',  (event.offsetY - 8)  + 'px');
+        })
+        .on('mouseout', function (event, d) {
+            // Restore everything
+            node.select('circle')
+                .transition().duration(300)
+                .attr('fill-opacity', n => n.kind === 'hub' ? 0.9 : 0.7)
+                .attr('stroke', n => colorOf(n.subject))
+                .attr('stroke-width', n => n.kind === 'hub' ? 2 : 0)
+                .attr('stroke-opacity', 0.4);
+            node.select('text')
+                .transition().duration(300)
+                .attr('fill-opacity', 1);
+            link.transition().duration(300)
+                .attr('stroke-opacity', l => {
+                    if (l.type === 'explicit') return 0.5;
+                    if (l.type === 'tag')      return 0.18;
+                    if (l.type === 'spine')    return 0.25;
+                    return 0.15;
+                });
+            tip.style('opacity', 0);
+        })
+        .on('click', function (event, d) {
+            if (d.url) window.location.href = d.url;
+        });
 
-                node.select('text')
-                    .classed('highlighted', false)
-                    .attr('fill', '#666');
-
-                link.attr('stroke', '#666').attr('stroke-opacity', 0.3).attr('stroke-width', 1);
-            })
-            .on('click', function (event, d) {
-                window.location.href = d.url;
-            });
-
-        // Update positions on tick
+        // ── Tick ─────────────────────────────────────────────
         simulation.on('tick', () => {
-            link
-                .attr('x1', d => d.source.x)
-                .attr('y1', d => d.source.y)
-                .attr('x2', d => d.target.x)
-                .attr('y2', d => d.target.y);
-
+            link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
             node.attr('transform', d => `translate(${d.x},${d.y})`);
         });
 
-        // Drag functions
-        function dragstarted(event) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            event.subject.fx = event.subject.x;
-            event.subject.fy = event.subject.y;
-        }
-
-        function dragged(event) {
-            event.subject.fx = event.x;
-            event.subject.fy = event.y;
-        }
-
-        function dragended(event) {
-            if (!event.active) simulation.alphaTarget(0);
-            event.subject.fx = null;
-            event.subject.fy = null;
-        }
-
-        // Search functionality
+        // ── Search ───────────────────────────────────────────
         const searchInput = document.getElementById('graph-search');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-
-                node.select('circle').attr('fill', d => {
-                    if (!query) return '#555';
-                    return d.title.toLowerCase().includes(query) ? '#4ade80' : '#333';
-                });
-                
-                node.select('text').attr('fill', d => {
-                    if (!query) return '#666';
-                    return d.title.toLowerCase().includes(query) ? '#fff' : '#444';
-                });
-
-                node.select('text').classed('highlighted', d => {
-                    return query && d.title.toLowerCase().includes(query);
-                });
+                const q = e.target.value.toLowerCase();
+                if (!q) {
+                    // restore
+                    node.select('circle').transition().duration(200)
+                        .attr('fill-opacity', d => d.kind === 'hub' ? 0.9 : 0.7);
+                    node.select('text').transition().duration(200)
+                        .attr('fill-opacity', 1);
+                    return;
+                }
+                node.select('circle').transition().duration(200)
+                    .attr('fill-opacity', d =>
+                        d.title.toLowerCase().includes(q) ? 1 : 0.08);
+                node.select('text').transition().duration(200)
+                    .attr('fill-opacity', d =>
+                        d.title.toLowerCase().includes(q) ? 1 : 0.08);
             });
         }
 
-        // Reset button
+        // ── Reset ────────────────────────────────────────────
         const resetBtn = document.getElementById('graph-reset');
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
                 svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
                 if (searchInput) searchInput.value = '';
-                node.select('circle').attr('fill', '#555');
-                node.select('text').classed('highlighted', false).attr('fill', '#666');
-                link.attr('stroke', '#666').attr('stroke-opacity', 0.3).attr('stroke-width', 1);
+                node.select('circle').transition().duration(300)
+                    .attr('fill-opacity', d => d.kind === 'hub' ? 0.9 : 0.7);
+                node.select('text').transition().duration(300)
+                    .attr('fill-opacity', 1);
+                link.transition().duration(300)
+                    .attr('stroke-opacity', l => {
+                        if (l.type === 'explicit') return 0.5;
+                        if (l.type === 'tag')      return 0.18;
+                        if (l.type === 'spine')    return 0.25;
+                        return 0.15;
+                    });
             });
         }
 
-    } catch (error) {
-        console.error('Graph initialization failed:', error);
+    } catch (err) {
+        console.error('Graph init failed:', err);
         container.innerHTML = `
-      <div style="text-align: center; padding: 3rem; color: var(--dim);">
+      <div style="text-align:center;padding:3rem;color:var(--dim)">
         <p>Failed to load graph data.</p>
-        <p style="font-size: 0.8rem;">Make sure posts.json is generated.</p>
-      </div>
-    `;
+        <p style="font-size:0.8rem">Ensure posts.json is generated.</p>
+      </div>`;
     }
 }
 
-/**
- * Build graph data structure from posts
- */
-function buildGraphData(posts) {
-    const nodes = [];
-    const links = [];
-    const urlToId = new Map();
-
-    // Create nodes
-    posts.forEach((post, index) => {
-        const id = `post-${index}`;
-        urlToId.set(normalizeUrl(post.url), id);
-
-        nodes.push({
-            id,
-            title: post.title,
-            url: post.url,
-            tags: post.tags || [],
-            subject: post.subject || null,
-            linkCount: 0
-        });
-    });
-
-    // Create links from explicit links in content
-    posts.forEach((post, sourceIndex) => {
-        const sourceId = `post-${sourceIndex}`;
-
-        if (post.links) {
-            post.links.forEach(link => {
-                const targetId = urlToId.get(normalizeUrl(link));
-                if (targetId && targetId !== sourceId) {
-                    // Check if link already exists
-                    const linkExists = links.some(l => 
-                        (l.source === sourceId && l.target === targetId) ||
-                        (l.source === targetId && l.target === sourceId)
-                    );
-                    
-                    if (!linkExists) {
-                        links.push({
-                            source: sourceId,
-                            target: targetId,
-                            type: 'explicit'
-                        });
-
-                        // Update link counts
-                        const sourceNode = nodes.find(n => n.id === sourceId);
-                        const targetNode = nodes.find(n => n.id === targetId);
-                        if (sourceNode) sourceNode.linkCount++;
-                        if (targetNode) targetNode.linkCount++;
-                    }
-                }
-            });
-        }
-    });
-
-    // Special handling: Connect "short notes" / hub notes to all notes in same subject
-    for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
-        
-        // Check if this is a hub note (contains "short" or "notes" in URL path)
-        const isHubNote = post.url.toLowerCase().includes('short-notes') || 
-                          post.url.toLowerCase().includes('quick-reference');
-        
-        if (isHubNote && post.subject) {
-            // Connect this hub note to ALL notes with same subject
-            for (let j = 0; j < posts.length; j++) {
-                if (i === j) continue;
-                const otherPost = posts[j];
-                
-                if (otherPost.subject === post.subject) {
-                    const sourceId = `post-${i}`;
-                    const targetId = `post-${j}`;
-                    
-                    const linkExists = links.some(l => 
-                        (l.source === sourceId && l.target === targetId) ||
-                        (l.source === targetId && l.target === sourceId)
-                    );
-                    
-                    if (!linkExists) {
-                        links.push({
-                            source: sourceId,
-                            target: targetId,
-                            type: 'hub',
-                            subject: post.subject
-                        });
-
-                        const sourceNode = nodes.find(n => n.id === sourceId);
-                        const targetNode = nodes.find(n => n.id === targetId);
-                        if (sourceNode) sourceNode.linkCount++;
-                        if (targetNode) targetNode.linkCount++;
-                    }
-                }
-            }
-        }
-    }
-
-    return { nodes, links };
-}
-
-/**
- * Normalize URL for comparison
- */
 function normalizeUrl(url) {
-    return url
-        .replace(/^https?:\/\/[^/]+/, '')
-        .replace(/\/$/, '')
-        .replace(/\/index\.html$/, '')
-        .toLowerCase();
+    return url.replace(/^https?:\/\/[^/]+/, '').replace(/\/$/, '')
+              .replace(/\/index\.html$/, '').toLowerCase();
+}
+function truncateText(t, max) {
+    return t.length <= max ? t : t.substring(0, max - 1) + '\u2026';
 }
 
-/**
- * Truncate text for display
- */
-function truncateText(text, maxLength) {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength - 3) + '...';
-}
-
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initGraph);
-} else {
-    initGraph();
-}
+} else { initGraph(); }

@@ -1,15 +1,14 @@
 <header class="site-header">
     <div class="header-container">
         <a href="{{ '/' | relative_url }}" class="site-title">
-            <span class="title-text">AI Research Blog</span>
+            <span class="title-text">rohit.vision</span>
         </a>
         <nav class="site-nav">
-            <a href="{{ '/' | relative_url }}">Posts</a>
-            <a href="{{ '/notes/' | relative_url }}">Notes</a>
-            <a href="{{ '/graph' | relative_url }}">Graph</a>
-            <a href="{{ '/search' | relative_url }}">Search</a>
-            <a href="{{ '/about' | relative_url }}">About</a>
-            <a href="{{ site.social.portfolio }}" class="external-link">Portfolio <svg width="14" height="14"
+            <a href="{{ '/notes/' | relative_url }}"{% if page.url contains '/notes' %} class="active"{% endif %}>Notes</a>
+            <a href="{{ '/graph' | relative_url }}"{% if page.url contains '/graph' %} class="active"{% endif %}>Graph</a>
+            <a href="{{ '/search' | relative_url }}"{% if page.url contains '/search' %} class="active"{% endif %}>Search</a>
+            <a href="{{ '/about' | relative_url }}"{% if page.url contains '/about' %} class="active"{% endif %}>About</a>
+            <a href="{{ site.social.portfolio }}" class="external-link" target="_blank" rel="noopener">Portfolio <svg width="14" height="14"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
