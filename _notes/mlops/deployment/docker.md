@@ -4,6 +4,7 @@ subject: mlops
 tags: [mlops, docker, deployment, containers]
 status: wip
 sitemap: false
+description: "Docker container commands and quick reference"
 ---
 ## Commands
 

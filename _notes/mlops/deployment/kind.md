@@ -2,6 +2,7 @@
 title: "Kind (Kubernetes in Docker)"
 subject: mlops
 tags: [mlops, kubernetes, docker, deployment]
+description: "Local Kubernetes clusters with Kind for development and testing"
 ---
 ## Commands
 
