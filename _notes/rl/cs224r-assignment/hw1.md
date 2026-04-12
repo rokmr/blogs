@@ -4,6 +4,7 @@ subject: rl
 tags: [reinforcement-learning, cs224r, imitation-learning]
 status: wip
 sitemap: false
+description: "CS224R HW1 — behaviour cloning and DAgger implementation"
 ---
 ## Topics
 

@@ -2,6 +2,7 @@
 title: "Model Lists"
 subject: nlp-llms
 tags: [nlp, llm, language-models, models]
+description: "Reference list of LLMs with parameter counts and release info"
 ---
 ## Model List
 
