@@ -37,39 +37,39 @@ tags: [deep-learning, loss, cross-entropy, focal-loss, contrastive]
 
 ## Mean Square Loss
 - **Use:** Regression
-- $L_{MSE} = \frac{1}{n}\sum_i (y_i - \hat{y}_i)^2$
+- $$L_{MSE} = \frac{1}{n}\sum_i (y_i - \hat{y}_i)^2$$
 - Sensitive to outliers
 
 ## Binary Cross Entropy Loss
 - **Use:** Binary Classification
-- $L_{BCE} = -\sum_i y_i \log(\hat{y}_{i}) + (1 - y_i) \log(1 - \hat{y}_{i})$
+- $$L_{BCE} = -\sum_i y_i \log(\hat{y}_{i}) + (1 - y_i) \log(1 - \hat{y}_{i})$$
 - Penalizes confident wrong predictions heavily
 
 ## Cross Entropy Loss
 - **Use:** Multi-class Classification
-- $L_{CE} = -\sum_i y_i \log(\hat{y}_i)$
+- $$L_{CE} = -\sum_i y_i \log(\hat{y}_i)$$
 
 ## Hinge Loss
 - **Use:** SVM Classification
-- $L_{hinge}=\max(0, 1-\hat{y} \cdot y)$
+- $$L_{hinge}=\max(0, 1-\hat{y} \cdot y)$$
 - Robust to outliers
 
 ## [Focal Loss](https://arxiv.org/pdf/1708.02002)
 - **Use:** Object Detection / Imbalanced Classification
-- $L_{focal} = - (1 - p_t)^{\gamma} \log(p_t)$
+- $$L_{focal} = - (1 - p_t)^{\gamma} \log(p_t)$$
 - $\gamma$ controls focus on hard examples
 
 ## [Triplet Loss](https://arxiv.org/pdf/1503.03832)
 - **Use:** Similarity Learning / Embedding Learning
-- $L_{triplet} = \sum_i^N [\|f(x_i^a) - f(x_i^p)\|_2^2 - \|f(x_i^a) - f(x_i^n)\|_2^2 + \alpha]_{+}$
+- $$L_{triplet} = \sum_i^N [\|f(x_i^a) - f(x_i^p)\|_2^2 - \|f(x_i^a) - f(x_i^n)\|_2^2 + \alpha]_{+}$$
 - Requires triplets (anchor, positive, negative). Used in face recognition.
 
 ## KL Divergence Loss
 - **Use:** Distribution Learning
-- $KL(P\|Q)=\sum P(x) \log \frac{P(x)}{Q(x)}$
+- $$KL(P\|Q)=\sum P(x) \log \frac{P(x)}{Q(x)}$$
 - Not symmetric. Used in VAE.
 
 ## [Contrastive Loss](https://proceedings.mlr.press/v182/zhang22a/zhang22a.pdf)
 - **Use:** Self-supervised / Multi-modal Learning
-- $l_i^{(u \rightarrow v)} = - \log \frac{\exp(sim(u_i,v_i)/\tau)}{\sum_{k=1}^N \exp(sim(u_i, v_k)/ \tau)}$
+- $$l_i^{(u \rightarrow v)} = - \log \frac{\exp(sim(u_i,v_i)/\tau)}{\sum_{k=1}^N \exp(sim(u_i, v_k)/ \tau)}$$
 - Pulls similar pairs together, pushes dissimilar apart. Used in CLIP, SimCLR.

@@ -37,6 +37,6 @@ During inference: keep dropout active, run multiple forward passes to get uncert
 
 ## Questions
 
-**How L1 helps in feature selection?** The derivative of $|w|$ is $\pm 1$ (or subgradient $[-1,1]$ at $w=0$). The constant push towards zero means weights stay exactly at zero if $|\frac{\partial L}{\partial w}| < \lambda$.
+**How L1 helps in feature selection?** The derivative of $\|w\|$ is $\pm 1$ (or subgradient $[-1,1]$ at $w=0$). The constant push towards zero means weights stay exactly at zero if $\|\frac{\partial L}{\partial w}\| < \lambda$.
 
 **Dropout for uncertainty estimation?** Keep dropout active at inference, run ~100 forward passes. Mean = prediction, variance = uncertainty.
