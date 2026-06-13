@@ -61,7 +61,7 @@ Here, $pred = \frac{1}{1+ e^{-(wx+b)}}$, if $pred > \tau$ then class 1 else clas
 $\tau$ is decided according to problem statement.
 
 ## Multi-Class (N)
-1. **One-vs-all:** We need to have N models. $pred = \text{argmax}_{i} f_{i}(x)$
+1. **One-vs-all:** We need to have N models. $pred = \argmax_{i} f_{i}(x)$
 
 2. **One-vs-one:** We need to have $\binom{N}{2}$ models, where each model is trained to distinguish between a pair of classes. The prediction is made by majority voting across all pairwise comparisons.
 
