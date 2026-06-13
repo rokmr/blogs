@@ -29,13 +29,13 @@ $y= \beta_0 + \beta_1 x_1 + \beta_2 x_2$ or $y= \beta_0 + \beta_1 sin(x) + \beta
 - **Root Mean Square Error (RMSE) :** Calculates the average of the squared difference between the predicted and actual values. Thus, larger errors (outliers or poor prediction) are flagged 
 more than when using MAE due to squaring errors. $RMSE = \sqrt{\frac{\sum_{i=1}^{N}(y_i - \hat{y_i})^2}{N}}$
 
-- **Mean Absolute Error (MAE) :** Calculates the average of the absolute difference between the predicted and actual values. As a result, it does not punish large errors as much as RMSE. $MAE = \frac{\sum_{i=1}^{N}|y_i - \hat{y_i}|}{N}$
+- **Mean Absolute Error (MAE) :** Calculates the average of the absolute difference between the predicted and actual values. As a result, it does not punish large errors as much as RMSE. $MAE = \frac{\sum_{i=1}^{N}\|y_i - \hat{y_i}\|}{N}$
 
 ## Methods
 1. Closed form solution
     - $XW=y$
     - $X^TXW=X^Ty$
-    - $w = (X^TX)^{-1}X^Ty$
+    - $W = (X^TX)^{-1}X^Ty$
     - Useful, when optimal solution is needed. Issue when inverse does not exist and computationally expensive when data is too large.
 
 2. Optimization algorithm, typically Gradient Descent (GD) or Stochastic Gradient Descent (SGD).
