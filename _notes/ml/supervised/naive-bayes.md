@@ -8,25 +8,25 @@ tags: [ml, supervised, classification, probability, bayes]
 
 Naive Bayes classifiers have a general assumption that the effect of an attribute value on a given class is independent of the values of the other attributes. This assumption is called class-conditional independence.
 
-$P(A|B) = \frac{P(B|A) P(A)}{P(B)}$
+$P(A\|B) = \frac{P(B\|A) P(A)}{P(B)}$
 
 $\text{posterior} = \frac{\text{likelihood prob} \times \text{prior}}{\text{marginal}}$
 
 In the context of Naive Bayes classification, we often work with log probabilities to avoid numerical underflow:
 
-$\log P(A|B) = \log P(B|A) + \log P(A) - \log P(B)$
+$\log P(A\|B) = \log P(B\|A) + \log P(A) - \log P(B)$
 
 The denominator $P(B)$ is omitted since it's constant across classes and doesn't affect the $\text{argmax}$:
 
-$\log P(A|B) = \log P(B|A) + \log P(A)$
+$\log P(A\|B) = \log P(B\|A) + \log P(A)$
 
 ## Additional Details
 - **Prior Probability $P(A)$:** Initial belief about probability of each class before seeing evidence.
-- **Likelihood Probability $P(B|A)$:** Probability of observing features given a particular class.
+- **Likelihood Probability $P(B\|A)$:** Probability of observing features given a particular class.
 - **Marginal Probability $P(B)$:** Probability of observing features regardless of class (normalizing constant).
-- **Posterior Probability $P(A|B)$:** Final probability of a class given observed features.
+- **Posterior Probability $P(A\|B)$:** Final probability of a class given observed features.
 
-Gaussian PDF: $P(x|c) = \frac{1}{\sqrt{2\pi\sigma_c^2}} e^{-\frac{(x-\mu_c)^2}{2\sigma_c^2}}$
+Gaussian PDF: $P(x\|c) = \frac{1}{\sqrt{2\pi\sigma_c^2}} e^{-\frac{(x-\mu_c)^2}{2\sigma_c^2}}$
 
 ## Advantages
 1. Simple and fast to train and predict
@@ -44,13 +44,13 @@ Gaussian PDF: $P(x|c) = \frac{1}{\sqrt{2\pi\sigma_c^2}} e^{-\frac{(x-\mu_c)^2}{2
 
 Handles zero probability problems. For a feature value x and class c:
 
-$P(x|c) = \frac{count(x,c) + \alpha}{count(c) + \alpha|V|}$
+$P(x\|c) = \frac{count(x,c) + \alpha}{count(c) + \alpha\|V\|}$
 
-Where $\alpha$ is the smoothing parameter (typically 1) and $|V|$ is the vocabulary size.
+Where $\alpha$ is the smoothing parameter (typically 1) and $\|V\|$ is the vocabulary size.
 
 ## Questions
 
-**Why Naive Bayes is called Naive?** Simplified assumption that all features are independent: $P(y|x_1,...,x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i|y)}{P(X)}$
+**Why Naive Bayes is called Naive?** Simplified assumption that all features are independent: $P(y\|x_1,...,x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i\|y)}{P(X)}$
 
 ## Code
 
