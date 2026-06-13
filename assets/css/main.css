@@ -96,7 +96,7 @@
   --max-width-wide: 1600px;        /* Wide layouts (notes grid, subject pages, home) */
   --max-width-default: 1400px;     /* Reserved for special layouts */
   --max-width-content: 900px;      /* Reading content (posts, notes) */
-  --sidebar-width: 280px;          /* TOC sidebar width */
+  --sidebar-width: clamp(240px, 18vw, 320px);  /* Responsive TOC sidebar width */
   
   /* Centralized Horizontal Spacing - Controls ALL side padding */
   --spacing-horizontal: 80px;      /* Desktop (auto-responsive via media queries) */
