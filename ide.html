@@ -1,0 +1,383 @@
+---
+layout: default
+title: Python IDE
+custom_class: ide-page-content
+---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldgutter.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<div class="ide-page">
+  <div id="ide-root">
+
+    <div id="ide-toolbar">
+      <!-- Python SVG logo -->
+      <span class="ide-title" title="Python">
+        <svg width="18" height="18" viewBox="0 0 256 255" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="py-a" x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%">
+              <stop stop-color="#387EB8" offset="0%"/>
+              <stop stop-color="#366994" offset="100%"/>
+            </linearGradient>
+            <linearGradient id="py-b" x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%">
+              <stop stop-color="#FFE052" offset="0%"/>
+              <stop stop-color="#FFC331" offset="100%"/>
+            </linearGradient>
+          </defs>
+          <path d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z" fill="url(#py-a)"/>
+          <path d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z" fill="url(#py-b)"/>
+        </svg>
+      </span>
+
+      <div id="status-dot" title="Loading runtime…"></div>
+
+      <!-- Icon-only Copy button -->
+      <button class="tb-btn icon-btn" id="copy-btn" title="Copy code" aria-label="Copy code">
+        <i class="ti ti-copy"></i>
+      </button>
+
+      <!-- Icon-only Run button -->
+      <button class="tb-btn icon-btn" id="run-btn" disabled title="Run (Ctrl+Enter)" aria-label="Run">
+        <i class="ti ti-player-play"></i>
+      </button>
+    </div>
+
+    <div id="ide-body">
+      <div id="editor-pane">
+        <textarea id="cm-editor"></textarea>
+      </div>
+      <div id="ide-resizer"></div>
+      <div id="output-pane">
+        <div id="output-header">
+          <span>Output</span>
+          <!-- Icon-only Clear button -->
+          <button class="tb-btn icon-btn" id="clear-btn" title="Clear output" aria-label="Clear output">
+            <i class="ti ti-trash"></i>
+          </button>
+        </div>
+        <div id="output-content" class="empty">Ready for execution — press Run or Ctrl+Enter.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pyodide/0.25.1/pyodide.js"></script>
+<script src="{{ '/assets/js/ide.js' | relative_url }}"></script>
+
+<style>
+  /* ── Page shell ── */
+  .ide-page-content {
+    height: calc(100vh - var(--header-height));
+    min-height: 0;
+    padding-top: var(--header-height);
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100% !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  body:has(.ide-page-content) {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .ide-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  /* ── Root container ── */
+  #ide-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* ── Toolbar ── */
+  #ide-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 1rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Python SVG logo title */
+  #ide-toolbar .ide-title {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    line-height: 0;
+  }
+
+  #ide-toolbar .ide-title svg {
+    display: block;
+  }
+
+  /* All toolbar + output buttons */
+  #ide-toolbar .tb-btn,
+  #output-header .tb-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    background: transparent !important;
+    color: var(--dim) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 2px !important;
+    font-family: var(--font-mono) !important;
+    font-size: var(--text-xs) !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  /* Icon-only sizing */
+  #ide-toolbar .tb-btn.icon-btn,
+  #output-header .tb-btn.icon-btn {
+    width: 30px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+  }
+
+  #ide-toolbar .tb-btn.icon-btn i,
+  #output-header .tb-btn.icon-btn i {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  #ide-toolbar .tb-btn:hover,
+  #output-header .tb-btn:hover {
+    border-color: var(--border-hover) !important;
+    color: var(--text-secondary) !important;
+    background: transparent !important;
+  }
+
+  #ide-toolbar .tb-btn:active,
+  #output-header .tb-btn:active {
+    transform: scale(0.93);
+  }
+
+  /* Run button */
+  #ide-toolbar #run-btn {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #000 !important;
+    width: 34px !important;
+    height: 28px !important;
+  }
+
+  #ide-toolbar #run-btn:hover {
+    background: #22c55e !important;
+    border-color: #22c55e !important;
+    color: #000 !important;
+  }
+
+  #ide-toolbar #run-btn:disabled {
+    background: var(--dim) !important;
+    border-color: var(--dim) !important;
+    color: var(--bg) !important;
+    cursor: not-allowed;
+  }
+
+  /* Spinning loader icon for run button */
+  #ide-toolbar #run-btn .ti-loader-2 {
+    animation: ide-spin 0.7s linear infinite;
+  }
+
+  @keyframes ide-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Copy success state */
+  #ide-toolbar #copy-btn.copied {
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+  }
+
+  /* Status dot */
+  #status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--warning-border);
+    flex-shrink: 0;
+    animation: ide-pulse 1.5s infinite;
+    transition: background 0.3s;
+  }
+
+  #status-dot.ready {
+    background: var(--accent);
+    animation: none;
+  }
+
+  #status-dot.error {
+    background: var(--danger-border);
+    animation: none;
+  }
+
+  @keyframes ide-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
+
+  #status-txt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--dim);
+    margin-right: 4px;
+  }
+
+  /* ── Body ── */
+  #ide-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  #editor-pane {
+    flex: 1;
+    min-height: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Resizer ── */
+  #ide-resizer {
+    height: 5px;
+    background: var(--border);
+    cursor: row-resize;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  #ide-resizer:hover,
+  #ide-resizer.dragging {
+    background: var(--accent);
+  }
+
+  /* ── Output pane ── */
+  #output-pane {
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    min-height: 40px;
+    border-top: 1px solid var(--border);
+    background: #0d0d0d;
+  }
+
+  #output-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dim);
+    flex-shrink: 0;
+  }
+
+  #output-header > span { margin-right: auto; }
+
+  #output-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  #output-content.empty     { color: var(--dim); font-style: italic; }
+  #output-content.out-error { color: var(--danger-border); }
+  .out-info { color: var(--dim); font-size: var(--text-sm); }
+
+  /* ── CodeMirror ── */
+  #editor-pane .CodeMirror {
+    height: 100%;
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    background: var(--bg-card) !important;
+    color: var(--text) !important;
+  }
+
+  #editor-pane .CodeMirror-gutters {
+    background: var(--bg-elevated) !important;
+    border-right: 1px solid var(--border) !important;
+  }
+
+  #editor-pane .CodeMirror-linenumber {
+    color: var(--dim);
+    padding: 0 8px 0 4px;
+  }
+
+  #editor-pane .CodeMirror-cursor {
+    border-left: 2px solid var(--accent) !important;
+  }
+
+  #editor-pane .CodeMirror-focused {
+    background: #0f0f0f !important;
+  }
+
+  #editor-pane .CodeMirror-selected,
+  #editor-pane .CodeMirror-focused .CodeMirror-selected {
+    background: rgba(6, 232, 89, 0.15) !important;
+  }
+
+  #editor-pane .CodeMirror-activeline-background {
+    background: rgba(216, 22, 22, 0.03) !important;
+  }
+
+  #editor-pane .cm-keyword    { color: #c792ea; }
+  #editor-pane .cm-def        { color: #82aaff; }
+  #editor-pane .cm-variable   { color: #e8e8e8; }
+  #editor-pane .cm-variable-2 { color: #89ddff; }
+  #editor-pane .cm-variable-3 { color: #4ade80; }
+  #editor-pane .cm-string     { color: #c3e88d; }
+  #editor-pane .cm-string-2   { color: #f78c6c; }
+  #editor-pane .cm-number     { color: #f78c6c; }
+  #editor-pane .cm-operator   { color: #89ddff; }
+  #editor-pane .cm-builtin    { color: #ffcb6b; }
+  #editor-pane .cm-property   { color: #82aaff; }
+  #editor-pane .cm-comment    { color: #676e95; font-style: italic; }
+  #editor-pane .cm-meta       { color: #ffcb6b; }
+  #editor-pane .cm-atom       { color: #f78c6c; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .ide-page-content {
+      height: calc(100vh - var(--spacing-vertical-top));
+      padding-top: var(--spacing-vertical-top);
+    }
+    #output-pane { height: 40%; }
+  }
+</style>

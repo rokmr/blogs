@@ -624,21 +624,39 @@ function renderFlowchart(cfg) {
   const nodeMap = {};
 
   // Layout: assign positions
-  // Simple algorithm: for TB, lay out nodes in rows by their order, up to 3 per row
-  const cols = isHorizontal ? Math.ceil(Math.sqrt(nodes.length)) : Math.min(3, nodes.length);
-  nodes.forEach((node, i) => {
-    const row = Math.floor(i / cols);
-    const col = i % cols;
-    const totalInRow = Math.min(cols, nodes.length - row * cols);
-    const offsetX = (cols - totalInRow) * (nodeW + gapX) / 2;
-    nodeMap[node.id] = {
-      ...node,
-      x: isHorizontal ? row * (nodeW + gapX) + 60 : col * (nodeW + gapX) + 60 + offsetX,
-      y: isHorizontal ? col * (nodeH + gapY) + 50 : row * (nodeH + gapY) + 50,
-      w: nodeW,
-      h: nodeH
-    };
-  });
+  const hasExplicit = nodes.some(n => n.row !== undefined && n.col !== undefined);
+
+  if (hasExplicit) {
+    let minCol = Infinity, maxCol = -Infinity;
+    nodes.forEach(n => {
+      if (n.col < minCol) minCol = n.col;
+      if (n.col > maxCol) maxCol = n.col;
+    });
+    const gridCols = maxCol - minCol + 1;
+    const offsetX = Math.max(0, (3 - gridCols)) * (nodeW + gapX) / 2;
+
+    nodes.forEach(node => {
+      const c = node.col - minCol;
+      const x = isHorizontal ? node.row * (nodeW + gapX) + 60 : c * (nodeW + gapX) + 60 + offsetX;
+      const y = isHorizontal ? c * (nodeH + gapY) + 50 : node.row * (nodeH + gapY) + 50;
+      nodeMap[node.id] = { ...node, x, y, w: nodeW, h: nodeH };
+    });
+  } else {
+    const cols = cfg.columns || (isHorizontal ? Math.ceil(Math.sqrt(nodes.length)) : Math.min(3, nodes.length));
+    nodes.forEach((node, i) => {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      const totalInRow = Math.min(cols, nodes.length - row * cols);
+      const offsetX = (cols - totalInRow) * (nodeW + gapX) / 2;
+      nodeMap[node.id] = {
+        ...node,
+        x: isHorizontal ? row * (nodeW + gapX) + 60 : col * (nodeW + gapX) + 60 + offsetX,
+        y: isHorizontal ? col * (nodeH + gapY) + 50 : row * (nodeH + gapY) + 50,
+        w: nodeW,
+        h: nodeH
+      };
+    });
+  }
 
   const allX = Object.values(nodeMap).map(n => n.x + n.w);
   const allY = Object.values(nodeMap).map(n => n.y + n.h);
@@ -658,17 +676,32 @@ function renderFlowchart(cfg) {
     const dashAttr = edge.dashed ? ' stroke-dasharray="6,4"' : '';
 
     // Simple path with a midpoint
-    const my = (fy + ty) / 2;
-    const d = isHorizontal
-      ? `M${from.x + from.w},${from.y + from.h / 2} C${from.x + from.w + gapX / 2},${from.y + from.h / 2} ${to.x - gapX / 2},${to.y + to.h / 2} ${to.x},${to.y + to.h / 2}`
-      : `M${fx},${fy} C${fx},${my} ${tx},${my} ${tx},${ty}`;
+    let d, lx, ly;
+    if (edge.route === 'right') {
+      const rx = Math.max(from.x, to.x) + from.w + gapX * 0.5;
+      d = `M${from.x + from.w},${from.y + from.h / 2} L${rx},${from.y + from.h / 2} L${rx},${to.y + to.h / 2} L${to.x + to.w},${to.y + to.h / 2}`;
+      lx = rx + 6;
+      ly = (from.y + from.h / 2 + to.y + to.h / 2) / 2;
+    } else if (edge.route === 'left') {
+      const xLeft = Math.min(from.x, to.x) - gapX * 0.5;
+      d = `M${from.x},${from.y + from.h / 2} L${xLeft},${from.y + from.h / 2} L${xLeft},${to.y + to.h / 2} L${to.x},${to.y + to.h / 2}`;
+      lx = xLeft - 6;
+      ly = (from.y + from.h / 2 + to.y + to.h / 2) / 2;
+    } else {
+      const my = (fy + ty) / 2;
+      d = isHorizontal
+        ? `M${from.x + from.w},${from.y + from.h / 2} C${from.x + from.w + gapX / 2},${from.y + from.h / 2} ${to.x - gapX / 2},${to.y + to.h / 2} ${to.x},${to.y + to.h / 2}`
+        : `M${fx},${fy} C${fx},${my} ${tx},${my} ${tx},${ty}`;
+      lx = isHorizontal ? (from.x + from.w + to.x) / 2 : (fx + tx) / 2 + 8;
+      ly = isHorizontal ? (from.y + from.h / 2 + to.y + to.h / 2) / 2 - 6 : (fy + ty) / 2 - 6;
+    }
 
     svg += `<path d="${d}" fill="none" stroke="${COLORS.dim}" stroke-width="1.5"${dashAttr} marker-end="url(#arrowhead)"/>`;
 
     // Edge label
     if (edge.label) {
-      const lx = (fx + tx) / 2, ly = (fy + ty) / 2 - 6;
-      svg += svgEl('text', { x: isHorizontal ? (from.x + from.w + to.x) / 2 : lx + 8, y: isHorizontal ? (from.y + from.h / 2 + to.y + to.h / 2) / 2 - 6 : ly, fill: COLORS.accent, 'font-size': SVG_XS, 'font-family': F_MONO, 'text-anchor': 'middle' }, escapeHtml(edge.label));
+      const align = edge.route === 'left' ? 'end' : (edge.route === 'right' ? 'start' : 'middle');
+      svg += svgEl('text', { x: lx, y: ly, fill: COLORS.accent, 'font-size': SVG_XS, 'font-family': F_MONO, 'text-anchor': align }, escapeHtml(edge.label));
     }
   });
 

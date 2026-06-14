@@ -46,7 +46,7 @@ Cost complexity function:
 
 $$\sum_{m=1}^{|T|} \sum_{i:x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha |T|$$
 
-where $|T|$ is tree size and $\alpha$ is complexity parameter.
+where $\|T\|$ is tree size and $\alpha$ is complexity parameter.
 
 ## Advantages and Disadvantages
 

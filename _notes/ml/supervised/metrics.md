@@ -88,14 +88,14 @@ $\text{Dice} = \frac{2 \times \text{Intersection}}{\text{Area of Prediction + Ar
   "caption": "Iteratively keeps highest-confidence box and removes overlapping boxes above IoU threshold",
   "direction": "TB",
   "nodes": [
-    { "id": "input", "label": "All predicted\nboxes + scores", "shape": "rounded" },
-    { "id": "sort", "label": "Sort by\nconfidence", "shape": "rounded" },
-    { "id": "pick", "label": "Pick highest\nscore box", "shape": "rounded", "accent": true },
-    { "id": "iou", "label": "IoU > threshold?", "shape": "diamond" },
-    { "id": "remove", "label": "Remove\noverlapping box", "shape": "rounded" },
-    { "id": "keep", "label": "Keep box", "shape": "rounded" },
-    { "id": "done", "label": "Remaining\nboxes empty?", "shape": "diamond" },
-    { "id": "output", "label": "Final\ndetections", "shape": "rounded", "accent": true }
+    { "id": "input", "label": "All predicted\nboxes + scores", "shape": "rounded", "row": 0, "col": 0 },
+    { "id": "sort", "label": "Sort by\nconfidence", "shape": "rounded", "row": 1, "col": 0 },
+    { "id": "pick", "label": "Pick highest\nscore box", "shape": "rounded", "accent": true, "row": 2, "col": 0 },
+    { "id": "iou", "label": "IoU > threshold?", "shape": "diamond", "row": 3, "col": 0 },
+    { "id": "remove", "label": "Remove\noverlapping box", "shape": "rounded", "row": 4, "col": -1 },
+    { "id": "keep", "label": "Keep box", "shape": "rounded", "row": 4, "col": 1 },
+    { "id": "done", "label": "Remaining\nboxes empty?", "shape": "diamond", "row": 5, "col": 0 },
+    { "id": "output", "label": "Final\ndetections", "shape": "rounded", "accent": true, "row": 6, "col": 0 }
   ],
   "edges": [
     { "from": "input", "to": "sort" },
@@ -105,7 +105,7 @@ $\text{Dice} = \frac{2 \times \text{Intersection}}{\text{Area of Prediction + Ar
     { "from": "iou", "to": "keep", "label": "No" },
     { "from": "remove", "to": "done" },
     { "from": "keep", "to": "done" },
-    { "from": "done", "to": "pick", "label": "No" },
+    { "from": "done", "to": "pick", "label": "No", "route": "right" },
     { "from": "done", "to": "output", "label": "Yes" }
   ]
 }'></div>
