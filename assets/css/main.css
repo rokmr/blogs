@@ -2168,7 +2168,7 @@ pre:hover .copy-btn {
 }
 
 .code-editor-container .CodeMirror-selected {
-  background: rgba(74, 222, 128, 0.15);
+  background: rgba(74, 222, 128, 0.15) !important;
 }
 
 .code-editor-container .CodeMirror-activeline-background {
@@ -4625,4 +4625,12 @@ nav.related-notes {
     top: 1rem;
     right: 1rem;
   }
+}
+
+
+/* Restore transparent background for CodeMirror lines */
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  background: transparent !important;
+  padding: 0 !important;
 }
