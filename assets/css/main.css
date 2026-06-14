@@ -1381,8 +1381,16 @@ pre code {
     --spacing-vertical-bottom: 60px;
   }
 
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
   .site-nav {
     gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .post-title {
