@@ -25,12 +25,15 @@ $$ \text{Total Bytes} = 2 \times \text{num\_layers} \times \text{num\_kv\_heads}
 ## Context & Memory Management
 
 ### PagedAttention
-Traditionally, KV cache memory was allocated contiguously, leading to massive fragmentation (up to 30% wasted VRAM). **PagedAttention** (introduced by vLLM) borrows OS-level virtual memory paging. It divides the KV cache into fixed-size "blocks," allowing non-contiguous memory allocation and enabling efficient memory sharing for complex sampling (like beam search).
+Traditionally, KV cache memory was allocated contiguously, leading to massive fragmentation (up to 30% wasted VRAM). **PagedAttention** (introduced by [vLLM](https://arxiv.org/abs/2309.06180)) borrows OS-level virtual memory paging. It divides the KV cache into fixed-size "blocks," allowing non-contiguous memory allocation and enabling efficient memory sharing for complex sampling (like beam search).
 
 ### KV Cache Eviction Policies
 When VRAM is exhausted by infinite context, we must evict tokens. 
 - **StreamingLLM (Attention Sinks):** Keeps the first few "sink" tokens (which act as attention anchors) and a sliding window of recent tokens, evicting the middle.
 - **Heavy-Hitter Oracle (H2O):** Evicts tokens that receive the least cumulative attention scores, keeping only the most semantically important tokens.
+
+### GQA (Generalized Multi-Query Attention)
+While standard Multi-Head Attention (MHA) keeps separate key and value heads for each query head, this balloons the KV cache size. [GQA](https://arxiv.org/abs/2305.13245) groups multiple query heads to share a single key and value head, significantly reducing the memory footprint of the KV cache while maintaining performance close to MHA.
 
 ### LMCache (Persistent Shared KV Cache)
 [LMCache](https://github.com/LMCache/LMCache) is a multi-tier KV cache management layer integrated heavily with vLLM and SGLang. 
@@ -41,3 +44,4 @@ When VRAM is exhausted by infinite context, we must evict tokens.
 **Additional Resources:**
 - [KV Caching Video](https://www.youtube.com/watch?v=Mn_9W1nCFLo&t=3869s)
 - [FLOPS computation efficiency with KV cache](https://docs.google.com/presentation/d/14hK7SmkUNfSEIRGyptFD2bGO7K9sJOTnwjAVg3vgg6g/edit?slide=id.g286de50af37_0_933#slide=id.g286de50af37_0_933)
+- [Understanding PagedAttention](https://datasciencedojo.com/blog/understanding-paged-attention/)

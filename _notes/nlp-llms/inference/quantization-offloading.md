@@ -25,9 +25,20 @@ Because these outliers are *dimension-specific* (always occurring at specific fe
 
 This approach prevents perplexity collapse while still granting a ~1.8x throughput increase (loading 70GB from VRAM instead of 140GB).
 
-### GPTQ vs AWQ
-- **GPTQ:** Uses a second-order (Hessian) approximation to quantize weights layer-by-layer. It is highly accurate but computationally expensive to calibrate and is mostly optimized for fixed-batch inference.
-- **AWQ (Activation-Aware Weight Quantization):** Observes that not all weights are equally important. It keeps a small fraction (e.g., 1%) of "salient" weights (based on activation magnitudes) in FP16, and quantizes the rest to INT4. It is faster to calibrate than GPTQ and often performs better on hardware due to memory layout optimizations.
+### GPTQ vs AWQ vs GGUF vs FP8
+- **FP8:** Minimal quality loss, gives 1.5-2x speedup. The standard for serving on newer A100/H100 hardware.
+- **INT8 (W8A8):** 8-bit weight and activation quantization. Low quality loss, gives ~1.5x throughput.
+- **GPTQ (W4A16):** 4-bit weights, 16-bit activations. Uses a second-order (Hessian) approximation to quantize weights layer-by-layer. Highly accurate but computationally expensive to calibrate, optimized for fixed-batch inference. Gives 2x memory reduction. [GPTQ Paper](https://arxiv.org/abs/2210.17323)
+- **AWQ (W4A16):** Activation-Aware Weight Quantization. Keeps a small fraction (e.g., 1%) of "salient" weights in FP16, quantizes the rest to INT4. Faster to calibrate than GPTQ, often better quality and performs better on hardware due to memory layout optimizations. (Won MLSys 2024 Best Paper). [AWQ Paper](https://arxiv.org/abs/2306.00978)
+- **GGUF (e.g., Q4_K_M):** Moderate quality loss, highly optimized for CPU-friendly edge inference (e.g., Llama.cpp).
+
+### The Kernel Problem & Marlin
+A common misunderstanding in quantization is assuming that smaller weights automatically mean faster inference. 
+- A 4-bit weight must be *dequantized* back to FP16 in the GPU registers before the actual matrix multiplication can happen. 
+- If the dequantization kernel is poorly written, the compute overhead of dequantization wipes out the memory bandwidth savings of loading smaller weights.
+
+**Marlin (Mixed Auto-Regressive Linear kernel):**
+Marlin is an ultra-optimized INT4 dequantization kernel. It is specifically designed to maximize memory bandwidth utilization and overlap the dequantization math with the memory loading. As shown in the **Jarvis Labs vLLM benchmark**, using AWQ/GPTQ formats *without* Marlin often results in slower inference than native FP16. Using the Marlin kernel is what actually unlocks the 2x-3x throughput gains promised by quantization.
 
 ## Quantization-Aware Training (QAT)
 Instead of applying quantization after the fact (PTQ), QAT simulates quantization and dequantization during the forward pass of training or fine-tuning.
@@ -45,3 +56,4 @@ When a model (or its KV cache) exceeds available GPU VRAM, memory must be offloa
 
 **Additional Resources:**
 - [Quantization Video](https://www.youtube.com/watch?v=0VdNflU08yA)
+- [HuggingFace Quantization Overview](https://huggingface.co/docs/transformers/main/quantization/overview)
