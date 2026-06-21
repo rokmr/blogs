@@ -58,3 +58,5 @@ When a model (or its KV cache) exceeds available GPU VRAM, memory must be offloa
 **Additional Resources:**
 - [Quantization Video](https://www.youtube.com/watch?v=0VdNflU08yA)
 - [HuggingFace Quantization Overview](https://huggingface.co/docs/transformers/main/quantization/overview)
+- [Quantization Fundamentals (DeepLearning.AI)](https://www.deeplearning.ai/courses/quantization-fundamentals)
+- [Quantization in Depth (DeepLearning.AI)](https://www.deeplearning.ai/courses/quantization-in-depth)
