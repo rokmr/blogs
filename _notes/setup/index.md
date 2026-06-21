@@ -11,5 +11,6 @@ sub_subjects:
   - slurm
   - fastapi
   - pytest
+  - ai-coding
   - tools
 ---
