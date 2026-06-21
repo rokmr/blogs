@@ -1,12 +1,19 @@
 ---
-title: "Open-Source Models: Reasoning & Small Models"
-description: "Orca 2, Phi-3, and tiny parameter scaling for reasoning"
+title: "Open-Source Models: Reasoning & Alignment"
+description: "Orca 2, Phi-3, and Nemotron for reasoning, alignment, and RAG"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, language-models, open-source, orca, phi-3, slms]
+tags: [nlp, llm, language-models, open-source, orca, phi-3, slms, nemotron, nvidia]
 status: wip
 sitemap: false
 ---
+
+## Alignment & Agentic Reasoning
+
+### Nemotron (NVIDIA)
+[Nemotron](https://huggingface.co/nvidia) is a family of highly optimized, open-source models released by NVIDIA explicitly purpose-built for agentic AI and RAG pipelines.
+- **Llama-3.1-Nemotron-70B-Instruct:** NVIDIA took the base Llama-3.1-70B model and heavily customized it to improve the helpfulness and alignment of generated responses. By utilizing advanced alignment techniques (like RLHF and Reward Modeling), it topped the AlpacaEval and LM Arena Hard benchmarks.
+- **RAG Blueprints:** Nemotron models are heavily integrated into NVIDIA's RAG Blueprints via NIM microservices, making them the standard open-weights choice for building enterprise reasoning agents.
 
 ## Small Language Models (SLMs)
 
