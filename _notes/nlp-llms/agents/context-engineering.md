@@ -12,7 +12,10 @@ sitemap: false
 "Deep Agents" also refers specifically to the open-source [DeepAgents](https://github.com/langchain-ai/deepagents) repository by LangChain. 
 - **Architecture:** It acts as an opinionated "Agent Harness" built on top of LangGraph. Instead of manually wiring up prompts and tools, you get a pre-configured agent capable of handling long-running, multi-step workflows.
 - **Key Capabilities:** It comes pre-bundled with Planning tools (`write_todos`), full Filesystem access (`ls`, `grep`, `edit_file`), and Sub-Agent delegation out of the box.
-Agents frequently fail not because the underlying LLM is bad, but because they retrieve either **too much** or **too little** context.
+## Overview
+
+Agents frequently fail not because the underlying LLM is bad, but because they retrieve either **too much** or **too little** context. As detailed in [LangChain's blog on Context Engineering](https://www.langchain.com/blog/how-agents-can-use-filesystems-for-context-engineering), relying exclusively on the chat history buffer or pure semantic search leads to catastrophic context management failures.
+
 - **Context Bloat:** A web search tool might return 10k tokens. Putting all 10k tokens directly into the conversation history inflates API costs, degrades reasoning, and risks hitting token limits.
 - **Niche Information:** Relying purely on semantic vector search often fails to find highly specific, non-semantic facts (like exact code snippets or precise API arguments).
 

@@ -190,6 +190,11 @@ for seq_len in [1024, 2048, 4096, 8192]:
 
 ## Using Flash Attention in Practice
 
+### Triton Tutorials & Kernel Engineering
+For engineers looking to understand FlashAttention at the kernel level (a requirement for many ML systems roles), the [Triton Tutorials](https://triton-lang.org/main/getting-started/tutorials/index.html) are the gold standard.
+- **Tutorial 2 (Fused Softmax):** Teaches the basics of the online softmax trick to keep data in SRAM.
+- **Tutorial 3 (Flash Attention):** Implements the full forward pass using block-level matrix multiplications and SRAM tiling. Writing this from scratch is the best way to internalize how hardware actually executes transformer models.
+
 ### With Hugging Face Transformers
 
 ```python

@@ -27,7 +27,15 @@ BM25 is an evolution of TF-IDF and is the default ranking function used by massi
 - **The BM25 Solution:** BM25 introduces **Term Frequency Saturation**. After a keyword appears a certain number of times, its score flatlines. Adding the word more times does not increase the score.
 - **Document Length Normalization:** BM25 also penalizes extremely long documents. If a 10,000-word document contains the word "Python" 5 times, it is ranked lower than a 100-word document containing "Python" 5 times.
 
-### Use Case in Modern RAG
-BM25 is still heavily used today in **Hybrid Search** pipelines. While Dense Vectors handle "vibes" and semantic meaning, BM25 handles exact match constraints (e.g., searching for exact error codes, specific user IDs, or exact proper nouns where embeddings often fail).
+### The BM25 Formula
+$$ \text{Score}(Q, d) = \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i, d) \cdot (k_1 + 1)}{f(q_i, d) + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)} $$
+- **$f(q_i, d)$**: Term frequency of the query term $q_i$ in document $d$.
+- **$|d|$**: Length of the document in words.
+- **$\text{avgdl}$**: Average document length across the entire text corpus.
+- **$k_1$ (typically 1.2 to 2.0)**: Controls term frequency saturation. Lower means quicker saturation.
+- **$b$ (typically 0.75)**: Controls length normalization. $b=1$ fully penalizes long documents, $b=0$ applies no penalty.
 
-TODO: Add exact BM25 mathematical formula.
+### Use Case in Modern RAG & Agents
+BM25 is heavily used today in **Hybrid Search** pipelines. While Dense Vectors handle "vibes" and semantic meaning, BM25 handles exact match constraints (e.g., searching for exact error codes, specific user IDs, or exact proper nouns where embeddings often fail).
+
+A practical example of BM25 in an agentic workflow is [Context Hub](https://github.com/andrewyng/context-hub), an open-source tool that curates versioned API documentation specifically for coding agents. When an agent runs a search command (e.g., `chub search openai`), Context Hub runs a pure BM25 search over a curated documentation corpus. It tokenizes the documents and queries, removes stop words, and applies multi-field scoring (giving higher weight to matches in document IDs and Titles compared to matches in the body text) to rapidly return the exact technical documentation the agent needs without the hallucination risks of dense vector search.

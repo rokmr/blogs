@@ -14,6 +14,14 @@ sitemap: false
 - **Latency (Time-To-First-Token / TTFT):** How fast the model outputs the first token. Critical for interactive chatbots. Bounded by memory bandwidth and the compute-heavy prefill phase.
 - **Throughput:** How many total tokens the system can generate per second across all users. Critical for batch processing and offline tasks.
 
+### Core Optimization Techniques
+Deploying LLMs in production requires overcoming massive computational and memory bottlenecks (inference is typically memory-bandwidth bound). As outlined in NVIDIA's guide to [Mastering LLM Techniques: Inference Optimization](https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/), the primary levers for improving throughput and latency include:
+
+1. **Continuous (In-Flight) Batching:** Traditional static batching waits for an entire batch to finish generating before starting the next. Continuous batching evicts a request the moment it finishes and immediately slots a new incoming request into the batch, dramatically increasing GPU utilization.
+2. **KV Caching & PagedAttention:** Storing historical Key and Value tensors in memory prevents redundant computation. PagedAttention eliminates memory fragmentation by breaking this cache into non-contiguous "pages".
+3. **Quantization:** Reducing precision (e.g., FP16 to INT8 or INT4) for both the model weights and the KV cache to alleviate memory bandwidth bottlenecks.
+4. **Tensor Parallelism:** Slicing individual matrix multiplications across multiple GPUs to reduce generation latency for massive models.
+
 ## Decoding Strategies
 
 ### Speculative Decoding
