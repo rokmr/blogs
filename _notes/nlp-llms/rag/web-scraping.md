@@ -12,6 +12,16 @@ sitemap: false
 
 For dynamic knowledge ingestion, RAG systems and Agents need robust tools to fetch, crawl, and parse web pages efficiently.
 
+## Standard Python HTTP/Parsing
+
+### urllib / requests
+The fundamental libraries for making HTTP requests in Python. 
+- **Use Case:** Best for scraping simple, static HTML pages where no JavaScript rendering is required. Extremely fast, but useless against modern Single Page Applications (SPAs).
+
+### BeautifulSoup (bs4)
+The classic HTML parsing library for Python.
+- **Use Case:** Often paired with `requests`. Once the raw HTML is fetched, BeautifulSoup allows you to easily search and navigate the DOM tree (e.g., `soup.find_all('div', class_='article')`) to extract the exact text nodes you need.
+
 ## Modern Crawlers
 
 ### Spider
