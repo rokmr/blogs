@@ -12,7 +12,15 @@ sitemap: false
 
 High-quality RAG relies heavily on good data ingestion. Extracting clean text, tables, and images from dense formats (like PDFs) requires specialized tooling, and converting unstructured text into highly structured schemas requires precise LLM extraction.
 
-## Document Parsers
+## Document Parsers & Vision OCR Models
+
+### Chandra
+[Chandra](https://github.com/datalab-to/chandra) by Datalab is an open-source, highly accurate Vision OCR model specifically fine-tuned to handle complex document parsing. 
+- **Capabilities:** It excels at converting raw images and PDFs into structured HTML, Markdown, or JSON while explicitly preserving complex layout information, reading tables, forms, and even handwriting perfectly.
+
+### OlmOCR-2
+[OlmOCR-2](https://github.com/allenai/olmocr) by Allen AI is an open-source Vision Language Model (VLM) fine-tuned on top of Qwen2.5-VL-7B.
+- **Capabilities:** Designed for high-throughput conversion of academic papers, PDFs, and digitized print documents into plain text while strictly preserving the natural reading order (which classic OCR constantly breaks). It fully supports mathematical equations, tables, and handwriting extraction.
 
 ### Docling
 Docling is an advanced tool that parses various document formats (PDFs, Word, PPT) into clean markdown or structured JSON. It handles complex layouts, tables, and OCR.
