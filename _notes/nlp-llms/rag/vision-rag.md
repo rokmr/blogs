@@ -30,4 +30,10 @@ While late interaction models (like ColBERT) are highly accurate, searching acro
 - **The Problem:** Traditional RAG converts PDFs to text, completely losing visual information like complex layouts, figures, and charts.
 - **The Solution:** The **VisRAG-Retriever** fetches whole visual documents based on multimodal evidence, and passes them directly to a generative VLM to answer the query, ensuring zero information loss from bad text parsing.
 
+## M3DocVQA & M3DocRAG
+[M3DocRAG](https://github.com/bloomberg/m3docrag) introduces a framework designed for the **M3DocVQA benchmark**.
+- **The Problem:** Previous Document VQA benchmarks asked questions based on a *single* document. Real enterprise RAG requires searching across thousands of multi-page documents where evidence is scattered.
+- **The Benchmark:** M3DocVQA is the first benchmark for open-domain DocVQA over 3,000+ PDF documents (40,000+ pages). 
+- **The Solution (M3DocRAG):** It proves that a pure visual-retrieval pipeline (e.g., using **ColPali** for retrieval + **Qwen2-VL** for generation) significantly outperforms traditional text-based RAG (e.g., ColBERT + Llama 3) for document-rich corpora, validating the shift towards Vision-based RAG architectures.
+
 TODO: Add diagrams of the MaxSim computation in late interaction.
