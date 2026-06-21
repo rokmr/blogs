@@ -22,6 +22,11 @@ Effective agents require both short-term conversational context and long-term me
 
 ## Production Agent Memory Systems
 
+### Claude-Mem
+[Claude-Mem](https://github.com/thedotmack/claude-mem) is a persistent memory compression system initially designed for Claude Code, but extensible to other agents.
+- **Context Preservation:** It seamlessly preserves context across sessions by automatically capturing tool usage observations (everything the agent did), compressing them with AI, and injecting relevant summaries into future sessions.
+- **Workflow:** It turns disposable terminal agents into growing partners by maintaining continuity of knowledge about a project even after the terminal session is closed.
+
 ### Mem0
 [Mem0](https://github.com/mem0ai/mem0) acts as a universal, self-improving memory layer for AI applications.
 - **Core Mechanism:** It provides a persistent, project-aware memory that automatically extracts, stores, and retrieves user preferences, patterns, and conversational context. 
