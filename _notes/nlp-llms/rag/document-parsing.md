@@ -22,6 +22,11 @@ High-quality RAG relies heavily on good data ingestion. Extracting clean text, t
 [OlmOCR-2](https://github.com/allenai/olmocr) by Allen AI is an open-source Vision Language Model (VLM) fine-tuned on top of Qwen2.5-VL-7B.
 - **Capabilities:** Designed for high-throughput conversion of academic papers, PDFs, and digitized print documents into plain text while strictly preserving the natural reading order (which classic OCR constantly breaks). It fully supports mathematical equations, tables, and handwriting extraction.
 
+### Dolphin
+[Dolphin](https://github.com/bytedance/Dolphin) is a highly efficient, multimodal document image parsing model by ByteDance.
+- **Architecture:** It utilizes "Heterogeneous Anchor Prompting" within a two-stage execution architecture. Stage 1 classifies the document type and analyzes the layout (generating element bounding boxes in natural reading order). Stage 2 processes the content.
+- **Efficiency:** Despite having a tiny parameter footprint (~322M parameters), it processes digital-born and photographed documents (formulas, tables, dense paragraphs) directly into Markdown/JSON with speeds and accuracy rivaling massive VLMs, running easily on a 16GB consumer GPU.
+
 ### Docling
 Docling is an advanced tool that parses various document formats (PDFs, Word, PPT) into clean markdown or structured JSON. It handles complex layouts, tables, and OCR.
 
