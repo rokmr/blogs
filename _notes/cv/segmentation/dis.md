@@ -3,8 +3,9 @@ title: "DIS (IS-Net)"
 description: "Dichotomous Image Segmentation with intermediate supervision strategy"
 subject: cv
 math: true
-tags: [cv, segmentation, dis, is-net, dichotomous]
+tags: [computer-vision, cv, dichotomous, dis, is-net, segmentation]
 paper: "https://arxiv.org/pdf/2203.03041"
+order: 2
 ---
 
 Dichotomous Image Segmentation — proposes **IS-Net** with 3 components:

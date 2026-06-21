@@ -3,9 +3,10 @@ title: "LoRA & QLoRA"
 description: "Parameter-efficient fine-tuning (PEFT) using Low-Rank Adaptation and Quantized LoRA"
 subject: nlp-llms
 math: true
-tags: [nlp, peft, lora, qlora, fine-tuning, llm]
+tags: [fine-tuning, llm, lora, nlp, peft, qlora]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

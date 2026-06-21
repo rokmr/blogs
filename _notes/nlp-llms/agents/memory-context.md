@@ -3,9 +3,10 @@ title: "Memory & Context Management"
 description: "Managing short/long-term memory and context windows in agents, including Mem0 and MemU frameworks"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, memory, context, mem0, memu]
+tags: [agents, context, llm, llm-agents, mem0, memory, memu, nlp]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

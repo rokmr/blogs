@@ -3,7 +3,8 @@ title: "VS Code Debugging"
 description: "launch.json configuration for Python debugging in VS Code"
 subject: setup
 math: false
-tags: [setup, python, debugging, vscode]
+tags: [debugging, python, setup, tools, vscode]
+order: 3
 ---
 
 Configure via `.vscode/launch.json`:

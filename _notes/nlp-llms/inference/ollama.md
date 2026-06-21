@@ -3,9 +3,10 @@ title: "Ollama"
 description: "Get up and running with large language models locally"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, ollama, local-llm]
+tags: [deployment-serving, inference, llm, local-llm, nlp, ollama, serving]
 status: wip
 sitemap: false
+order: 8
 ---
 
 ## Overview

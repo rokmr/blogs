@@ -8,7 +8,7 @@ sub_subjects:
   - image-classification
   - object-detection
   - segmentation
-  - generative
   - tracking
+  - generative
   - multimodal
 ---

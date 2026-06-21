@@ -3,8 +3,9 @@ title: "YOLO-World"
 description: "Open-vocabulary YOLO with vision-language modeling and RepVL-PAN"
 subject: cv
 math: true
-tags: [cv, object-detection, yolo-world, open-vocabulary, vision-language]
+tags: [computer-vision, cv, object-detection, open-vocabulary, vision-language, yolo-world]
 paper: "https://arxiv.org/pdf/2401.17270"
+order: 13
 ---
 
 ![RepVL PAN]({{ "/assets/img/notes/cv/object-detection/RepVL-PAN.png" | relative_url }})

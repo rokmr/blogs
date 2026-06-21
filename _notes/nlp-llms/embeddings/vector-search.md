@@ -3,9 +3,10 @@ title: "Vector Search Algorithms"
 description: "Approximate Nearest Neighbors (ANN), HNSW, IVF, and PQ for vector databases"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, embeddings, vector-search, hnsw, ann]
+tags: [ann, embeddings, embeddings-vectors, hnsw, llm, nlp, vector-search]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

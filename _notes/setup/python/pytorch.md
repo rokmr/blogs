@@ -3,9 +3,10 @@ title: "PyTorch"
 description: "Core concepts, distributed training, and tensor operations in PyTorch"
 subject: setup
 math: false
-tags: [python, pytorch, deep-learning, framework]
+tags: [deep-learning, framework, frameworks-tools, python, pytorch, setup, tools]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

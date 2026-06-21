@@ -3,8 +3,9 @@ title: "CornerNet"
 description: "Anchor-free detection using top-left and bottom-right corner heatmaps"
 subject: cv
 math: true
-tags: [cv, object-detection, cornernet, anchor-free, keypoint]
+tags: [anchor-free, computer-vision, cornernet, cv, keypoint, object-detection]
 paper: "https://arxiv.org/pdf/1808.01244"
+order: 7
 ---
 
 ![CornerNet img2]({{ "/assets/img/notes/cv/object-detection/CornerNet_img2.png" | relative_url }})

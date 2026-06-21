@@ -3,9 +3,10 @@ title: "Distributed Training Paradigms"
 description: "Tensor Parallelism, Sequence Parallelism, Pipeline Parallelism, and RingAttention"
 subject: deep-learning
 math: false
-tags: [deep-learning, distributed-training, tensor-parallelism, sequence-parallelism, ring-attention]
+tags: [deep-learning, distributed-training, dl, dl-optimization, optimization-compute, ring-attention, sequence-parallelism, tensor-parallelism]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

@@ -5,11 +5,11 @@ permalink: /notes/deep-learning/
 subject_slug: deep-learning
 description: "Neural Networks, Transformers, CNNs, RNNs, and Optimization"
 sub_subjects:
-  - transformers
-  - attention
+  - optimization
   - cnns
   - rnns
+  - attention
+  - transformers
   - time-series
   - tabular-data
-  - optimization
 ---

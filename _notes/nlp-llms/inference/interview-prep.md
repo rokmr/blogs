@@ -3,9 +3,10 @@ title: "Interview Prep: Systems Design & Questions"
 description: "Cheat sheet for LLM serving interview questions and the 10K RPS system design prompt."
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, interview, system-design]
+tags: [inference, interview, llm, nlp, serving, system-design]
 status: wip
 sitemap: false
+order: 14
 ---
 
 ## Common Interview Questions

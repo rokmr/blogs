@@ -3,9 +3,10 @@ title: "ArgoCD"
 description: "Declarative, GitOps continuous delivery tool for Kubernetes"
 subject: mlops
 math: false
-tags: [mlops, deployment, argocd, kubernetes, gitops, ci-cd]
+tags: [argocd, ci-cd, deployment, gitops, kubernetes, mlops, ops]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

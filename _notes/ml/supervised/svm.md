@@ -3,7 +3,8 @@ title: "Support Vector Machine"
 description: "Margin-maximizing classifier with kernel trick for non-linear boundaries"
 subject: ml
 math: true
-tags: [ml, supervised, classification, svm, kernel]
+tags: [classification, kernel, machine-learning, ml, supervised, supervised-learning, svm]
+order: 8
 ---
 
 - Used for both classification and regression tasks.

@@ -3,7 +3,8 @@ title: "Probability Theory"
 description: "Axioms, random variables, distributions, expectations, covariance, and change of variables"
 subject: maths
 math: true
-tags: [maths, probability, random-variables, bayes, expectation]
+tags: [bayes, expectation, math, mathematics, maths, probability, probability-stats, random-variables]
+order: 1
 ---
 
 ## Notations

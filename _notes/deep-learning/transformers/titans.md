@@ -3,9 +3,10 @@ title: "Titans (Google Research)"
 description: "Learning to memorize at test time and deep memory architectures"
 subject: deep-learning
 math: false
-tags: [deep-learning, transformers, memory, titans, architecture]
+tags: [architecture, deep-learning, dl, memory, titans, transformer, transformers]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

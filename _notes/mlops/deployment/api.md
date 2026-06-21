@@ -3,7 +3,8 @@ title: "REST APIs"
 description: "REST architecture, HTTP methods, CRUD operations, and status codes"
 subject: mlops
 math: false
-tags: [mlops, api, rest, http, deployment]
+tags: [api, deployment, deployment-serving, http, mlops, ops, rest]
+order: 1
 ---
 
 **API (Application Programming Interface)** — communication bridge between two software systems.

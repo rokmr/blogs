@@ -3,9 +3,10 @@ title: "Lexical Search (TF-IDF & BM25)"
 description: "Statistical keyword matching, term frequency, and the BM25 ranking function"
 subject: nlp-llms
 math: true
-tags: [nlp, llm, rag, retrieval, bm25, tf-idf, lexical-search]
+tags: [bm25, embeddings-vectors, lexical-search, llm, nlp, rag, retrieval, tf-idf]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

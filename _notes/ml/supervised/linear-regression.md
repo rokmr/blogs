@@ -3,7 +3,8 @@ title: "Linear Regression"
 description: "Closed-form and gradient descent solutions for linear regression"
 subject: ml
 math: true
-tags: [ml, supervised, regression, gradient-descent]
+tags: [gradient-descent, machine-learning, ml, regression, supervised, supervised-learning]
+order: 3
 ---
 
 Linear Regression would be appropriate since we are predicting a continuous value.

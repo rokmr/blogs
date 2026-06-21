@@ -3,9 +3,10 @@ title: "Cline"
 description: "Autonomous AI agent for VS Code capable of executing shell commands and making deep file edits"
 subject: setup
 math: false
-tags: [setup, ai-coding, cline, ide, agent]
+tags: [agent, ai-coding, cline, ide, setup, tools]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

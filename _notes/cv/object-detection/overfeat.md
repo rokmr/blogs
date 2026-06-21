@@ -3,8 +3,9 @@ title: "OverFeat"
 description: "Sliding window + bbox regression + classification"
 subject: cv
 math: true
-tags: [cv, object-detection, overfeat, sliding-window]
+tags: [computer-vision, cv, object-detection, overfeat, sliding-window]
 paper: "https://arxiv.org/pdf/1312.6229"
+order: 2
 ---
 
 ## Overview

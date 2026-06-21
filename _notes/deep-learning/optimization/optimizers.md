@@ -3,7 +3,8 @@ title: "Optimizers"
 description: "SGD, Momentum, Nesterov, AdaGrad, RMSProp, Adam with update rules"
 subject: deep-learning
 math: true
-tags: [deep-learning, optimization, sgd, adam, gradient-descent]
+tags: [adam, deep-learning, dl, dl-optimization, gradient-descent, optimization, sgd]
+order: 3
 ---
 
 ## SGD

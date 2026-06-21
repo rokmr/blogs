@@ -2,7 +2,7 @@
 title: "Lec 03 - Policy Gradients"
 date: 2025-01-26
 description: "Policy gradient derivation, REINFORCE, variance reduction, off-policy methods"
-tags: [reinforcement-learning, cs224r, policy-gradient, REINFORCE]
+tags: [REINFORCE, cs224r, policy-gradient, reinforcement-learning, rl]
 subject: rl
 math: true
 slides:
@@ -19,6 +19,7 @@ references:
     authors: "Chelsea Finn, Sergey Levine"
     venue: "CS224R Stanford"
     year: 2025
+order: 3
 ---
 
 ## Core RL Objective

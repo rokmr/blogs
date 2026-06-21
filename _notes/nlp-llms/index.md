@@ -5,13 +5,13 @@ permalink: /notes/nlp-llms/
 subject_slug: nlp-llms
 description: "Embeddings, Language Models, Tokenization, and Fine-tuning"
 sub_subjects:
+  - tokenization
   - embeddings
   - language-models
-  - tokenization
-  - fine-tuning
   - moe
-  - agents
-  - rag
-  - frameworks
+  - fine-tuning
   - inference
+  - rag
+  - agents
+  - frameworks
 ---

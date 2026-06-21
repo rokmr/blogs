@@ -3,9 +3,10 @@ title: "RAG Evaluation Frameworks"
 description: "Tools for automating RAG evaluation: Ragas, DeepEval, and TruLens"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, evaluation, ragas, deepeval, trulens]
+tags: [deepeval, evaluation, llm, nlp, rag, ragas, trulens]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## Overview

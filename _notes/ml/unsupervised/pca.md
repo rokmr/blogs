@@ -3,7 +3,8 @@ title: "Principal Component Analysis"
 description: "Unsupervised dimensionality reduction via eigenvectors of the covariance matrix"
 subject: ml
 math: true
-tags: [ml, unsupervised, dimensionality-reduction, pca]
+tags: [dimensionality-reduction, machine-learning, ml, pca, unsupervised, unsupervised-learning]
+order: 1
 ---
 
 Unsupervised dimensionality reduction.

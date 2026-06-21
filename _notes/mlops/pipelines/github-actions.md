@@ -3,7 +3,8 @@ title: "GitHub Actions"
 description: "Automating workflows for testing, training, and deployment"
 subject: mlops
 math: false
-tags: [mlops, github-actions, cicd, automation]
+tags: [automation, ci-cd, cicd, github-actions, mlops, ops, pipelines]
+order: 2
 ---
 
 ## Overview

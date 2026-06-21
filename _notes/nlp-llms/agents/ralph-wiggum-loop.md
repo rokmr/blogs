@@ -3,9 +3,10 @@ title: "The Ralph Wiggum Loop"
 description: "Understanding infinite failure loops and agent stagnation"
 subject: nlp-llms
 math: false
-tags: [nlp, agents, loops, anti-patterns, ralph-wiggum]
+tags: [agents, anti-patterns, llm, llm-agents, loops, nlp, ralph-wiggum]
 status: wip
 sitemap: false
+order: 12
 ---
 
 ## Overview

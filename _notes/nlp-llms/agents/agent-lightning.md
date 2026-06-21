@@ -3,9 +3,10 @@ title: "Agent Lightning"
 description: "Microsoft's extensible framework for RL-based training of any AI agent"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, reinforcement-learning, agent-lightning, framework]
+tags: [agent-lightning, agents, framework, llm, llm-agents, nlp, reinforcement-learning]
 status: wip
 sitemap: false
+order: 16
 ---
 
 ## Overview

@@ -3,7 +3,8 @@ title: "AWS"
 description: "Core AWS services — EC2, S3, IAM"
 subject: mlops
 math: false
-tags: [mlops, aws, cloud, infrastructure]
+tags: [aws, cloud, infrastructure, mlops, ops]
+order: 1
 ---
 
 [AWS Calculator](https://calculator.aws/#/)

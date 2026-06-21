@@ -3,9 +3,10 @@ title: "Aider"
 description: "AI pair programming in your terminal"
 subject: setup
 math: false
-tags: [setup, ai-coding, aider, terminal, copilot]
+tags: [ai-coding, aider, copilot, setup, terminal, tools]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

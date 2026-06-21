@@ -3,9 +3,10 @@ title: "Vision & Late Interaction RAG"
 description: "ColBERT, ColPali, MUVERA, and Vision-based RAG (VisRAG) for multi-modal document retrieval"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, vision, colpali, colbert, visrag, muvera, multi-modal]
+tags: [colbert, colpali, llm, multi-modal, muvera, nlp, rag, vision, vision-language, visrag]
 status: wip
 sitemap: false
+order: 10
 ---
 
 ## Late Interaction Models (ColBERT)

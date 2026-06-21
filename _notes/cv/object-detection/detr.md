@@ -3,8 +3,9 @@ title: "DETR"
 description: "End-to-end object detection with transformers using bipartite matching"
 subject: cv
 math: true
-tags: [cv, object-detection, detr, transformer, hungarian]
+tags: [computer-vision, cv, detr, hungarian, object-detection, transformer]
 paper: "https://arxiv.org/pdf/2005.12872"
+order: 10
 ---
 
 ![DETRResults]({{ "/assets/img/notes/cv/object-detection/DETRResults.png" | relative_url }})

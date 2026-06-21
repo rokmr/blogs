@@ -3,7 +3,8 @@ title: "FastAPI"
 description: "High-performance Python web framework with automatic API docs"
 subject: setup
 math: false
-tags: [setup, fastapi, api, python, pydantic]
+tags: [api, fastapi, pydantic, python, setup, tools]
+order: 1
 ---
 
 - High-performance Python web framework

@@ -3,9 +3,10 @@ title: "LLM Gateways"
 description: "Routing, load balancing, and API management for LLMs"
 subject: mlops
 math: false
-tags: [mlops, infrastructure, gateway, routing]
+tags: [gateway, infrastructure, mlops, ops, routing]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

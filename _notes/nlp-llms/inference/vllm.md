@@ -3,9 +3,10 @@ title: "vLLM Anatomy & Production Systems"
 description: "Architecture of vLLM, the industry standard LLM serving engine. Required reading for ML systems interviews."
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, vllm, serving, optimization, systems]
+tags: [deployment-serving, inference, llm, nlp, optimization, serving, systems, vllm]
 status: wip
 sitemap: false
+order: 9
 ---
 
 ## Overview

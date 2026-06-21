@@ -3,9 +3,10 @@ title: "Retrieval-Augmented Generation"
 description: "RAG pipeline — retrieval, augmentation, and generation"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, retrieval, embeddings]
+tags: [embeddings, llm, nlp, rag, retrieval]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

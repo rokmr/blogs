@@ -3,9 +3,10 @@ title: "Speculative Decoding"
 description: "Accelerating LLM inference using draft models, rejection sampling math, and state-of-the-art methods like EAGLE-3."
 subject: nlp-llms
 math: true
-tags: [nlp, llm, inference, speculative-decoding, eagle]
+tags: [eagle, inference, llm, nlp, serving, speculative-decoding]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## The Concept

@@ -3,9 +3,10 @@ title: "Harness Engineering & Observability"
 description: "Evaluation harnesses, testing, and observability frameworks for agents (ART, Opik, AutoEvals)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, evaluation, harness, opik, autoevals, art, grpo]
+tags: [agents, art, autoevals, evaluation, grpo, harness, llm, llm-agents, nlp, opik]
 status: wip
 sitemap: false
+order: 8
 ---
 
 ## Overview

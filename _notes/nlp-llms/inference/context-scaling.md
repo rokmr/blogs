@@ -3,9 +3,10 @@ title: "Context Scaling & Flash Attention"
 description: "Context Length VRAM curves, Flash Attention benefits, and RoPE scaling side effects"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, flash-attention, rope, context-window]
+tags: [attention, context-window, flash-attention, inference, llm, nlp, rope, serving]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Context Length and VRAM Curves

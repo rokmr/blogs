@@ -3,7 +3,8 @@ title: "Evaluation Metrics"
 description: "Classification and detection metrics — precision, recall, F1, IoU, NMS"
 subject: ml
 math: true
-tags: [ml, supervised, metrics, precision, recall, iou, nms]
+tags: [iou, machine-learning, metrics, ml, nms, precision, recall, supervised, supervised-learning]
+order: 1
 ---
 
 ## Basics

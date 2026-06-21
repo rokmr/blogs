@@ -3,7 +3,8 @@ title: "YOLO"
 description: "You Only Look Once — single-shot grid-based object detection"
 subject: cv
 math: true
-tags: [cv, object-detection, yolo, single-shot]
+tags: [computer-vision, cv, object-detection, single-shot, yolo]
+order: 4
 ---
 
 ![YOLO Overview]({{ "/assets/img/notes/cv/object-detection/YOLO_img1.png" | relative_url }})

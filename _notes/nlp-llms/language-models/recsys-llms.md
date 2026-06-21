@@ -3,9 +3,10 @@ title: "LLMs for Recommender Systems (LLMRec, RLMRec)"
 description: "Leveraging Large Language Models and Recursive Language Models for RecSys"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, recommender-systems, llmrec, rlmrec, reclm]
+tags: [language-models, llm, llmrec, nlp, reclm, recommender-systems, rlmrec]
 status: wip
 sitemap: false
+order: 8
 ---
 
 ## Overview

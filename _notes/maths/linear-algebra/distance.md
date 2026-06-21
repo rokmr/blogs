@@ -3,7 +3,8 @@ title: "Distance Metrics"
 description: "Euclidean, Manhattan, and Cosine distance/similarity measures"
 subject: maths
 math: true
-tags: [maths, linear-algebra, distance, cosine-similarity]
+tags: [cosine-similarity, distance, linear-algebra, math, mathematics, maths]
+order: 1
 ---
 
 ## Euclidean Distance

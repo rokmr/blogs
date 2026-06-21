@@ -3,9 +3,10 @@ title: "Tools, Skills, & Connectors"
 description: "Function calling, skill libraries, plugins, and data connectors for AI Agents"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, tools, skills, function-calling, plugins, connectors]
+tags: [agents, connectors, function-calling, llm, llm-agents, nlp, plugins, skills, tools]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

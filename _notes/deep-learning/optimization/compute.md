@@ -3,9 +3,10 @@ title: "Compute Optimization Techniques"
 description: "Sequence packing and efficient transformer implementations"
 subject: deep-learning
 math: false
-tags: [deep-learning, compute, transformers, sequence-packing, optimization]
+tags: [compute, deep-learning, dl, dl-optimization, optimization, optimization-compute, sequence-packing, transformers]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## Compute Optimization

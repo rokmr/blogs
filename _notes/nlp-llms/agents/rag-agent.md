@@ -3,9 +3,10 @@ title: "Agentic RAG Frameworks"
 description: "Agentic RAG, self-reflection, iterative retrieval, and graph-based frameworks (LightRAG, RAG-Anything)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, rag, retrieval, lightrag, graph-rag]
+tags: [agents, graph-rag, lightrag, llm, llm-agents, nlp, rag, retrieval]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

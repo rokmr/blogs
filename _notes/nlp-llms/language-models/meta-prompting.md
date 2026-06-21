@@ -3,9 +3,10 @@ title: "Meta-Prompting & Frameworks"
 description: "Frameworks for algorithmic prompt optimization instead of manual prompt engineering"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, prompt-engineering, meta-prompting, dspy, promptfoo]
+tags: [dspy, language-models, llm, meta-prompting, nlp, prompt-engineering, promptfoo]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

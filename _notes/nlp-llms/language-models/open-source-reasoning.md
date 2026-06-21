@@ -3,9 +3,10 @@ title: "Open-Source Models: Reasoning & Alignment"
 description: "Orca 2, Phi-3, and Nemotron for reasoning, alignment, and RAG"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, language-models, open-source, orca, phi-3, slms, nemotron, nvidia]
+tags: [language-models, llm, nemotron, nlp, nvidia, open-source, orca, phi-3, slms]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## DeepSeek R1 & Frontier Reasoning

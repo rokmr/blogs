@@ -2,9 +2,10 @@
 title: "Lec 04 - Actor-Critic"
 date: 2025-01-26
 description: "Value functions, advantage estimation, actor-critic algorithm, bootstrapping"
-tags: [reinforcement-learning, cs224r, actor-critic, value-function]
+tags: [actor-critic, cs224r, reinforcement-learning, rl, value-function]
 subject: rl
 math: true
+order: 4
 ---
 
 Basis for PPO (LM model training)

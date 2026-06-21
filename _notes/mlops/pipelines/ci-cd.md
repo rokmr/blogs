@@ -3,7 +3,8 @@ title: "CI/CD"
 description: "Continuous Integration and Deployment pipelines for ML"
 subject: mlops
 math: false
-tags: [mlops, cicd, deployment, pipelines]
+tags: [ci-cd, cicd, deployment, mlops, ops, pipelines]
+order: 1
 ---
 
 ## Continuous Deployment Pipeline

@@ -3,9 +3,10 @@ title: "Model Selection Guide"
 description: "How to choose the right LLM based on GPU constraints, task requirements, and architecture (MoE vs Dense)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, hardware, model-selection, gpu]
+tags: [gpu, hardware, language-models, llm, model-selection, nlp]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

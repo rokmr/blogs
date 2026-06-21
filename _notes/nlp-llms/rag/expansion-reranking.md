@@ -3,9 +3,10 @@ title: "Query Expansion & Reranking"
 description: "HyDE, Query Rewriting, Cross-Encoders, and CRAG (Corrective RAG)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, hyde, reranking, cross-encoder, crag]
+tags: [crag, cross-encoder, hyde, llm, nlp, rag, reranking]
 status: wip
 sitemap: false
+order: 8
 ---
 
 ## Query Expansion & Generation

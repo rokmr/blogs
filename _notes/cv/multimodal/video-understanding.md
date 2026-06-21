@@ -3,9 +3,10 @@ title: "Video Understanding"
 description: "Processing, analyzing, and extracting spatio-temporal features from video data"
 subject: cv
 math: false
-tags: [cv, video, action-recognition, temporal, efficiency]
+tags: [action-recognition, computer-vision, cv, efficiency, multimodal, temporal, video]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

@@ -3,9 +3,10 @@ title: "Inference-Time Scaling in Diffusion (ReflectionFlow)"
 description: "Iterative refinement and self-reflection in text-to-image diffusion models"
 subject: cv
 math: false
-tags: [cv, generative, diffusion, reflectionflow, self-reflection, text-to-image]
+tags: [computer-vision, cv, diffusion, generative, generative-cv, reflectionflow, self-reflection, text-to-image]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

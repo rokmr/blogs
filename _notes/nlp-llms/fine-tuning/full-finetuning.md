@@ -3,9 +3,10 @@ title: "Full Fine-Tuning"
 description: "Full parameter fine-tuning strategies for LLMs"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, fine-tuning, full-finetuning]
+tags: [fine-tuning, full-finetuning, llm, nlp]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

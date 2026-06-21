@@ -3,9 +3,10 @@ title: "KTransformers"
 description: "Flexible framework for running massive LLMs locally via CPU/GPU heterogeneous computing"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, ktransformers, heterogeneous-computing, kvcache]
+tags: [heterogeneous-computing, inference, ktransformers, kvcache, llm, nlp, serving]
 status: wip
 sitemap: false
+order: 13
 ---
 
 ## Overview

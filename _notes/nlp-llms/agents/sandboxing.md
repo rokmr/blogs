@@ -3,9 +3,10 @@ title: "Agent Sandboxing"
 description: "Techniques and tools for safely executing agent-generated code"
 subject: nlp-llms
 math: false
-tags: [nlp, agents, sandboxing, security, docker, daytona, e2b]
+tags: [agents, daytona, docker, e2b, llm, llm-agents, nlp, sandboxing, security]
 status: wip
 sitemap: false
+order: 10
 ---
 
 ## Overview

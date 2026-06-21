@@ -3,7 +3,8 @@ title: "Loss Functions"
 description: "MSE, Cross-Entropy, Focal, Triplet, Contrastive, KL Divergence and more"
 subject: deep-learning
 math: true
-tags: [deep-learning, loss, cross-entropy, focal-loss, contrastive]
+tags: [contrastive, cross-entropy, deep-learning, dl, dl-optimization, focal-loss, loss, probability-stats]
+order: 1
 ---
 
 <div class="visual-diagram" data-type="line-chart" data-config='{

@@ -3,7 +3,8 @@ title: "Convex & Concave Functions"
 description: "Properties of convex/concave functions, parametric vs non-parametric models, generative vs discriminative models"
 subject: maths
 math: true
-tags: [maths, optimization, convexity, models]
+tags: [convexity, dl-optimization, math, mathematics, maths, models, optimization]
+order: 1
 ---
 
 ## Convex Functions

@@ -3,9 +3,10 @@ title: "Quantization & Offloading"
 description: "AWQ vs GPTQ tradeoffs, INT8/INT4 quantization, activation offloading, and mixed-precision decoding"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, quantization, awq, gptq, offloading]
+tags: [awq, gptq, inference, llm, nlp, offloading, optimization-compute, quantization, serving]
 status: wip
 sitemap: false
+order: 5
 ---
 
 ## Post-Training Quantization (PTQ)

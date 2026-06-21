@@ -3,9 +3,10 @@ title: "Ray (Distributed Computing)"
 description: "Distributed computing and ML orchestration using Ray Core, Ray Serve, and Ray Train"
 subject: mlops
 math: false
-tags: [mlops, infrastructure, ray, distributed-computing, orchestration]
+tags: [distributed-computing, infrastructure, mlops, ops, optimization-compute, orchestration, ray]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

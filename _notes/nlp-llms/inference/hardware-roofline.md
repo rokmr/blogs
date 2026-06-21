@@ -3,9 +3,10 @@ title: "Hardware & Roofline Model"
 description: "First-principles of LLM inference arithmetic, memory bandwidth vs compute bound, and the Roofline model."
 subject: nlp-llms
 math: true
-tags: [nlp, llm, inference, hardware, roofline, memory-bandwidth]
+tags: [hardware, inference, llm, memory-bandwidth, nlp, optimization-compute, roofline, serving]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## The Core Mental Model

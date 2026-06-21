@@ -3,9 +3,10 @@ title: "Advanced Retrieval & Routing"
 description: "Semantic routing, hybrid search (BM25 + Vector), and filtering strategies"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, retrieval, semantic-routing, bm25, hybrid-search]
+tags: [bm25, embeddings-vectors, hybrid-search, llm, nlp, rag, retrieval, semantic-routing]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

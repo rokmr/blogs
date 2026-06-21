@@ -3,9 +3,10 @@ title: "Helm"
 description: "The package manager for Kubernetes to define, install, and upgrade complex applications"
 subject: mlops
 math: false
-tags: [mlops, deployment, helm, kubernetes, packaging]
+tags: [deployment, helm, kubernetes, mlops, ops, packaging]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## Overview

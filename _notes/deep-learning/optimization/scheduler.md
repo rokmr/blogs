@@ -3,7 +3,8 @@ title: "Learning Rate Schedulers"
 description: "StepLR, MultiStepLR, ExponentialLR scheduling strategies"
 subject: deep-learning
 math: true
-tags: [deep-learning, optimization, scheduler, learning-rate]
+tags: [deep-learning, dl, dl-optimization, learning-rate, optimization, scheduler]
+order: 5
 ---
 
 <div class="visual-diagram" data-type="line-chart" data-config='{

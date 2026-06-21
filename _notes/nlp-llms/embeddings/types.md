@@ -3,9 +3,10 @@ title: "Embedding Types"
 description: "Sparse, Dense, Quantized, Binary, Variable Dimensions, and Multi-Vector embeddings"
 subject: nlp-llms
 math: true
-tags: [nlp, embeddings, dense, sparse, binary, matryoshka, colbert]
+tags: [binary, colbert, dense, embeddings, embeddings-vectors, llm, matryoshka, nlp, sparse]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

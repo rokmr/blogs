@@ -3,9 +3,10 @@ title: "Context Engineering & Filesystems"
 description: "How deep agents use filesystems as scratchpads for dynamic context engineering"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, context-engineering, memory, filesystem, scratchpad]
+tags: [agents, context-engineering, filesystem, llm, llm-agents, memory, nlp, scratchpad]
 status: wip
 sitemap: false
+order: 5
 ---
 
 ## Deep Agents (LangChain)

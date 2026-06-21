@@ -3,9 +3,10 @@ title: "AirLLM"
 description: "Run huge LLMs on a single consumer GPU"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, airllm, memory-optimization]
+tags: [airllm, inference, llm, memory-optimization, nlp, optimization-compute, serving]
 status: wip
 sitemap: false
+order: 12
 ---
 
 ## Overview

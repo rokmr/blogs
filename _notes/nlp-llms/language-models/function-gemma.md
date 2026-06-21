@@ -3,9 +3,10 @@ title: "Function Gemma"
 description: "Google's open-weights LLM specifically tuned for function calling and on-device agents"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, language-models, gemma, function-calling, on-device]
+tags: [function-calling, gemma, language-models, llm, nlp, on-device]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

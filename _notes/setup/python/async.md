@@ -3,7 +3,8 @@ title: "AsyncIO & Concurrency"
 description: "Python async/await, threads, processes, event loops, and synchronization"
 subject: setup
 math: false
-tags: [setup, python, asyncio, concurrency, parallelism]
+tags: [asyncio, concurrency, parallelism, python, setup, tools]
+order: 2
 ---
 
 Run CPU-bound operations while waiting for IO-bound responses.

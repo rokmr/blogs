@@ -3,9 +3,10 @@ title: "TensorRT-LLM & Kernel-Level Optimizations"
 description: "NVIDIA's framework for high-performance LLM inference, Kernel Fusion, and FlashInfer."
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, tensorrt-llm, nvidia, kernels, flashinfer]
+tags: [flashinfer, inference, kernels, llm, nlp, nvidia, optimization-compute, serving, tensorrt-llm]
 status: wip
 sitemap: false
+order: 11
 ---
 
 ## Kernel Fusion in LLM Inference

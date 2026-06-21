@@ -3,9 +3,10 @@ title: "Unsloth"
 description: "High-speed and memory-efficient LLM fine-tuning library"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, fine-tuning, unsloth, optimization]
+tags: [fine-tuning, llm, nlp, optimization, unsloth]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

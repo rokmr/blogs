@@ -3,9 +3,10 @@ title: "MCP (Model Context Protocol)"
 description: "Anthropic's Model Context Protocol for standardizing agent tool-use and data access"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, mcp, anthropic, protocol]
+tags: [agents, anthropic, llm, llm-agents, mcp, nlp, protocol]
 status: wip
 sitemap: false
+order: 6
 ---
 
 ## Overview

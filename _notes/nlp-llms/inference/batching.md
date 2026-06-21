@@ -3,9 +3,10 @@ title: "Batching & Disaggregated Inference"
 description: "The evolution of LLM serving: Continuous Batching (Orca), Chunked Prefill (Sarathi), and Disaggregated Inference (DistServe)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, batching, orca, sarathi, distserve, disaggregated-inference]
+tags: [batching, disaggregated-inference, distserve, inference, llm, nlp, orca, sarathi, serving]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## The Batching Evolution Arc

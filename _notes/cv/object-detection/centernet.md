@@ -3,8 +3,9 @@ title: "CenterNet"
 description: "Center-based keypoint detection using corners as proposals"
 subject: cv
 math: true
-tags: [cv, object-detection, centernet, anchor-free, keypoint]
+tags: [anchor-free, centernet, computer-vision, cv, keypoint, object-detection]
 paper: "https://arxiv.org/pdf/1904.08189"
+order: 8
 ---
 
 ## Overview

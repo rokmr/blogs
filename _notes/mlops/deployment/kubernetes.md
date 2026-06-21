@@ -3,9 +3,10 @@ title: "Kubernetes (K8s)"
 description: "Container orchestration, cluster architecture, and deploying ML models to Kubernetes"
 subject: mlops
 math: false
-tags: [mlops, deployment, kubernetes, orchestration, containers]
+tags: [containers, deployment, deployment-serving, kubernetes, mlops, ops, orchestration]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

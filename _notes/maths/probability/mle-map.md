@@ -3,9 +3,10 @@ title: "MLE & MAP Estimation"
 description: "Maximum Likelihood Estimation and Maximum A Posteriori estimation"
 subject: maths
 math: true
-tags: [maths, probability, mle, map, estimation]
+tags: [estimation, map, math, mathematics, maths, mle, probability, probability-stats]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## What is MLE estimate, prior and MAP estimate?

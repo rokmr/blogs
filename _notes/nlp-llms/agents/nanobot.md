@@ -3,9 +3,10 @@ title: "Lightweight Agents (nanobot)"
 description: "Minimalist, open-source AI agents (nanobot) for tools, chats, and workflows"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, nanobot, mcp, automation]
+tags: [agents, automation, llm, llm-agents, mcp, nanobot, nlp]
 status: wip
 sitemap: false
+order: 14
 ---
 
 ## Overview

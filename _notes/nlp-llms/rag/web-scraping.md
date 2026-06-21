@@ -3,9 +3,10 @@ title: "Web Scraping & Crawling"
 description: "Tools for scraping, crawling, and extracting web data for AI pipelines (Spider, Playwright, Crawl4AI)"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, scraping, crawling, crawl4ai, scrapy, spider, playwright]
+tags: [crawl4ai, crawling, llm, nlp, playwright, rag, scraping, scrapy, spider]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

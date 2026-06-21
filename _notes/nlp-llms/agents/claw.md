@@ -3,9 +3,10 @@ title: "Claw (Open / Nemo)"
 description: "Open Claw and Nemo Claw frameworks/models for tool usage"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, claw, nemo-claw]
+tags: [agents, claw, llm, llm-agents, nemo-claw, nlp]
 status: wip
 sitemap: false
+order: 13
 ---
 
 ## Overview

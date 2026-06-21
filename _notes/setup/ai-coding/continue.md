@@ -3,9 +3,10 @@ title: "Continue"
 description: "Open-source AI code assistant that operates directly inside your IDE"
 subject: setup
 math: false
-tags: [setup, ai-coding, continue, ide, copilot]
+tags: [ai-coding, continue, copilot, ide, setup, tools]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

@@ -3,9 +3,10 @@ title: "Time Series Foundation Models"
 description: "Chronos (Amazon), TimesFM (Google), and MOMENT for zero-shot forecasting"
 subject: deep-learning
 math: false
-tags: [deep-learning, time-series, forecasting, chronos, timesfm, moment]
+tags: [chronos, deep-learning, dl, forecasting, moment, time-series, timesfm]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

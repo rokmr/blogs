@@ -3,9 +3,10 @@ title: "Enterprise RAG Platforms"
 description: "End-to-end open-source RAG platforms: MaxKB, Dify, and FastGPT"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, platforms, maxkb, dify, fastgpt, workflow]
+tags: [dify, fastgpt, llm, maxkb, nlp, platforms, rag, workflow]
 status: wip
 sitemap: false
+order: 11
 ---
 
 ## Overview

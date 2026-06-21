@@ -3,9 +3,10 @@ title: "Document Parsing & Extraction"
 description: "Libraries for parsing documents and extracting structured data (Docling, LangExtract) for RAG pipelines"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, document-parsing, docling, langextract, data-extraction]
+tags: [data-extraction, docling, document-parsing, langextract, llm, nlp, rag]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

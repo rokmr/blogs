@@ -3,7 +3,8 @@ title: "Logistic Regression"
 description: "Binary and multi-class classification using logistic regression with MLE derivation"
 subject: ml
 math: true
-tags: [ml, supervised, classification, cross-entropy, mle]
+tags: [classification, cross-entropy, machine-learning, ml, mle, supervised, supervised-learning]
+order: 4
 ---
 
 It is used for the classification problem. It uses linear regression equation to predict the class probabilities.

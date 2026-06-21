@@ -3,9 +3,10 @@ title: "Hermes Agents"
 description: "Nous Hermes models and their agentic capabilities"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, hermes, models]
+tags: [agents, hermes, llm, llm-agents, models, nlp]
 status: wip
 sitemap: false
+order: 15
 ---
 
 ## Overview

@@ -3,7 +3,8 @@ title: "HDBSCAN"
 description: "Hierarchical density-based clustering that handles varying densities"
 subject: ml
 math: true
-tags: [ml, unsupervised, clustering, hdbscan, density]
+tags: [clustering, density, hdbscan, machine-learning, ml, probability-stats, unsupervised, unsupervised-learning]
+order: 5
 ---
 ## Overview
 

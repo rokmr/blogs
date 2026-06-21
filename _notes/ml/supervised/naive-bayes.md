@@ -3,7 +3,8 @@ title: "Naive Bayes"
 description: "Probabilistic classifier based on Bayes' theorem with class-conditional independence"
 subject: ml
 math: true
-tags: [ml, supervised, classification, probability, bayes]
+tags: [bayes, classification, machine-learning, ml, probability, probability-stats, supervised, supervised-learning]
+order: 6
 ---
 
 Naive Bayes classifiers have a general assumption that the effect of an attribute value on a given class is independent of the values of the other attributes. This assumption is called class-conditional independence.

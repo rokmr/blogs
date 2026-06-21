@@ -3,7 +3,7 @@ title: "JavaScript Runtimes (Deno, Bun) & Pyodide"
 description: "Modern JavaScript runtimes and running Python in the browser for agent sandboxing"
 subject: setup
 math: false
-tags: [setup, javascript, deno, bun, pyodide, wasm]
+tags: [bun, deno, javascript, pyodide, setup, tools, wasm]
 status: wip
 sitemap: false
 ---

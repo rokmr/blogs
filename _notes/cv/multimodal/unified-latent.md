@@ -3,9 +3,10 @@ title: "Unified Latent Architectures"
 description: "Cross-domain competence through value-aligned latent representations without full model-based planning"
 subject: cv
 math: false
-tags: [cv, multimodal, unified-latent, representations, reinforcement-learning]
+tags: [computer-vision, cv, embeddings-vectors, multimodal, reinforcement-learning, representations, unified-latent, vision-language]
 status: wip
 sitemap: false
+order: 4
 ---
 
 ## Overview

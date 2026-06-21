@@ -3,9 +3,10 @@ title: "JEPA (Joint Embedding Predictive Architecture)"
 description: "Yann LeCun's vision for autonomous machine intelligence: I-JEPA, V-JEPA, and EchoJEPA"
 subject: deep-learning
 math: false
-tags: [deep-learning, jepa, self-supervised-learning, computer-vision, yann-lecun]
+tags: [computer-vision, deep-learning, dl, dl-optimization, jepa, self-supervised-learning, yann-lecun]
 status: wip
 sitemap: false
+order: 11
 ---
 
 ## Overview

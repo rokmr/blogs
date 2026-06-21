@@ -3,9 +3,10 @@ title: "Advanced Attention Architectures"
 description: "MQA, GQA, SWA, MLA, and Dynamic Sparse Attention mechanisms"
 subject: deep-learning
 math: true
-tags: [deep-learning, attention, transformer, mqa, gqa, mla]
+tags: [attention, deep-learning, dl, gqa, mla, mqa, transformer]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Standard Attention (MHA)

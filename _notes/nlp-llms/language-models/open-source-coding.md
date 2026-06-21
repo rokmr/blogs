@@ -3,9 +3,10 @@ title: "Open-Source Models: Coding & Action"
 description: "Salesforce xLAM/xGen/CodeGen, DeepSeek-Coder, and Qwen-2.5-Coder"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, language-models, open-source, coding, agents, xlam, qwen, deepseek]
+tags: [agents, coding, deepseek, language-models, llm, nlp, open-source, qwen, transformer, xlam]
 status: wip
 sitemap: false
+order: 5
 ---
 
 ## Action Models (Agents)

@@ -3,8 +3,9 @@ title: "RetinaNet"
 description: "Focal loss for dense object detection addressing class imbalance"
 subject: cv
 math: true
-tags: [cv, object-detection, retinanet, focal-loss]
+tags: [computer-vision, cv, focal-loss, object-detection, retinanet]
 paper: "https://arxiv.org/pdf/1708.02002"
+order: 6
 ---
 
 ![FocalLoss]({{ "/assets/img/notes/cv/object-detection/FocalLoss.png" | relative_url }})

@@ -3,7 +3,8 @@ title: "Activation Functions"
 description: "Sigmoid, Tanh, ReLU, GeLU, Swish and other activation functions with derivatives"
 subject: deep-learning
 math: true
-tags: [deep-learning, activation, relu, gelu, sigmoid]
+tags: [activation, deep-learning, dl, dl-optimization, gelu, relu, sigmoid]
+order: 2
 ---
 
 <div class="visual-diagram" data-type="line-chart" data-config='{

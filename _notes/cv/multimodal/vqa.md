@@ -3,9 +3,10 @@ title: "Visual Question Answering (VQA)"
 description: "Answering natural language questions about visual content"
 subject: cv
 math: false
-tags: [cv, multimodal, vqa, vision-language]
+tags: [computer-vision, cv, multimodal, vision-language, vqa]
 status: wip
 sitemap: false
+order: 2
 ---
 
 ## Overview

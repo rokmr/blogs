@@ -3,9 +3,10 @@ title: "TRL (Transformer Reinforcement Learning)"
 description: "Hugging Face library for RLHF, SFT, DPO, and post-training AI agents"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, fine-tuning, trl, rlhf, dpo, post-training, agents]
+tags: [agents, dpo, fine-tuning, llm, nlp, post-training, reinforcement-learning, rlhf, trl]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

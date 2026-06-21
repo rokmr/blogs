@@ -3,9 +3,10 @@ title: "Tabular Foundation Models (TFMs)"
 description: "Zero-shot classification and regression on tabular data (TabPFN, TabuLa, TabDPT)"
 subject: deep-learning
 math: false
-tags: [deep-learning, tabular-data, tabpfn, tabula, tabdpt, foundation-models]
+tags: [deep-learning, dl, foundation-models, tabdpt, tabpfn, tabula, tabular-data]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

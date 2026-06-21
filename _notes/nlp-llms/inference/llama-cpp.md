@@ -3,9 +3,10 @@ title: "llama.cpp"
 description: "Port of LLaMA in C/C++ for CPU and mixed CPU/GPU inference"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, inference, llama-cpp, gguf]
+tags: [deployment-serving, gguf, inference, llama-cpp, llm, nlp, serving]
 status: wip
 sitemap: false
+order: 7
 ---
 
 ## Overview

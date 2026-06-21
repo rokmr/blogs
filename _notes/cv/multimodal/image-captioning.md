@@ -3,9 +3,10 @@ title: "Image Captioning"
 description: "Architectures for generating natural language descriptions of images"
 subject: cv
 math: false
-tags: [cv, multimodal, image-captioning, vision-language]
+tags: [computer-vision, cv, image-captioning, multimodal, vision-language]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

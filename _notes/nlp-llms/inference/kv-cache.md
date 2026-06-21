@@ -3,9 +3,10 @@ title: "KV Cache & Inference Dynamics"
 description: "KV cache memory math, PagedAttention, prefill spikes, and eviction policies"
 subject: nlp-llms
 math: true
-tags: [nlp, llm, inference, kv-cache, paged-attention, memory]
+tags: [attention, inference, kv-cache, llm, memory, nlp, paged-attention, serving]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

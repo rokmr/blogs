@@ -3,9 +3,10 @@ title: "Agent Memory"
 description: "Types of agent memory (Procedural, Semantic, Episodic) and strategies for updating them"
 subject: nlp-llms
 math: false
-tags: [nlp, agents, memory, langchain, coala]
+tags: [agents, coala, langchain, llm, llm-agents, memory, nlp]
 status: wip
 sitemap: false
+order: 3
 ---
 
 ## Overview

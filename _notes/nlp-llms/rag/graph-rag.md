@@ -3,9 +3,10 @@ title: "GraphRAG"
 description: "Combining Knowledge Graphs with RAG for multi-hop reasoning and global context retrieval"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, graph-rag, knowledge-graphs, lightrag]
+tags: [graph-rag, graphs-trees, knowledge-graphs, lightrag, llm, nlp, rag]
 status: wip
 sitemap: false
+order: 9
 ---
 
 ## Overview

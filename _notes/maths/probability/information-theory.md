@@ -3,7 +3,8 @@ title: "Information Theory"
 description: "Entropy, Information Gain, Gini Impurity, Cross-Entropy, KL-Divergence"
 subject: maths
 math: true
-tags: [maths, probability, information-theory, entropy, kl-divergence]
+tags: [entropy, information-theory, kl-divergence, math, mathematics, maths, probability]
+order: 6
 ---
 
 ## Entropy

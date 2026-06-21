@@ -3,9 +3,10 @@ title: "The Transformer Architecture"
 description: "Self-Attention, Multi-Head Attention, and the Encoder-Decoder structure"
 subject: deep-learning
 math: true
-tags: [transformers, attention, nlp, neural-networks, jay-alammar]
+tags: [attention, deep-learning, dl, jay-alammar, neural-networks, nlp, transformer, transformers]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Overview

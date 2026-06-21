@@ -3,9 +3,10 @@ title: "Agentic Frameworks Overview"
 description: "High-level overview of multi-agent and code-centric AI frameworks"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, agents, frameworks, autogen, crewai, swarm, smolagents, magentic-one, pydantic-ai, langalpha]
+tags: [agents, autogen, crewai, frameworks, frameworks-tools, langalpha, llm, llm-agents, magentic-one, nlp, pydantic-ai, smolagents, swarm]
 status: wip
 sitemap: false
+order: 1
 ---
 
 ## Multi-Agent Frameworks

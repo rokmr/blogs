@@ -3,9 +3,10 @@ title: "RAG Evaluation Metrics"
 description: "Core metrics for evaluating Retrieval and Generation quality in RAG pipelines"
 subject: nlp-llms
 math: true
-tags: [nlp, llm, rag, evaluation, metrics, mrr, ndcg]
+tags: [evaluation, llm, metrics, mrr, ndcg, nlp, rag]
 status: wip
 sitemap: false
+order: 5
 ---
 
 ## Overview

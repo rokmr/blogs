@@ -3,9 +3,10 @@ title: "Inference Optimization & Decoding"
 description: "Latency vs throughput, decoding strategies, Speculative Decoding, and Stateful Caching"
 subject: deep-learning
 math: false
-tags: [deep-learning, inference, decoding, speculative-decoding, caching]
+tags: [caching, decoding, deep-learning, deployment-serving, dl, dl-optimization, inference, speculative-decoding]
 status: wip
 sitemap: false
+order: 10
 ---
 
 ## Performance Metrics
