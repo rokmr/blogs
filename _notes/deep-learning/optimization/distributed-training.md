@@ -13,14 +13,13 @@ sitemap: false
 When models and context windows exceed the memory of a single GPU, the workload must be sharded across multiple GPUs.
 
 ## Tensor Parallelism (TP)
-Splits the actual tensor operations (like matrix multiplications) across multiple GPUs.
-- **Mechanism:** For an MLP layer, the weight matrix is divided into chunks. Each GPU computes its chunk of the multiplication, and an `AllReduce` operation sums the results together.
-- **Overhead:** Extremely high communication overhead. TP is usually restricted to GPUs within the same physical node connected by NVLink, as standard network interfaces are too slow for the required latency.
+Splits large matrix multiplications across multiple GPUs, enabling efficient scaling of model size.
+- **Column-wise Parallelism:** The weight matrix is split along its columns. Each device holds a subset of columns, computes its partial output, and the results are concatenated (usually via an `AllGather` operation).
+- **Row-wise Parallelism:** The input is split column-wise and the weight matrix is split row-wise. Each device computes a partial output, and the final result is obtained by summing these partial outputs via an `AllReduce` operation.
+- **Overhead:** Extremely high communication overhead. TP is usually restricted to GPUs within the same physical node connected by NVLink, as standard network interfaces are too slow.
 
-## Sequence Parallelism (SP)
-While TP shards the hidden dimensions, **Sequence Parallelism** shards the input sequence length across GPUs.
-- **Why it's needed:** For massive context lengths (e.g., 1M+ tokens), the activation memory required for a single sequence easily exceeds an 80GB GPU. 
-- **Overhead:** Requires heavy communication across the sequence dimension during the Attention mechanism, as tokens on GPU 1 need to attend to tokens on GPU 2.
+## Context Parallelism
+When context windows become extreme, **Context Parallelism** shards the sequence length across GPUs. During forward propagation, each GPU handles a segment of the sequence, storing only the necessary KV pairs. In the backward pass, these KV pairs are reassembled using advanced communication schemes (like all-gather and reduce-scatter) transformed into point-to-point communications in a ring topology.
 
 ## RingAttention
 [RingAttention](https://arxiv.org/abs/2310.01889) is a major breakthrough that optimizes Sequence Parallelism for near-infinite context sizes.
@@ -29,6 +28,12 @@ While TP shards the hidden dimensions, **Sequence Parallelism** shards the input
 
 ## Pipeline Parallelism (PP)
 Splits the model layer-by-layer across GPUs (e.g., layers 1-10 on GPU 1, layers 11-20 on GPU 2).
-- **Overhead:** Causes "pipeline bubbles" where GPU 2 sits idle waiting for GPU 1 to finish computing the forward pass.
+- **The Bubble Problem:** Naive implementation leaves all but one GPU idle at any given moment.
+- **GPipe:** Splits one minibatch into multiple microbatches to allow simultaneous processing.
+- **PipeDream (1F1B):** Schedules each worker to alternatively process forward and backward passes (One-Forward-One-Backward), though it requires complex "Weight Stashing" to ensure the forward and backward passes use the exact same version of weights.
+- **Zero Bubble Pipeline Parallelism (ZB-PP):** Splits the backward pass into two parts (Backward for Input and Backward for Weights) and reorders them to eliminate tail-end bubbles completely.
+- **DualPipe (DeepSeek-V3):** Overlaps computation and communication within individual forward and backward chunks using a bidirectional pipeline schedule.
 
-TODO: Add diagrams of the RingAttention KV passing mechanism.
+## Expert Parallelism (MoE)
+Instead of every token being processed by the same dense network, tokens are routed to specific experts (sub-networks) sharded across devices.
+- **Load Balancing:** A major challenge. If an expert on GPU 1 is highly popular, GPU 1 bottlenecks the entire system while GPU 2 sits idle. Solved via Device Balance Loss, Capacity-based routing (hard caps on tokens), or Priority dropping.

@@ -1,25 +1,35 @@
 ---
-title: "Inference & Model Compression"
-description: "Latency, throughput, quantization, pruning, and distillation"
+title: "Inference Optimization & Decoding"
+description: "Latency vs throughput, decoding strategies, Speculative Decoding, and Stateful Caching"
 subject: deep-learning
 math: false
-tags: [deep-learning, inference, quantization, pruning, distillation]
+tags: [deep-learning, inference, decoding, speculative-decoding, caching]
 status: wip
 sitemap: false
 ---
 
-## Latency
+## Performance Metrics
 
-## Bandwidth
+### Latency vs Throughput
+- **Latency (Time-To-First-Token / TTFT):** How fast the model outputs the first token. Critical for interactive chatbots. Bounded by memory bandwidth and the compute-heavy prefill phase.
+- **Throughput:** How many total tokens the system can generate per second across all users. Critical for batch processing and offline tasks.
 
-## Throughput
+## Decoding Strategies
+
+### Speculative Decoding
+A technique used to achieve 2-3x speedups in auto-regressive generation without changing the target model's weights.
+- **Mechanism:** You use a tiny, fast "Draft Model" to quickly hallucinate/generate the next $K$ tokens. Then, you pass those $K$ tokens to the massive "Target Model" in a single forward pass. The Target Model verifies if the Draft Model was correct. 
+- **Benefit:** If the draft is correct, you just generated $K$ tokens in the time it usually takes to generate 1. If it's wrong, you discard the wrong tokens and continue normally.
+
+### Stateful Caching
+When users interact with an agent, they often send overlapping prefixes (e.g., repeating the same system prompt or conversation history).
+- **Mechanism:** Stateful caching stores conversation histories using rolling hashes organized in a tree structure with LRU (Least Recently Used) eviction. 
+- **Execution:** For a new query, the system computes rolling hashes for all its prefixes, finds the longest cached match, loads the exact KV tensors directly from the cache, and computes only the new tokens.
 
 ## Model Compression
 
-### Quantization
-
 ### Pruning
+Removing weights or entire neurons from the network that contribute little to the final output, enforcing sparsity and speeding up matrix multiplications.
 
 ### Distillation
-
-TODO: Add content
+Training a smaller "student" model to replicate the outputs (and often the intermediate activation states or logits) of a massive "teacher" model.
