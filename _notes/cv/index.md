@@ -10,4 +10,5 @@ sub_subjects:
   - segmentation
   - generative
   - tracking
+  - multimodal
 ---
