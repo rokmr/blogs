@@ -43,6 +43,10 @@ TODO: Add details on Scrapling capabilities and setup.
 
 ## AI-Centric Extraction
 
+### Firecrawl
+[Firecrawl](https://github.com/mendableai/firecrawl) is an API/tool heavily designed to search, scrape, and interact with the web at scale for LLMs. 
+- **Core Benefit:** You provide a URL (even without a sitemap), and it handles the heavy lifting (proxies, rate limits, JavaScript-rendering), returning the content directly into clean Markdown or structured JSON schemas perfectly formatted for an agent's context window.
+
 ### Crawl4AI
 An AI-centric crawler designed to fetch web data and immediately return it in a clean format (like Markdown) tailored for LLM context windows.
 
