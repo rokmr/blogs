@@ -24,6 +24,9 @@ As context lengths grow, the standard $O(N^2)$ attention mechanism breaks down. 
 ### LongNet
 - **Mechanism:** At lower layers, tokens only attend to nearby tokens (small dilation). At higher layers, the dilation factor grows exponentially, allowing tokens to reach further across the sequence. It scales linearly with sequence length $O(Nd)$.
 
+**Additional Resources:**
+- [Scaling Transformers with LongNet](https://www.youtube.com/watch?v=nC2nU9j9DVQ)
+
 ## Training Memory Trade-offs
 
 ### Mixed Precision Training

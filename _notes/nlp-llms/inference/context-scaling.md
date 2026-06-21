@@ -14,7 +14,12 @@ As context length increases, compute requirements scale quadratically ($O(N^2)$)
 ## Flash Attention Benefits
 Standard attention requires materializing the massive $N \times N$ attention matrix in HBM (High Bandwidth Memory), which is disastrous for long sequences. 
 **Flash Attention** (and Flash Attention-2/3) fuses the attention operations by tiling the matrix and computing it directly in the ultra-fast SRAM of the GPU. 
+- **Mechanism:** The tiling technique decomposes inputs based on shared memory size, and computes softmax one tile at a time. The recomputation technique stores softmax normalization factors (which are linear to sequence length) instead of the massive quadratic softmax results.
 - **Benefits:** It drastically reduces VRAM consumption (no $N \times N$ matrix in HBM) and speeds up the prefill phase massively, making 100K+ context lengths computationally feasible.
+
+**Additional Resources:**
+- [Matrix multiplication tiling](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html)
+- [Online softmax and tiling](https://www.youtube.com/watch?v=LKwyHWYEIMQ&t=14s)
 
 ## RoPE Scaling Side Effects
 To extend a model's context window beyond its pre-training limit, techniques like **RoPE (Rotary Position Embedding) Scaling** (e.g., YaRN, Linear Interpolation) are used.

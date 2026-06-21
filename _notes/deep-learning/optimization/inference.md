@@ -33,3 +33,8 @@ Removing weights or entire neurons from the network that contribute little to th
 
 ### Distillation
 Training a smaller "student" model to replicate the outputs (and often the intermediate activation states or logits) of a massive "teacher" model.
+
+**Additional Resources:**
+- [NVIDIA NeMo Framework](https://docs.nvidia.com/nemo-framework/user-guide/24.07/nemotoolkit/index.html)
+- [Lilian Weng's Inference Optimization](https://lilianweng.github.io/posts/2023-01-10-inference-optimization/)
+- [Efficient Training and Tradeoffs](https://www.youtube.com/watch?v=UVX7SYGCKkA)

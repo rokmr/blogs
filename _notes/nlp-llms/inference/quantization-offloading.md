@@ -43,4 +43,5 @@ When a model (or its KV cache) exceeds available GPU VRAM, memory must be offloa
 - **CPU/GPU Memory Swapping:** Moving parts of the model or KV cache to system RAM. This allows running massive models (like 70B parameters on an 8GB GPU), but inference speed drops by orders of magnitude due to the slow PCIe bus transfer rates.
 - **Activation Offloading:** During training (or complex inference), intermediate activations take up massive memory. Offloading these activations to CPU RAM frees up VRAM for larger batches, pulling them back only when needed for backpropagation.
 
-TODO: Add notes on weight tying across replicas.
+**Additional Resources:**
+- [Quantization Video](https://www.youtube.com/watch?v=0VdNflU08yA)
