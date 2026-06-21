@@ -3,7 +3,8 @@ title: "Gaussian Mixture Models"
 description: "Soft clustering using EM algorithm with Gaussian distributions"
 subject: ml
 math: true
-tags: [ml, unsupervised, clustering, gmm, em-algorithm]
+tags: [clustering, em-algorithm, gmm, machine-learning, ml, probability-stats, unsupervised, unsupervised-learning]
+order: 6
 ---
 
 - Soft clustering: data points can belong to multiple clusters with probability scores

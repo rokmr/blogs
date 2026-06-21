@@ -3,7 +3,8 @@ title: "Bias-Variance Tradeoff"
 description: "Understanding underfitting, overfitting, and the bias-variance decomposition"
 subject: ml
 math: true
-tags: [ml, supervised, bias, variance, overfitting, underfitting]
+tags: [bias, machine-learning, ml, overfitting, supervised, supervised-learning, underfitting, variance]
+order: 2
 ---
 
 Let $f(x)$ be true model and $\hat{f}(x)$ be estimate of our model.

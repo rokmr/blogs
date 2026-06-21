@@ -3,7 +3,8 @@ title: "K-Means Clustering"
 description: "Iterative centroid-based clustering with elbow method for optimal K"
 subject: ml
 math: true
-tags: [ml, unsupervised, clustering, kmeans]
+tags: [clustering, kmeans, machine-learning, ml, unsupervised, unsupervised-learning]
+order: 2
 ---
 
 ## Process

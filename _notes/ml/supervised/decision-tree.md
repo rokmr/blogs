@@ -3,7 +3,8 @@ title: "Decision Tree"
 description: "Recursive binary splitting for classification and regression with pruning"
 subject: ml
 math: true
-tags: [ml, supervised, classification, regression, decision-tree]
+tags: [classification, decision-tree, graphs-trees, machine-learning, ml, regression, supervised, supervised-learning]
+order: 7
 ---
 
 A supervised learning method used for regression and classification.

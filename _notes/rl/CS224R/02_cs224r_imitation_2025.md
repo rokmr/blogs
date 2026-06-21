@@ -2,7 +2,7 @@
 title: "Lec 02 - Imitation Learning"
 date: 2025-01-26
 description: "Behavioral cloning, DAgger, HG-DAgger, and addressing compounding errors"
-tags: [reinforcement-learning, cs224r, imitation-learning, behavioral-cloning]
+tags: [behavioral-cloning, cs224r, imitation-learning, reinforcement-learning, rl]
 subject: rl
 math: true
 slides:
@@ -19,6 +19,7 @@ references:
     authors: "Chelsea Finn, Sergey Levine"
     venue: "CS224R Stanford"
     year: 2025
+order: 2
 ---
 
 ## Goal of Imitation Learning

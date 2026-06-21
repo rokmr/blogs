@@ -3,9 +3,10 @@ title: "Pydantic"
 description: "Data validation and structured output from LLMs using Pydantic models"
 subject: setup
 math: false
-tags: [setup, python, pydantic, validation]
+tags: [pydantic, python, setup, tools, validation]
 status: wip
 sitemap: false
+order: 1
 ---
 ## Overview
 

@@ -3,8 +3,9 @@ title: "BiRefNet"
 description: "Bilateral Reference for High-Resolution Dichotomous Image Segmentation"
 subject: cv
 math: true
-tags: [cv, segmentation, birefnet, swin-transformer, dichotomous]
+tags: [birefnet, computer-vision, cv, dichotomous, segmentation, swin-transformer]
 paper: "https://arxiv.org/pdf/2401.03407"
+order: 1
 ---
 
 ![BiRefNet Comparison]({{ "/assets/img/notes/cv/segmentation/BiRefNetComparison.png" | relative_url }})

@@ -31,6 +31,8 @@ layout: default
         {% endif %}
         {% endfor %}
 
+        {% assign sub_notes = sub_notes | sort: "order" %}
+
         {% if sub_notes.size > 0 %}
         <div class="lecture-list">
             {% for note in sub_notes %}

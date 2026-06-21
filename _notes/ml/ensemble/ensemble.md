@@ -3,7 +3,8 @@ title: "Ensemble Methods"
 description: "Bagging, Random Forest, Boosting (AdaBoost, XGBoost) for reducing variance and bias"
 subject: ml
 math: true
-tags: [ml, ensemble, random-forest, boosting, bagging, xgboost]
+tags: [bagging, boosting, ensemble, ensemble-methods, machine-learning, ml, random-forest, xgboost]
+order: 1
 ---
 
 ## Bagging (Bootstrap Aggregating)

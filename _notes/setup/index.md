@@ -7,9 +7,10 @@ description: "Python Development Environment, Tools, and Infrastructure Setup"
 sub_subjects:
   - python
   - uv
+  - pytest
+  - fastapi
   - docker
   - slurm
-  - fastapi
-  - pytest
+  - ai-coding
   - tools
 ---

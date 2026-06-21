@@ -3,7 +3,8 @@ title: "Feature Engineering"
 description: "Feature selection and transformation techniques"
 subject: ml
 math: true
-tags: [ml, feature-engineering, feature-selection]
+tags: [feature-engineering, feature-selection, machine-learning, ml]
+order: 1
 ---
 
 ## Feature Selection

@@ -1,0 +1,57 @@
+---
+title: "Web Scraping & Crawling"
+description: "Tools for scraping, crawling, and extracting web data for AI pipelines (Spider, Playwright, Crawl4AI)"
+subject: nlp-llms
+math: false
+tags: [crawl4ai, crawling, llm, nlp, playwright, rag, scraping, scrapy, spider]
+status: wip
+sitemap: false
+order: 3
+---
+
+## Overview
+
+For dynamic knowledge ingestion, RAG systems and Agents need robust tools to fetch, crawl, and parse web pages efficiently.
+
+## Standard Python HTTP/Parsing
+
+### urllib / requests
+The fundamental libraries for making HTTP requests in Python. 
+- **Use Case:** Best for scraping simple, static HTML pages where no JavaScript rendering is required. Extremely fast, but useless against modern Single Page Applications (SPAs).
+
+### BeautifulSoup (bs4)
+The classic HTML parsing library for Python.
+- **Use Case:** Often paired with `requests`. Once the raw HTML is fetched, BeautifulSoup allows you to easily search and navigate the DOM tree (e.g., `soup.find_all('div', class_='article')`) to extract the exact text nodes you need.
+
+## Modern Crawlers
+
+### Spider
+[Spider](https://github.com/spider-rs/spider) is an insanely fast, concurrency-first crawling engine written in Rust (ported to Python via `spider-py`). 
+- **Features:** It streams pages the moment they arrive, natively supports JavaScript rendering (headless Chrome), and can scale from a single script to a distributed fleet effortlessly.
+
+### Playwright
+[Playwright](https://github.com/microsoft/playwright-python) by Microsoft is a powerful browser automation library. 
+- **Use Case in AI:** Since modern websites are heavily dynamic (React/Vue) and require JavaScript to load content, simple HTTP requests fail. Playwright spins up a headless browser to render the exact DOM a human would see, making it perfect for Agents that need to "see" and scrape modern web apps.
+
+## Python Legacy / High-Level Crawlers
+
+### Scrapy
+A mature, fast, high-level web crawling and web scraping framework for Python. Highly scalable.
+TODO: Add details on spiders and pipelines.
+
+### Scrapling
+TODO: Add details on Scrapling capabilities and setup.
+
+## AI-Centric Extraction
+
+### Firecrawl
+[Firecrawl](https://github.com/mendableai/firecrawl) is an API/tool heavily designed to search, scrape, and interact with the web at scale for LLMs. 
+- **Core Benefit:** You provide a URL (even without a sitemap), and it handles the heavy lifting (proxies, rate limits, JavaScript-rendering), returning the content directly into clean Markdown or structured JSON schemas perfectly formatted for an agent's context window.
+
+### Crawl4AI
+An AI-centric crawler designed to fetch web data and immediately return it in a clean format (like Markdown) tailored for LLM context windows.
+
+### SearXNG
+A privacy-respecting metasearch engine. Highly useful for giving Agents secure, API-driven access to search the web without getting blocked or tracked.
+
+TODO: Add implementation details and examples for integrating these tools into agentic workflows.

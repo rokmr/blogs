@@ -3,7 +3,8 @@ title: "Bipartite Matching"
 description: "Hungarian algorithm for linking detections with predictions in tracking"
 subject: cv
 math: true
-tags: [cv, tracking, bipartite-matching, hungarian-algorithm]
+tags: [bipartite-matching, computer-vision, cv, hungarian-algorithm, tracking]
+order: 2
 ---
 
 ![BipartiteMatching2]({{ "/assets/img/notes/cv/tracking/BipartiteMatching2.png" | relative_url }})

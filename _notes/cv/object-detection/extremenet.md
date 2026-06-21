@@ -3,8 +3,9 @@ title: "ExtremeNet"
 description: "Object detection via extreme point prediction"
 subject: cv
 math: true
-tags: [cv, object-detection, extremenet, keypoint]
+tags: [computer-vision, cv, extremenet, keypoint, object-detection]
 paper: "https://arxiv.org/pdf/1901.08043"
+order: 9
 ---
 
 ## Overview

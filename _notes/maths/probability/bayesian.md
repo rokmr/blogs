@@ -3,9 +3,10 @@ title: "Bayesian Inference"
 description: "Bayesian approach to statistical inference"
 subject: maths
 math: true
-tags: [maths, probability, bayesian, inference]
+tags: [bayesian, inference, math, mathematics, maths, probability, probability-stats]
 status: wip
 sitemap: false
+order: 5
 ---
 
 ## Overview

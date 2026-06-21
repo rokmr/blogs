@@ -3,7 +3,8 @@ title: "Linear Discriminant Analysis"
 description: "Supervised dimensionality reduction maximizing class separation via Fisher's criterion"
 subject: ml
 math: true
-tags: [ml, dimensionality-reduction, lda, classification]
+tags: [classification, dimensionality-reduction, lda, machine-learning, ml, unsupervised-learning]
+order: 7
 ---
 
 Supervised dimensionality reduction that maximizes class separation while minimizing within-class variance.

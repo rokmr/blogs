@@ -3,7 +3,8 @@ title: "Regularization"
 description: "L1, L2, Elastic Net, Dropout, Early Stopping and other regularization techniques"
 subject: deep-learning
 math: true
-tags: [deep-learning, regularization, dropout, l1, l2]
+tags: [deep-learning, dl, dl-optimization, dropout, l1, l2, regularization]
+order: 4
 ---
 
 ## Lasso (L1)

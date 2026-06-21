@@ -3,7 +3,8 @@ title: "Docker"
 description: "Containers, images, volumes, networking, Docker Compose, and Dockerfile"
 subject: setup
 math: false
-tags: [setup, docker, containers, devops]
+tags: [containers, deployment-serving, devops, docker, setup, tools]
+order: 1
 ---
 
 - Docker contains many images, many containers

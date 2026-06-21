@@ -3,8 +3,9 @@ title: "R-CNN Family"
 description: "R-CNN, SPPNet, Fast R-CNN, Faster R-CNN evolution of region-based detectors"
 subject: cv
 math: true
-tags: [cv, object-detection, rcnn, faster-rcnn, rpn]
+tags: [computer-vision, cv, faster-rcnn, object-detection, rcnn, rpn]
 paper: "https://arxiv.org/pdf/1311.2524"
+order: 3
 ---
 
 **Papers:** [R-CNN](https://arxiv.org/pdf/1311.2524) · [SPPNet](https://arxiv.org/pdf/1406.4729) · [Fast R-CNN](https://arxiv.org/pdf/1504.08083) · [Faster R-CNN](https://arxiv.org/pdf/1506.01497)

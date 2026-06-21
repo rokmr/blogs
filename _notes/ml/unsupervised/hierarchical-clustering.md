@@ -3,9 +3,10 @@ title: "Hierarchical Clustering"
 description: "Agglomerative and divisive approaches to hierarchical clustering"
 subject: ml
 math: true
-tags: [ml, unsupervised, clustering, hierarchical]
+tags: [clustering, graphs-trees, hierarchical, machine-learning, ml, unsupervised, unsupervised-learning]
 status: wip
 sitemap: false
+order: 3
 ---
 ## Types
 

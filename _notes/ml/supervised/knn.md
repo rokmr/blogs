@@ -3,7 +3,8 @@ title: "K-Nearest Neighbors"
 description: "Non-parametric algorithm for classification and regression using distance metrics"
 subject: ml
 math: true
-tags: [ml, supervised, classification, knn, non-parametric]
+tags: [classification, knn, machine-learning, ml, non-parametric, supervised, supervised-learning]
+order: 5
 ---
 
 It is non-parametric learning algorithm. It is mainly used for classification but also can be used for regression by averaging out the nearest value based on distance.

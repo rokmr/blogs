@@ -3,7 +3,8 @@ title: "Vector Calculus"
 description: "Vectors, coordinate systems, gradient, divergence, curl, and integral theorems"
 subject: maths
 math: true
-tags: [maths, calculus, vector, gradient, divergence, curl]
+tags: [calculus, curl, divergence, gradient, math, mathematics, maths, vector]
+order: 1
 ---
 
 ## Basics

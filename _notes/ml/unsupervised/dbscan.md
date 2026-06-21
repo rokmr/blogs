@@ -3,7 +3,8 @@ title: "DBSCAN"
 description: "Density-based clustering for arbitrary cluster shapes"
 subject: ml
 math: true
-tags: [ml, unsupervised, clustering, dbscan, density]
+tags: [clustering, dbscan, density, machine-learning, ml, unsupervised, unsupervised-learning]
+order: 4
 ---
 
 DBSCAN is a density-based clustering algorithm.
