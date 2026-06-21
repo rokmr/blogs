@@ -21,11 +21,13 @@ Measures how far down the ranked list the first relevant chunk appears. Perfect 
 $$ \text{MRR} = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \frac{1}{\text{rank}_i} $$
 *(where $Q$ is a sample of queries and $\text{rank}_i$ is the position of the first relevant document for the $i$-th query)*
 
-### NDCG (Normalized Discounted Cumulative Gain)
-Evaluates the entire ranking of retrieved chunks, heavily penalizing relevant chunks that are ranked lower down.
+### DCG (Discounted Cumulative Gain) & NDCG
+Evaluates the entire ranking of retrieved chunks, heavily penalizing relevant chunks that are ranked lower down. 
+- **DCG (Discounted Cumulative Gain):** Measures the total usefulness (gain) of all results, but applies a logarithmic "discount" to results that appear lower in the ranking. A relevant document at position 1 contributes much more to the score than a relevant document at position 10.
 $$ \text{DCG}_p = \sum_{i=1}^{p} \frac{rel_i}{\log_2(i+1)} $$
+- **NDCG (Normalized DCG):** Because queries have different numbers of relevant documents, raw DCG scores can't be compared across queries. NDCG normalizes the score by dividing the actual DCG by the "Ideal DCG" (IDCG - what the score would be if the documents were perfectly ranked). This produces a final score between 0 and 1.
 $$ \text{NDCG}_p = \frac{\text{DCG}_p}{\text{IDCG}_p} $$
-*(where $rel_i$ is the graded relevance of the result at position $i$, and $\text{IDCG}_p$ is the Ideal DCG, i.e., the max possible DCG)*
+*(where $rel_i$ is the graded relevance of the result at position $i$)*
 
 ### Time-Weighted / Recency-Biased Metrics
 When retrieving information where freshness matters (e.g., news, user activity logs, financial data), standard relevance metrics fall short. A chunk might be highly relevant textually, but outdated.

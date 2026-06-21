@@ -17,10 +17,27 @@ Users often provide poor, ambiguous, or conversational queries ("What about it?"
 ### HyDE (Hypothetical Document Embeddings)
 Instead of searching with the user's short query, HyDE asks an LLM to hallucinate a *hypothetical answer* to the query. The system then embeds this hypothetical answer and uses it to search the vector database. It works because the hypothetical document is structurally closer to the target document than a raw query.
 
-## Reranking (Cross-Encoders)
-Standard embedding models (Bi-Encoders) are fast but shallow, as they compress documents independently. 
-- **Cross-Encoders:** Take both the query and the retrieved document as a single input and output an exact relevance score. They are highly accurate but computationally heavy.
-- **Workflow:** Retrieve Top-50 using fast vector search, then rerank the Top-50 using a Cross-Encoder to get the ultimate Top-5.
+## Reranking (Cross-Encoders vs Bi-Encoders)
+
+When matching a query to a document, systems use one of two architectural patterns:
+
+### 1. Bi-Encoders (For Retrieval)
+- **Mechanism:** The query and document are passed through the transformer model *independently*. The model outputs a single vector (dense embedding) for each.
+- **Speed:** Extremely fast at inference. Documents can be pre-embedded in a vector database offline. When a user queries, the system embeds the query once and performs a fast Approximate Nearest Neighbors (ANN) search.
+- **Accuracy:** Lower accuracy, as squashing all the meaning into a single vector loses the nuance of how specific words in the query relate to specific words in the document.
+
+### 2. Cross-Encoders (For Reranking)
+Standard embedding models (Bi-Encoders) are fast but shallow. To improve accuracy, we use Cross-Encoders.
+- **Mechanism:** Take both the query and the retrieved document, concatenate them (e.g., `[CLS] Query [SEP] Document`), and pass them through the transformer model *together* as a single input.
+- **Accuracy:** Highly accurate. The model's self-attention mechanism compares every word in the query directly against every word in the document simultaneously, outputting an exact relevance score (0 to 1).
+- **Speed:** Computationally heavy. You cannot pre-compute embeddings. Running it across millions of documents at inference time is too slow.
+- **Workflow:** **Two-Stage Retrieval.** Retrieve Top-100 using fast vector search (Bi-Encoder), then rerank the Top-100 using a Cross-Encoder to get the highly precise ultimate Top-5.
+
+### 3. Late Interaction (ColBERT)
+A middle-ground between Bi-Encoders and Cross-Encoders.
+- **Mechanism:** Generates a separate embedding for *every single token* in the query and document. During search, it uses a fast "MaxSim" operation to compute relevance.
+- **Pros:** Preserves fine-grained nuance like a Cross-Encoder, but is much faster and can be indexed (unlike Cross-Encoders).
+- **Cons:** Massive storage overhead (a 500-token document requires 500 vectors).
 
 ## CRAG (Corrective Retrieval Augmented Generation)
 [CRAG](https://arxiv.org/abs/2401.15884) introduces a self-correction mechanism to evaluate the quality of retrieved documents. 

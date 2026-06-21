@@ -18,3 +18,7 @@ Unlike PEFT methods, full fine-tuning updates all parameters in the LLM. It requ
 - Catastrophic forgetting.
 
 TODO: Add details on strategies (FSDP, DeepSpeed).
+
+**Additional Resources:**
+- [Smol Training Playbook](https://huggingface.co/spaces/HuggingFaceTB/smol-training-playbook#introduction)
+
