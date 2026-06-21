@@ -12,6 +12,19 @@ sitemap: false
 
 Quantization reduces the precision of model weights (from FP16 to INT8 or INT4), drastically cutting down VRAM requirements and increasing memory bandwidth throughput.
 
+### The "Outlier Feature" Problem (Why naive INT8 fails)
+Naive quantization assumes you can just scale all FP16 weights to an INT8 range [-127, 127]. This mathematically destroys the model because of **Activation Outliers**. 
+- In massive models, a tiny fraction of feature dimensions (e.g., 0.01%) contain outlier activations that are 100x larger than the rest. 
+- If you use a single uniform scale across the tensor, the massive outliers warp the scale. Normal values (like 0.3) get compressed down to identical integers (like 1), meaning you lose 99% of your precision. You are effectively using a bathroom scale to weigh an ant and an elephant simultaneously.
+
+### LLM.int8() & Mixed Precision
+Because these outliers are *dimension-specific* (always occurring at specific feature indices regardless of the token), the solution is mixed-precision quantization:
+1. Identify the outlier feature dimensions (the top 0.5%).
+2. Keep the outliers in pure FP16 to preserve their massive impact on quality.
+3. Quantize the remaining 99.5% of "normal" features to INT8.
+
+This approach prevents perplexity collapse while still granting a ~1.8x throughput increase (loading 70GB from VRAM instead of 140GB).
+
 ### GPTQ vs AWQ
 - **GPTQ:** Uses a second-order (Hessian) approximation to quantize weights layer-by-layer. It is highly accurate but computationally expensive to calibrate and is mostly optimized for fixed-batch inference.
 - **AWQ (Activation-Aware Weight Quantization):** Observes that not all weights are equally important. It keeps a small fraction (e.g., 1%) of "salient" weights (based on activation magnitudes) in FP16, and quantizes the rest to INT4. It is faster to calibrate than GPTQ and often performs better on hardware due to memory layout optimizations.
