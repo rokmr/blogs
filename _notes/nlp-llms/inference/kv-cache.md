@@ -32,5 +32,9 @@ When VRAM is exhausted by infinite context, we must evict tokens.
 - **StreamingLLM (Attention Sinks):** Keeps the first few "sink" tokens (which act as attention anchors) and a sliding window of recent tokens, evicting the middle.
 - **Heavy-Hitter Oracle (H2O):** Evicts tokens that receive the least cumulative attention scores, keeping only the most semantically important tokens.
 
-### Sliding Window Inference
+### LMCache (Persistent Shared KV Cache)
+[LMCache](https://github.com/LMCache/LMCache) is a multi-tier KV cache management layer integrated heavily with vLLM and SGLang. 
+- **The Problem:** Traditionally, KV Cache is a temporary state. If a user asks a question about a 1M token document, the engine computes the KV cache. If a *second* user asks a question about the *same* document on a different GPU/instance, the entire document must be prefilled again.
+- **The Solution:** LMCache turns KV cache into reusable AI-native knowledge. It extracts the KV cache out of GPU memory and shares it across different serving engines and queries (via CPU/Disk offloading or remote shared storage). 
+- **Benefit:** Massive reduction in Time-To-First-Token (TTFT) and 3-10x GPU cycle savings in multi-round QA or RAG pipelines.
 Limits the KV cache to a fixed window (e.g., last 4096 tokens). As new tokens are generated, the oldest tokens (outside the window) are dropped from the cache, strictly capping VRAM growth.
