@@ -1,31 +1,28 @@
 ---
-title: "Ray (Distributed Computing)"
-description: "Distributed computing and ML orchestration using Ray Core, Ray Serve, and Ray Train"
+title: "Ray"
+description: "Distributed computing framework for scaling ML workloads, training, and tuning"
 subject: mlops
 math: false
-tags: [distributed-computing, infrastructure, mlops, ops, optimization-compute, orchestration, ray]
+tags: [distributed-computing, infrastructure, mlops, ray]
 status: wip
 sitemap: false
 order: 3
 ---
 
 ## Overview
+[Ray](https://www.ray.io/) is an open-source unified compute framework that makes it easy to scale AI and Python applications from a single laptop to a massive cluster.
 
-[Ray](https://github.com/ray-project/ray) is an open-source unified framework for scaling AI and Python applications. It abstracts away the complexity of distributed computing, allowing you to run massive parallel workloads across clusters easily.
+## Ray Distributed Training (Ray Train)
+Scaling deep learning training (like fine-tuning an LLM) across multiple GPUs or multiple nodes is complex due to networking and synchronization overhead.
+- **Mechanism:** Ray Train abstracts away the complexity of distributed setups. It wraps around standard frameworks (PyTorch DDP, DeepSpeed, Megatron, Hugging Face Accelerate).
+- **Pros:** It handles the cluster orchestration, fault tolerance (restarting failed workers), and data loading across the network automatically.
 
-## Core Ecosystem
+## Ray Parameter Tuning (Ray Tune)
+Hyperparameter optimization often requires running hundreds of parallel trials.
+- **Mechanism:** Ray Tune is a scalable hyperparameter tuning library. Instead of running trials sequentially, it distributes the trials across a cluster.
+- **Integration:** It pairs natively with optimization search algorithms (like Optuna or HyperOpt) but handles the actual distributed execution and resource scheduling (e.g., assigning exactly 0.5 GPUs to each trial to maximize throughput).
+- **Features:** Supports advanced distributed algorithms like Population Based Training (PBT), which trains multiple models simultaneously and periodically replaces underperforming models with copies of the best ones (mutating their hyperparameters slightly).
 
-### Ray Core
-Provides the foundational primitives (Tasks, Actors, and Objects) to parallelize generic Python code dynamically.
-
-### Ray Serve
-A scalable model-serving library for building online inference APIs. It allows you to compose multiple models (e.g., embedding model + LLM + image classifier) into a single fast endpoint.
-
-### Ray Train & Tune
-- **Ray Train:** Scales deep learning training across multiple GPUs and nodes (integrates with PyTorch DDP/FSDP).
-- **Ray Tune:** Scalable hyperparameter tuning.
-
-### Ray Data
-A scalable dataset library for loading, transforming, and streaming data into ML models.
-
-TODO: Add cluster setup examples and basic Actor/Task code snippets.
+## Other Core Libraries
+- **Ray Data:** Distributed data processing for ML pipelines (loading and preprocessing massive datasets before feeding them to Ray Train).
+- **Ray Serve:** Distributed model serving for deploying models to production with auto-scaling and traffic routing.

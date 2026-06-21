@@ -3,10 +3,12 @@ title: "MLOps"
 layout: subject
 permalink: /notes/mlops/
 subject_slug: mlops
-description: "Deployment, Monitoring, Pipelines, and Infrastructure"
+description: "Experiment Tracking, Data Versioning, Pipelines, Infrastructure, and Deployment"
 sub_subjects:
-  - infrastructure
+  - experiment-tracking
+  - data-versioning
   - pipelines
+  - infrastructure
   - deployment
   - monitoring
 ---
