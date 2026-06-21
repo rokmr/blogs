@@ -13,4 +13,5 @@ sub_subjects:
   - agents
   - rag
   - frameworks
+  - inference
 ---
