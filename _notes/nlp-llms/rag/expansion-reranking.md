@@ -39,6 +39,11 @@ A middle-ground between Bi-Encoders and Cross-Encoders.
 - **Pros:** Preserves fine-grained nuance like a Cross-Encoder, but is much faster and can be indexed (unlike Cross-Encoders).
 - **Cons:** Massive storage overhead (a 500-token document requires 500 vectors).
 
+### 4. Last But Not Late (LBNL) Interaction
+An emerging architecture bridging the gap between listwise reranking and interaction models (e.g., Jina-Reranker-v3).
+- **Mechanism:** Instead of encoding queries and documents entirely separately before matching them (Late Interaction), or running costly pairwise cross-attention for every single query-document combination (Cross-Encoders), LBNL passes the query and *multiple* candidate documents into the same context window simultaneously. Causal attention is applied between the query and all candidates, enabling rich, cross-document listwise interactions before extracting contextual embeddings from each document's final token.
+- **Pros:** Achieves state-of-the-art listwise reranking accuracy (matching massive cross-encoders) while remaining computationally smaller and significantly faster than computing multiple independent cross-encoder passes.
+
 ## CRAG (Corrective Retrieval Augmented Generation)
 [CRAG](https://arxiv.org/abs/2401.15884) introduces a self-correction mechanism to evaluate the quality of retrieved documents. 
 - **Mechanism:** A lightweight evaluator judges the retrieved documents as `Correct`, `Incorrect`, or `Ambiguous`. 
