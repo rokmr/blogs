@@ -33,3 +33,6 @@ Plugins are third-party, standardized wrappers (popularized by OpenAI) that allo
 While tools *take action*, Connectors *ingest data*. Data Connectors (like those found in LlamaIndex or Airbyte) are responsible for maintaining a live pipeline between an agent's Vector Database/Filesystem and an external data source (e.g., syncing a Notion workspace, a Jira board, or a Google Drive into the agent's memory).
 
 TODO: Add LangChain `@tool` decorator syntax examples.
+
+**Additional Resources:**
+- [Agent Skills with Anthropic (DeepLearning.AI)](https://www.deeplearning.ai/courses/agent-skills-with-anthropic)
