@@ -29,6 +29,11 @@ This approach prevents perplexity collapse while still granting a ~1.8x throughp
 - **GPTQ:** Uses a second-order (Hessian) approximation to quantize weights layer-by-layer. It is highly accurate but computationally expensive to calibrate and is mostly optimized for fixed-batch inference.
 - **AWQ (Activation-Aware Weight Quantization):** Observes that not all weights are equally important. It keeps a small fraction (e.g., 1%) of "salient" weights (based on activation magnitudes) in FP16, and quantizes the rest to INT4. It is faster to calibrate than GPTQ and often performs better on hardware due to memory layout optimizations.
 
+## Quantization-Aware Training (QAT)
+Instead of applying quantization after the fact (PTQ), QAT simulates quantization and dequantization during the forward pass of training or fine-tuning.
+- **Mechanism:** The quantization error acts as a regularizer, making the model robust to lower precision. 
+- **Backpropagation:** Since quantization is not differentiable, gradients are approximated using the Straight-Through Estimator (STE), which sets the gradient to 1 within the quantization range and 0 outside.
+
 ## Mixed Precision Decoding
 Running a model where different layers or operations run at different precisions. For example, keeping the embedding and LM head in FP16 to preserve generation quality, while heavily quantizing the hidden MLP layers to INT4.
 
