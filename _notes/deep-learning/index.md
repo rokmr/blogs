@@ -9,5 +9,7 @@ sub_subjects:
   - attention
   - cnns
   - rnns
+  - time-series
+  - tabular-data
   - optimization
 ---
