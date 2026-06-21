@@ -8,6 +8,13 @@ status: wip
 sitemap: false
 ---
 
+## DeepSeek R1 & Frontier Reasoning
+
+### DeepSeek R1
+DeepSeek R1 is a massive open-source mixture-of-experts model specifically designed to rival proprietary models (like OpenAI's o1) in complex logic, math, and coding via extreme reasoning traces.
+- **The RL Phase:** Unlike models trained purely on Supervised Fine-Tuning (SFT), DeepSeek R1 relies heavily on pure Reinforcement Learning to naturally surface "Chain-of-Thought" (CoT) behaviors. 
+- **GRPO (Group Relative Policy Optimization):** To train R1 efficiently, DeepSeek avoided traditional PPO (Proximal Policy Optimization) which requires a memory-heavy separate critic model. Instead, they used GRPO, which estimates the baseline directly from the scores of a *group* of outputs generated from the same prompt. This massive optimization allowed them to perform large-scale RL training at a fraction of the hardware cost.
+
 ## Alignment & Agentic Reasoning
 
 ### Nemotron (NVIDIA)
