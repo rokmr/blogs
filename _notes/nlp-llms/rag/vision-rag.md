@@ -1,9 +1,9 @@
 ---
 title: "Vision & Late Interaction RAG"
-description: "ColBERT, ColPali, and Vision-based RAG (VisRAG) for multi-modal document retrieval"
+description: "ColBERT, ColPali, MUVERA, and Vision-based RAG (VisRAG) for multi-modal document retrieval"
 subject: nlp-llms
 math: false
-tags: [nlp, llm, rag, vision, colpali, colbert, visrag, multi-modal]
+tags: [nlp, llm, rag, vision, colpali, colbert, visrag, muvera, multi-modal]
 status: wip
 sitemap: false
 ---
@@ -14,6 +14,11 @@ Traditional embeddings (Bi-Encoders) squash an entire document into a single vec
 **ColBERT** introduces **Late Interaction**:
 - **Mechanism:** Both the query and the document are encoded into *multiple* vectors (at the token level). Instead of computing a single dot product, ColBERT computes the maximum similarity (MaxSim) between every query token and every document token, summing them up.
 - **Benefit:** Highly accurate and excellent for complex queries while remaining much faster than heavy Cross-Encoders.
+
+## MUVERA (MUlti-VEctor Retrieval Algorithm)
+While late interaction models (like ColBERT) are highly accurate, searching across *multiple vectors per document* is computationally extremely expensive and incompatible with standard single-vector databases (like FAISS or Qdrant).
+- **Mechanism:** [MUVERA](https://arxiv.org/abs/2410.05436) solves this by reducing multi-vector similarity search to a single-vector similarity search. It asymmetrically generates Fixed Dimensional Encodings (FDEs) of queries and documents, essentially creating a single-vector proxy that mathematically guarantees a high-quality approximation of the multi-vector MaxSim calculation.
+- **Benefit:** Allows you to use off-the-shelf Maximum Inner Product Search (MIPS) solvers for ColBERT-style retrieval.
 
 ## ColPali
 [ColPali](https://github.com/illuin-tech/colpali) applies the ColBERT late-interaction mechanism to **Vision Language Models (VLMs)** (specifically PaliGemma).
