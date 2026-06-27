@@ -157,14 +157,8 @@ async function initGraph() {
     const H = container.clientHeight;
 
     try {
-        let baseUrl = '';
-        const baseElement = document.querySelector('meta[name="baseurl"]');
-        if (baseElement && baseElement.content) {
-            baseUrl = baseElement.content;
-        }
-        
-        // Ensure posts.json URL is correct for GH pages
-        const fetchUrl = baseUrl ? baseUrl + '/posts.json' : '/posts.json';
+        // Force the absolute URL for GitHub pages
+        const fetchUrl = '/blogs/posts.json';
         console.log("Fetching graph data from:", fetchUrl);
         
         const res = await fetch(fetchUrl);
