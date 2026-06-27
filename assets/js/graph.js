@@ -158,7 +158,9 @@ async function initGraph() {
 
     try {
         // Force the absolute URL for GitHub pages
-        const fetchUrl = '/blogs/posts.json';
+        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || ''; 
+
+        const fetchUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
         console.log("Fetching graph data from:", fetchUrl);
         
         const res = await fetch(fetchUrl);

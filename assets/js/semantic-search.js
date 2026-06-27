@@ -23,7 +23,9 @@ async function initSemanticSearch() {
     try {
         // Get baseurl from meta tag or detect from current path
         // Force the absolute URL for GitHub pages since relative pathing is tricky
-        const postsUrl = '/blogs/posts.json';
+        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || ''; 
+
+        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
         console.log("Fetching posts from:", postsUrl);
         
         const response = await fetch(postsUrl);
