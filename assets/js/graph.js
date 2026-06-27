@@ -157,8 +157,10 @@ async function initGraph() {
     const H = container.clientHeight;
 
     try {
-        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
-        const res = await fetch(baseUrl ? `${baseUrl}/posts.json` : '/posts.json');
+        const baseElement = document.querySelector('meta[name="baseurl"]');
+        const baseUrl = baseElement ? (baseElement.content || '') : '';
+        const fetchUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        const res = await fetch(fetchUrl);
         if (!res.ok) throw new Error('Failed to load graph data');
         const posts = await res.json();
         const { nodes, links } = buildGraphData(posts);

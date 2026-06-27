@@ -22,7 +22,8 @@ async function initSemanticSearch() {
     // Load posts data first
     try {
         // Get baseurl from meta tag or detect from current path
-        const baseUrl = document.querySelector('meta[name="baseurl"]')?.content || '';
+        const baseElement = document.querySelector('meta[name="baseurl"]');
+        const baseUrl = baseElement ? (baseElement.content || '') : '';
         const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
         
         const response = await fetch(postsUrl);
