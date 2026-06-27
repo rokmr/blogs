@@ -22,14 +22,8 @@ async function initSemanticSearch() {
     // Load posts data first
     try {
         // Get baseurl from meta tag or detect from current path
-        let baseUrl = '';
-        const baseElement = document.querySelector('meta[name="baseurl"]');
-        if (baseElement && baseElement.content) {
-            baseUrl = baseElement.content;
-        }
-        
-        // Ensure posts.json URL is correct for GH pages
-        const postsUrl = baseUrl ? baseUrl + '/posts.json' : '/posts.json';
+        // Force the absolute URL for GitHub pages since relative pathing is tricky
+        const postsUrl = '/blogs/posts.json';
         console.log("Fetching posts from:", postsUrl);
         
         const response = await fetch(postsUrl);
