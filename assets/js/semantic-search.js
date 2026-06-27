@@ -22,9 +22,15 @@ async function initSemanticSearch() {
     // Load posts data first
     try {
         // Get baseurl from meta tag or detect from current path
+        let baseUrl = '';
         const baseElement = document.querySelector('meta[name="baseurl"]');
-        const baseUrl = baseElement ? (baseElement.content || '') : '';
-        const postsUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        if (baseElement && baseElement.content) {
+            baseUrl = baseElement.content;
+        }
+        
+        // Ensure posts.json URL is correct for GH pages
+        const postsUrl = baseUrl ? baseUrl + '/posts.json' : '/posts.json';
+        console.log("Fetching posts from:", postsUrl);
         
         const response = await fetch(postsUrl);
         if (!response.ok) throw new Error('Failed to load posts');

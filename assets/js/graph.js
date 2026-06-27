@@ -157,9 +157,16 @@ async function initGraph() {
     const H = container.clientHeight;
 
     try {
+        let baseUrl = '';
         const baseElement = document.querySelector('meta[name="baseurl"]');
-        const baseUrl = baseElement ? (baseElement.content || '') : '';
-        const fetchUrl = baseUrl ? `${baseUrl}/posts.json` : '/posts.json';
+        if (baseElement && baseElement.content) {
+            baseUrl = baseElement.content;
+        }
+        
+        // Ensure posts.json URL is correct for GH pages
+        const fetchUrl = baseUrl ? baseUrl + '/posts.json' : '/posts.json';
+        console.log("Fetching graph data from:", fetchUrl);
+        
         const res = await fetch(fetchUrl);
         if (!res.ok) throw new Error('Failed to load graph data');
         const posts = await res.json();
