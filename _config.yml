@@ -4,7 +4,7 @@ description: "Deep dives into Computer Vision, LLMs, Diffusion Models, and Agent
 author: "Rohit Kumar"
 email: contact@rohit.vision
 url: "https://rohit.vision"
-baseurl: "/blogs"
+baseurl: ""
 
 # Build Settings
 markdown: kramdown
