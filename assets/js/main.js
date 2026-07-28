@@ -1,5 +1,5 @@
 /**
- * rohit.vision/blogs - Main JavaScript
+ * blogs.rohit.vision - Main JavaScript
  * 
  * This is a lightweight orchestrator that initializes all modules.
  * The actual functionality is split into focused modules:

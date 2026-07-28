@@ -1,6 +1,6 @@
 <div align="center">
 
-# rohit.vision/blogs
+# blogs.rohit.vision
 
 **Technical blog for AI/ML deep dives — math, code, interactive visualizations, and more.**
 
@@ -9,7 +9,7 @@
 [![KaTeX](https://img.shields.io/badge/Math-KaTeX-blue)](https://katex.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](#license)
 
-[**Live Site →**](https://rohit.vision/blogs) · [**Docs →**](https://rohit.vision/blogs/docs/) · [**Examples →**](https://rohit.vision/blogs/examples/)
+[**Live Site →**](https://blogs.rohit.vision) · [**Docs →**](https://blogs.rohit.vision/docs/) · [**Examples →**](https://blogs.rohit.vision/examples/)
 
 </div>
 
@@ -775,7 +775,7 @@ Every post and note includes a sidebar with:
 
 ## 🔍 Semantic Search
 
-AI-powered search at [`/search/`](https://rohit.vision/blogs/search/) using **Transformers.js**:
+AI-powered search at [`/search/`](https://blogs.rohit.vision/search/) using **Transformers.js**:
 
 - Runs entirely **client-side** (no server needed)
 - Uses the `all-MiniLM-L6-v2` embedding model (~30MB, cached after first load)
@@ -815,7 +815,7 @@ comments: true
 
 ## 🕸️ Knowledge Graph & Backlinks
 
-- **Knowledge Graph** at [`/graph/`](https://rohit.vision/blogs/graph/) — visual map of all posts and notes with connections
+- **Knowledge Graph** at [`/graph/`](https://blogs.rohit.vision/graph/) — visual map of all posts and notes with connections
 - **Backlinks** — every post/note shows pages that link to it, auto-detected via `backlinks.js`
 - **Related Notes** — notes in the same subject are suggested at the bottom
 - **Prev/Next Navigation** — sequential navigation within note topics
@@ -942,7 +942,7 @@ The site is deployed automatically via **GitHub Actions** on push to `main`.
 
 See [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) for the CI/CD pipeline.
 
-The live site is hosted at: **[rohit.vision/blogs](https://rohit.vision/blogs)**
+The live site is hosted at: **[blogs.rohit.vision](https://blogs.rohit.vision)**
 
 ---
 
