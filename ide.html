@@ -104,7 +104,7 @@ custom_class: ide-page-content
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background: var(--bg);
+    background: var(--surface);
     overflow: hidden;
   }
 
@@ -114,7 +114,7 @@ custom_class: ide-page-content
     align-items: center;
     gap: 6px;
     padding: 0.5rem 1rem;
-    background: var(--bg-elevated);
+    background: var(--surface-raised);
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
   }
@@ -139,7 +139,7 @@ custom_class: ide-page-content
     justify-content: center !important;
     gap: 0 !important;
     background: transparent !important;
-    color: var(--dim) !important;
+    color: var(--ink-muted) !important;
     border: 1px solid var(--border) !important;
     border-radius: 2px !important;
     font-family: var(--font-mono) !important;
@@ -167,8 +167,8 @@ custom_class: ide-page-content
 
   #ide-toolbar .tb-btn:hover,
   #output-header .tb-btn:hover {
-    border-color: var(--border-hover) !important;
-    color: var(--text-secondary) !important;
+    border-color: var(--border-strong) !important;
+    color: var(--ink-secondary) !important;
     background: transparent !important;
   }
 
@@ -179,8 +179,8 @@ custom_class: ide-page-content
 
   /* Run button */
   #ide-toolbar #run-btn {
-    background: var(--accent) !important;
-    border-color: var(--accent) !important;
+    background: var(--ink-accent) !important;
+    border-color: var(--ink-accent) !important;
     color: #000 !important;
     width: 34px !important;
     height: 28px !important;
@@ -193,9 +193,9 @@ custom_class: ide-page-content
   }
 
   #ide-toolbar #run-btn:disabled {
-    background: var(--dim) !important;
-    border-color: var(--dim) !important;
-    color: var(--bg) !important;
+    background: var(--ink-muted) !important;
+    border-color: var(--ink-muted) !important;
+    color: var(--surface) !important;
     cursor: not-allowed;
   }
 
@@ -210,8 +210,8 @@ custom_class: ide-page-content
 
   /* Copy success state */
   #ide-toolbar #copy-btn.copied {
-    border-color: var(--accent) !important;
-    color: var(--accent) !important;
+    border-color: var(--ink-accent) !important;
+    color: var(--ink-accent) !important;
   }
 
   /* Status dot */
@@ -226,7 +226,7 @@ custom_class: ide-page-content
   }
 
   #status-dot.ready {
-    background: var(--accent);
+    background: var(--ink-accent);
     animation: none;
   }
 
@@ -243,7 +243,7 @@ custom_class: ide-page-content
   #status-txt {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--dim);
+    color: var(--ink-muted);
     margin-right: 4px;
   }
 
@@ -273,7 +273,7 @@ custom_class: ide-page-content
 
   #ide-resizer:hover,
   #ide-resizer.dragging {
-    background: var(--accent);
+    background: var(--ink-accent);
   }
 
   /* ── Output pane ── */
@@ -291,14 +291,14 @@ custom_class: ide-page-content
     align-items: center;
     gap: 0.5rem;
     padding: 0.4rem 0.75rem;
-    background: var(--bg-elevated);
+    background: var(--surface-raised);
     border-bottom: 1px solid var(--border);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--dim);
+    color: var(--ink-muted);
     flex-shrink: 0;
   }
 
@@ -311,14 +311,14 @@ custom_class: ide-page-content
     font-family: var(--font-mono);
     font-size: var(--text-base);
     line-height: 1.6;
-    color: var(--text);
+    color: var(--ink);
     white-space: pre-wrap;
     word-break: break-word;
   }
 
-  #output-content.empty     { color: var(--dim); font-style: italic; }
+  #output-content.empty     { color: var(--ink-muted); font-style: italic; }
   #output-content.out-error { color: var(--danger-border); }
-  .out-info { color: var(--dim); font-size: var(--text-sm); }
+  .out-info { color: var(--ink-muted); font-size: var(--text-sm); }
 
   /* ── CodeMirror ── */
   #editor-pane .CodeMirror {
@@ -326,22 +326,22 @@ custom_class: ide-page-content
     font-family: var(--font-mono);
     font-size: var(--text-base);
     line-height: 1.6;
-    background: var(--bg-card) !important;
-    color: var(--text) !important;
+    background: var(--surface-card) !important;
+    color: var(--ink) !important;
   }
 
   #editor-pane .CodeMirror-gutters {
-    background: var(--bg-elevated) !important;
+    background: var(--surface-raised) !important;
     border-right: 1px solid var(--border) !important;
   }
 
   #editor-pane .CodeMirror-linenumber {
-    color: var(--dim);
+    color: var(--ink-muted);
     padding: 0 8px 0 4px;
   }
 
   #editor-pane .CodeMirror-cursor {
-    border-left: 2px solid var(--accent) !important;
+    border-left: 2px solid var(--ink-accent) !important;
   }
 
   #editor-pane .CodeMirror-focused {
