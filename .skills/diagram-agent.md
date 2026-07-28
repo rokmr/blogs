@@ -1,6 +1,6 @@
 # Visual Diagram Agent — Skill Definition
 
-> An AI agent that generates inline visual elements (graphs, diagrams, flowcharts, neural network architectures, charts, timelines, state machines, etc.) for the rohit.vision/blogs site. Accepts **rough image descriptions**, **text explanations**, or **structured data** as input and outputs production-ready inline SVG/Canvas visuals that perfectly match the blog's dark design system.
+> An AI agent that generates inline visual elements (graphs, diagrams, flowcharts, neural network architectures, charts, timelines, state machines, etc.) for the blogs.rohit.vision site. Accepts **rough image descriptions**, **text explanations**, or **structured data** as input and outputs production-ready inline SVG/Canvas visuals that perfectly match the blog's dark design system.
 
 ---
 

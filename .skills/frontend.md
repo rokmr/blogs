@@ -1,12 +1,12 @@
-# rohit.vision/blogs — Frontend Design System Skill
+# blogs.rohit.vision — Frontend Design System Skill
 
-> Complete reference skill for building, styling, and extending the blog at [rohit.vision/blogs](https://rohit.vision/blogs). This is a Jekyll-based sub-site inheriting the rohit.vision dark design language, extended with academic/ML-specific components for technical notes, blog posts, and interactive visualizations.
+> Complete reference skill for building, styling, and extending the blog at [blogs.rohit.vision](https://blogs.rohit.vision). This is a Jekyll-based sub-site inheriting the rohit.vision dark design language, extended with academic/ML-specific components for technical notes, blog posts, and interactive visualizations.
 
 ---
 
 ## 0. Relationship to Parent Site
 
-| Property | Parent (rohit.vision) | Blog (rohit.vision/blogs) |
+| Property | Parent (rohit.vision) | Blog (blogs.rohit.vision) |
 |---|---|---|
 | **Stack** | Static HTML + vanilla JS | Jekyll + Liquid + Kramdown |
 | **Deploy** | GitHub Pages (root) | GitHub Pages (`/blogs` subpath) |
